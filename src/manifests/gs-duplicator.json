@@ -1,0 +1,11 @@
+{
+  "name": "https://doracoder.netlify.app",
+  "namespace": "https://www.gitlab.com/",
+  "description": "Gitlab schedule duplicator",
+  "match": [
+    "https://gitlab.com/*",
+    "https://*.gitlab.com/*"
+  ],
+  "grant": "none",
+  "run-at": "document-end"
+}

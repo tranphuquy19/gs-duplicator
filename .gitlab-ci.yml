@@ -9,6 +9,14 @@ stages:
   - test
   - deploy
 
+variables:
+  VAR1:
+    description: "Variable 1"
+    value: "value1"
+  VAR2:
+    description: "Variable 2"
+    value: "value2"
+
 build:
   stage: build
   image: node:12

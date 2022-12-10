@@ -1,6 +1,10 @@
 const fs = require('fs');
 const path = require('path');
+
 const webpack = require('webpack');
+const TerserPlugin = require("terser-webpack-plugin");
+
+const { CustomizedCleanWebpackPlugin } = require('./customized-webpack-plugins');
 
 const rootDir = path.resolve(__dirname);
 const srcDir = path.resolve(rootDir, './src');
@@ -74,6 +78,20 @@ const main = async () => {
 				'@': srcDir,
 			}
 		},
+		optimization: {
+			minimize: !(process.env.NODE_ENV === 'development'),
+			minimizer: [
+				new TerserPlugin({
+					terserOptions: {
+						mangle: false,
+						format: {
+							comments: (node, comment) => comment.type === 'comment1'
+								&& /(^\s==\/?UserScript==)|(^\s@.+\s+.+$)|(^\s$)/.test(comment.value)
+						}
+					}
+				})
+			]
+		},
 		plugins: [
 			new webpack.BannerPlugin({
 				banner: (info) => {
@@ -91,6 +109,7 @@ const main = async () => {
 				__version: Date.now(),
 			}),
 			new webpack.ProgressPlugin(),
+			new CustomizedCleanWebpackPlugin(),
 		],
 		mode: 'development',
 	};

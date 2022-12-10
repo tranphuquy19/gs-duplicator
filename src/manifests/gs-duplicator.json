@@ -1,10 +1,10 @@
 {
-  "name": "https://doracoder.netlify.app",
-  "namespace": "https://www.gitlab.com/",
+  "name": "Gitlab Schedule Duplicator",
+  "namespace": "https://doracoder.netlify.app",
   "description": "Gitlab schedule duplicator",
   "match": [
-    "https://gitlab.com/*",
-    "https://*.gitlab.com/*"
+    "https://gitlab.com/*/pipeline_schedules",
+    "https://*.gitlab.com/*/pipeline_schedules"
   ],
   "grant": "none",
   "run-at": "document-end"

@@ -7,7 +7,7 @@
       "DOM",
       "ESNext"
     ],
-    "outDir": "./build",
+    "outDir": "./dist",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,

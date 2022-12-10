@@ -1,4 +1,4 @@
-import { sleep } from "@/utils";
+import { sleep } from "./sleep";
 
 export const waitForElement = async (selector: string) => {
 	while (true) {

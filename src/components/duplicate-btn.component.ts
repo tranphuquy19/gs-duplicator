@@ -1,5 +1,6 @@
 import $ from "jquery";
 
+import { gitlabSvgIconUrl } from "@/config";
 import { GitlabClient } from "@/shared";
 
 export function DuplicateBtnComponent(scheduleId?: string) {
@@ -9,7 +10,7 @@ export function DuplicateBtnComponent(scheduleId?: string) {
 	const duplicateBtnHtml =
 		`<a title="Duplicate" class="btn gl-button btn-default btn-icon">
 			<svg class="s16" data-testid="duplicate-icon">
-				<use href="/assets/icons-29e9caf34d9cc5889ea5f1dce460a0578cd14318aabc385b1fe54ce6069c9874.svg#duplicate"></use>
+				<use href="${gitlabSvgIconUrl}#duplicate"></use>
 			</svg>
 		</a>`;
 	const duplicateBtnJObject = $(duplicateBtnHtml);
@@ -26,7 +27,7 @@ export function DuplicateBtnComponent(scheduleId?: string) {
 			ref: schedule.ref,
 			variables: schedule.variables,
 		});
-		if (confirm(`Duplicate schedule success! Go to the edit page?`)) {
+		if (!!newSchedule && confirm(`Duplicate schedule success! Go to the edit page?`)) {
 			window.location.href = `${window.location.href}/${newSchedule?.id}/edit`;
 		} else {
 			window.location.reload();

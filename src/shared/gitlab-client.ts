@@ -1,11 +1,13 @@
 import { AxiosError } from "axios";
 
-import { gitlabProjectId, gitlabTokenLocalStorageKey } from "@/config";
-import { GitlabSchedule, HttpMethods } from "@/types";
+import { gitlabGraphqlUrl, gitlabProjectId, gitlabTokenLocalStorageKey } from "@/config";
+import { GitlabSchedule, GitlabScheduleVariableTypes, HttpMethods, GitlabScheduleVariable } from "@/types";
 import { HttpClient } from "./http-client";
-import { GitlabScheduleVariable } from "@/types/gitlab-schedule-variable.dto";
+import { CiConfigVariablesQuery, getCiConfigVariablesQueryStr } from "./gitlab-graphql.query";
 
 export class GitlabClient {
+	MAX_RETRIES = 3;
+
 	constructor(private _token?: string) {
 		this.init();
 	}
@@ -29,8 +31,6 @@ export class GitlabClient {
 	}
 
 	async createPipelineSchedule(schedule: GitlabSchedule): Promise<GitlabSchedule | undefined> {
-		console.log('schedule', schedule);
-
 		try {
 			const { data } = await HttpClient(`projects/${gitlabProjectId}/pipeline_schedules`, HttpMethods.POST, schedule, { token: this._token });
 			const { id } = data as GitlabSchedule;
@@ -40,14 +40,13 @@ export class GitlabClient {
 			// 	await this.createPipelineScheduleVariable(id, variable);
 			// }
 			await Promise.all((schedule.variables || []).map(variable => this.createPipelineScheduleVariable(id, variable)));
-			return data as GitlabSchedule;
+			return data;
 		} catch (err) {
 			this.processError(err);
-			return this.createPipelineSchedule(schedule);
 		}
 	}
 
-	async createPipelineScheduleVariable(scheduleId: number | undefined, variable: GitlabScheduleVariable): Promise<GitlabScheduleVariable> {
+	async createPipelineScheduleVariable(scheduleId: number | undefined, variable: GitlabScheduleVariable): Promise<GitlabScheduleVariable | undefined> {
 		if (!scheduleId) {
 			throw new Error("scheduleId is required");
 		}
@@ -56,7 +55,39 @@ export class GitlabClient {
 			return data;
 		} catch (err) {
 			this.processError(err);
-			return this.createPipelineScheduleVariable(scheduleId, variable);
+		}
+	}
+
+	async getCiConfigVariables(projectUrl: string, ref: string): Promise<Array<GitlabScheduleVariable> | undefined> {
+		try {
+			const { data } = await HttpClient('', HttpMethods.POST, {
+				operationName: "ciConfigVariables",
+				query: getCiConfigVariablesQueryStr,
+				variables: {
+					fullPath: projectUrl,
+					ref,
+				} as CiConfigVariablesQuery
+			}, { token: this._token, url: gitlabGraphqlUrl, isBearerToken: true })
+
+			const { ciConfigVariables } = data.data.project;
+			return ciConfigVariables
+				// .filter((variable: any) => variable.description !== null)
+				.map((variable: any) => ({
+					key: variable.key,
+					value: variable.value,
+					variable_type: GitlabScheduleVariableTypes.ENV_VAR,
+				}));
+		} catch (err) {
+			this.processError(err);
+		}
+	}
+
+	async getProjectBranches(): Promise<Array<string> | undefined> {
+		try {
+			const { data } = await HttpClient(`projects/${gitlabProjectId}/repository/branches`, HttpMethods.GET, {}, { token: this._token });
+			return data.map((branch: any) => branch.name);
+		} catch (err) {
+			this.processError(err);
 		}
 	}
 

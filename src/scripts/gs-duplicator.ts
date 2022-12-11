@@ -1,11 +1,9 @@
 import $ from "jquery";
 
-import { GitlabClient, getGitlabScheduleId } from "@/shared";
-import { DuplicateBtnComponent } from "@/components";
-import { DownloadEnvBtnComponent } from "@/components/download-env-btn.component";
+import { ChooseBranchDropdownComponent, DownloadEnvBtnComponent, DuplicateBtnComponent, QuickNewScheduleBtnComponent } from "@/components";
+import { getGitlabScheduleId } from "@/shared";
 
 const main = async () => {
-	const glClient = new GitlabClient();
 	const btnGroup = $(".float-right.btn-group");
 
 	// find the buttons with attribute title="Edit" in the btnGroup
@@ -23,6 +21,17 @@ const main = async () => {
 			}
 		}
 	}
+
+	// find the button with text "New schedule"
+	const newScheduleBtns = $('.btn.btn-confirm:contains("New schedule")');
+	const newScheduleBtn = $(newScheduleBtns.get());
+	const quickNewScheduleBtn = QuickNewScheduleBtnComponent();
+	if (quickNewScheduleBtn) {
+		quickNewScheduleBtn.insertBefore(newScheduleBtn);
+	}
+
+	const glChooseBranchDropdown = await ChooseBranchDropdownComponent();
+	glChooseBranchDropdown.insertBefore(quickNewScheduleBtn);
 };
 
 (async () => {

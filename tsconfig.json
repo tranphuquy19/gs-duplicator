@@ -16,6 +16,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "skipLibCheck": false,
+    "noImplicitThis": false,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]

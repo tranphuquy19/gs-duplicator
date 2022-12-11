@@ -1,4 +1,4 @@
-import { GitlabScheduleVariable } from "@/types/gitlab-schedule-variable.dto";
+import { GitlabScheduleVariable } from "@/types";
 
 function saveAs(blob: Blob, filename: string): void {
 	const url = window.URL.createObjectURL(blob);
@@ -11,7 +11,7 @@ function saveAs(blob: Blob, filename: string): void {
 
 export function downloadEnvFile(variables: GitlabScheduleVariable[], description: string): void {
 	const envFileContent = variables
-		.map((variable) => `${variable.key}=${variable.value}`)
+		.map((variable) => `${variable.key}="${variable.value}"`)
 		.join("\n");
 	const blob = new Blob([envFileContent], { type: "text/plain;charset=utf-8" });
 	saveAs(blob, `${description}.env`);

@@ -71,7 +71,7 @@ export class GitlabClient {
 
 			const { ciConfigVariables } = data.data.project;
 			return ciConfigVariables
-				// .filter((variable: any) => variable.description !== null)
+				.filter((variable: any) => variable.description !== null)
 				.map((variable: any) => ({
 					key: variable.key,
 					value: variable.value,

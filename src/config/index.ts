@@ -12,3 +12,4 @@ export const gitlabDefaultPipelineSchedule = {
 	cron_timezone: "UTC",
 	ref: "main",
 }
+export const wrappedVarBy = localStorage.getItem("wrapped_var_by") || '\"';

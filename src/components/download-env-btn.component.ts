@@ -5,7 +5,7 @@ import { downloadEnvFile, GitlabHttpClient } from "@/shared";
 
 export function DownloadEnvBtnComponent(scheduleId?: string) {
 	if (!scheduleId) {
-		return null;
+		return;
 	}
 	const downloadEnvBtnHtml =
 		`<a title="Download Env File" class="btn gl-button btn-default btn-icon">
@@ -18,6 +18,7 @@ export function DownloadEnvBtnComponent(scheduleId?: string) {
 	downloadEnvBtnJObject.click(async () => {
 		const glClient = GitlabHttpClient.getInstance();
 		const schedule = await glClient.getPipeLineScheduleById(scheduleId);
+		if (!schedule) return;
 
 		downloadEnvFile(schedule.variables ?? [], schedule.description);
 	});

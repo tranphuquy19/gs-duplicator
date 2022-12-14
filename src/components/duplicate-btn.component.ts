@@ -5,7 +5,7 @@ import { GitlabHttpClient } from "@/shared";
 
 export function DuplicateBtnComponent(scheduleId?: string) {
 	if (!scheduleId) {
-		return null;
+		return;
 	}
 	const duplicateBtnHtml =
 		`<a title="Duplicate" class="btn gl-button btn-default btn-icon">
@@ -18,6 +18,7 @@ export function DuplicateBtnComponent(scheduleId?: string) {
 	duplicateBtnJObject.click(async () => {
 		const glClient = GitlabHttpClient.getInstance();
 		const schedule = await glClient.getPipeLineScheduleById(scheduleId);
+		if (!schedule) return;
 
 		const newSchedule = await glClient.createPipelineSchedule({
 			active: schedule.active,

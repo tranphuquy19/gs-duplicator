@@ -20,56 +20,85 @@ export class GitlabHttpClient extends HttpClient {
 		return this.instance;
 	}
 
-	async getPipelines(): Promise<GitlabPipeline[]> {
-		const pipelines = await this.client.get<GitlabPipeline[]>(`projects/${gitlabProjectId}/pipelines`);
-		return pipelines;
+	async getPipelines(): Promise<GitlabPipeline[] | undefined> {
+		try {
+			const pipelines = await this.client.get<GitlabPipeline[]>(`projects/${gitlabProjectId}/pipelines`);
+			return pipelines;
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				this._handleUnauthorizedError(error);
+			}
+		}
 	}
 
-	async getPipelineSchedules(): Promise<GitlabSchedule[]> {
-		const schedules = await this.client.get<GitlabSchedule[]>(`projects/${gitlabProjectId}/pipeline_schedules`);
-		return schedules;
+	async getPipelineSchedules(): Promise<GitlabSchedule[] | undefined> {
+		try {
+			const schedules = await this.client.get<GitlabSchedule[]>(`projects/${gitlabProjectId}/pipeline_schedules`);
+			return schedules;
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				this._handleUnauthorizedError(error);
+			}
+		}
 	}
 
-	async getPipeLineScheduleById(scheduleId?: string): Promise<GitlabSchedule> {
+	async getPipeLineScheduleById(scheduleId?: string): Promise<GitlabSchedule | undefined> {
 		if (!scheduleId) {
 			throw new Error('scheduleId is required');
 		}
-		const schedule = await this.client.get<GitlabSchedule>(`projects/${gitlabProjectId}/pipeline_schedules/${scheduleId}`);
-		return schedule;
+		try {
+			const schedule = await this.client.get<GitlabSchedule>(`projects/${gitlabProjectId}/pipeline_schedules/${scheduleId}`);
+			return schedule;
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				this._handleUnauthorizedError(error);
+			}
+		}
 	}
 
-	async createPipelineSchedule(schedule: GitlabSchedule): Promise<GitlabSchedule> {
-		const newSchedule = await this.client.post<GitlabSchedule>(`projects/${gitlabProjectId}/pipeline_schedules`, schedule);
-		const { id } = newSchedule;
+	async createPipelineSchedule(schedule: GitlabSchedule): Promise<GitlabSchedule | undefined> {
+		try {
+			const newSchedule = await this.client.post<GitlabSchedule>(`projects/${gitlabProjectId}/pipeline_schedules`, schedule);
+			const { id } = newSchedule;
 
-		await Promise.all((schedule.variables || []).map(variable => this.createPipelineScheduleVariable(id, variable)));
-		return newSchedule;
+			await Promise.all((schedule.variables || []).map(variable => this.createPipelineScheduleVariable(id, variable)));
+			return newSchedule;
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				this._handleUnauthorizedError(error);
+			}
+		}
 	}
 
-	async createPipelineScheduleVariable(scheduleId: number | undefined, variable: GitlabScheduleVariable): Promise<GitlabScheduleVariable> {
+	async createPipelineScheduleVariable(scheduleId: number | undefined, variable: GitlabScheduleVariable): Promise<GitlabScheduleVariable | undefined> {
 		if (!scheduleId) {
 			throw new Error('scheduleId is required');
 		}
-		const newVariable = await this.client.post<GitlabScheduleVariable>(`projects/${gitlabProjectId}/pipeline_schedules/${scheduleId}/variables`, variable);
-		return newVariable;
+		try {
+			const newVariable = await this.client.post<GitlabScheduleVariable>(`projects/${gitlabProjectId}/pipeline_schedules/${scheduleId}/variables`, variable);
+			return newVariable;
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				this._handleUnauthorizedError(error);
+			}
+		}
 	}
 
-	async getProjectBranches(): Promise<string[]> {
-		const branches = await this.client.get<GitlabBranch[]>(`projects/${gitlabProjectId}/repository/branches`);
+	async getProjectBranches(): Promise<string[] | undefined> {
+		try {
+			const branches = await this.client.get<GitlabBranch[]>(`projects/${gitlabProjectId}/repository/branches`);
 
-		return branches.map((branch: any) => branch.name);
+			return branches.map((branch: any) => branch.name);
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				this._handleUnauthorizedError(error);
+			}
+		}
 	}
 
 	private _init() {
 		this._token = getTokenFromLocalStorage();
 		this._initInterceptor();
-	}
-
-	private _initInterceptor = () => {
-		this.client.interceptors.request.use(
-			this._handleRequest,
-			this._handleError,
-		);
 	}
 
 	private _handleRequest = (config: AxiosRequestConfig): AxiosRequestConfig<any> => {
@@ -79,11 +108,17 @@ export class GitlabHttpClient extends HttpClient {
 		return config;
 	}
 
-	protected _handleError = (error: AxiosError) => {
+	protected _handleUnauthorizedError = (error: AxiosError) => {
 		if (error.response?.status === 401) {
 			this._token = getGitlabToken();
 		}
 		return Promise.reject(error);
 	}
 
+	private _initInterceptor = () => {
+		this.client.interceptors.request.use(
+			this._handleRequest,
+			this._handleError,
+		);
+	}
 }

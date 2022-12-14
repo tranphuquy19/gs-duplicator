@@ -20,25 +20,31 @@ export class GitlabGraphqlClient extends HttpClient {
 		return this.instance;
 	}
 
-	async getCiConfigVariables(projectUrl: string, ref: string): Promise<GitlabScheduleVariable[]> {
-		const { data: glGetCiConfigVarRes } = await this.client.post<GlGetCiConfigVariableResponse>('', {
-			operationName: 'ciConfigVariables',
-			query: getCiConfigVariablesQueryStr,
-			variables: {
-				fullPath: projectUrl,
-				ref,
+	async getCiConfigVariables(projectUrl: string, ref: string): Promise<GitlabScheduleVariable[] | undefined> {
+		try {
+			const { data: glGetCiConfigVarRes } = await this.client.post<GlGetCiConfigVariableResponse>('', {
+				operationName: 'ciConfigVariables',
+				query: getCiConfigVariablesQueryStr,
+				variables: {
+					fullPath: projectUrl,
+					ref,
+				}
+			});
+
+			const { project: { ciConfigVariables } } = glGetCiConfigVarRes;
+
+			return ciConfigVariables ? ciConfigVariables
+				.filter((variable: any) => variable.description !== null)
+				.map((variable: any) => ({
+					key: variable.key,
+					value: variable.value,
+					variable_type: GitlabScheduleVariableTypes.ENV_VAR,
+				})) : [];
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				this._handleUnauthorizedError(error);
 			}
-		});
-
-		const { project: { ciConfigVariables } } = glGetCiConfigVarRes;
-
-		return ciConfigVariables ? ciConfigVariables
-			.filter((variable: any) => variable.description !== null)
-			.map((variable: any) => ({
-				key: variable.key,
-				value: variable.value,
-				variable_type: GitlabScheduleVariableTypes.ENV_VAR,
-			})) : [];
+		}
 	}
 
 	private _init() {
@@ -49,7 +55,7 @@ export class GitlabGraphqlClient extends HttpClient {
 	private _initInterceptor = () => {
 		this.client.interceptors.request.use(
 			this._handleRequest,
-			this._handleError,
+			this._handleUnauthorizedError,
 		);
 	}
 
@@ -60,7 +66,7 @@ export class GitlabGraphqlClient extends HttpClient {
 		return config;
 	}
 
-	protected _handleError = (error: AxiosError) => {
+	protected _handleUnauthorizedError = (error: AxiosError) => {
 		if (error.response?.status === 401) {
 			this._token = getGitlabToken();
 		}

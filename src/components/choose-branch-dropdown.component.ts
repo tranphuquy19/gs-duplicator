@@ -17,6 +17,8 @@ export async function ChooseBranchDropdownComponent() {
 			if (fullPath) {
 				// const vars = await glClient.getCiConfigVariables(fullPath, `refs/heads/${branchName}`) as GitlabScheduleVariable[] || [];
 				const vars = await glGraphqlClient.getCiConfigVariables(fullPath, `refs/heads/${branchName}`);
+				if (!vars) return;
+
 				const newPipelineSchedule = await glClient.createPipelineSchedule({
 					...gitlabDefaultPipelineSchedule,
 					ref: branchName,

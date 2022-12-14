@@ -1,8 +1,8 @@
 import $ from "jquery";
 
 export function QuickNewScheduleBtnComponent() {
-	const quickNewScheduleBtnHtml =
-	`<a class="btn gl-button btn-success">
+	const quickNewScheduleBtnHtml = `
+	<a class="btn gl-button btn-success">
 		<span>Quick new schedule</span>
 	</a>`;
 	const quickNewScheduleBtnJObject = $(quickNewScheduleBtnHtml);

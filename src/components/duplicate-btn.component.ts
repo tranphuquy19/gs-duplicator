@@ -1,7 +1,7 @@
 import $ from "jquery";
 
 import { gitlabSvgIconUrl } from "@/config";
-import { GitlabClient } from "@/shared";
+import { GitlabHttpClient } from "@/shared";
 
 export function DuplicateBtnComponent(scheduleId?: string) {
 	if (!scheduleId) {
@@ -16,7 +16,7 @@ export function DuplicateBtnComponent(scheduleId?: string) {
 	const duplicateBtnJObject = $(duplicateBtnHtml);
 	// add click event to the duplicateBtn
 	duplicateBtnJObject.click(async () => {
-		const glClient = new GitlabClient();
+		const glClient = GitlabHttpClient.getInstance();
 		const schedule = await glClient.getPipeLineScheduleById(scheduleId);
 
 		const newSchedule = await glClient.createPipelineSchedule({

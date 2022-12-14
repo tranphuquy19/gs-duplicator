@@ -1,7 +1,7 @@
 import $ from "jquery";
 
 import { gitlabSvgIconUrl } from "@/config";
-import { downloadEnvFile, GitlabClient } from "@/shared";
+import { downloadEnvFile, GitlabHttpClient } from "@/shared";
 
 export function DownloadEnvBtnComponent(scheduleId?: string) {
 	if (!scheduleId) {
@@ -16,7 +16,7 @@ export function DownloadEnvBtnComponent(scheduleId?: string) {
 	const downloadEnvBtnJObject = $(downloadEnvBtnHtml);
 	// add click event to the downloadEnvBtn
 	downloadEnvBtnJObject.click(async () => {
-		const glClient = new GitlabClient();
+		const glClient = GitlabHttpClient.getInstance();
 		const schedule = await glClient.getPipeLineScheduleById(scheduleId);
 
 		downloadEnvFile(schedule.variables ?? [], schedule.description);

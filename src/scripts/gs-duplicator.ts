@@ -4,13 +4,13 @@ import { ChooseBranchDropdownComponent, DownloadEnvBtnComponent, DuplicateBtnCom
 import { getGitlabScheduleIdFromUrl } from "@/shared";
 
 const main = async () => {
-	const btnGroup = $(".float-right.btn-group");
+	const btnGroup = $('.float-right.btn-group');
 
 	// find the buttons with attribute title="Edit" in the btnGroup
-	const playBtns = btnGroup.find("[title='Play']");
+	const playBtns = btnGroup.find(`[title='Play']`);
 	for (const btnItem of playBtns) {
 		const playBtn = $(btnItem);
-		const playBtnHref = playBtn.attr("href");
+		const playBtnHref = playBtn.attr('href');
 		const scheduleId = getGitlabScheduleIdFromUrl(playBtnHref);
 		const duplicateBtn = DuplicateBtnComponent(scheduleId);
 		if (duplicateBtn) {

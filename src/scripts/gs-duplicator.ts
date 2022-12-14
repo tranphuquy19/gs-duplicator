@@ -1,4 +1,4 @@
-import $ from "jquery";
+import $ from "jquery/dist/jquery.slim";
 
 import { ChooseBranchDropdownComponent, DownloadEnvBtnComponent, DuplicateBtnComponent, QuickNewScheduleBtnComponent } from "@/components";
 import { getGitlabScheduleIdFromUrl } from "@/shared";

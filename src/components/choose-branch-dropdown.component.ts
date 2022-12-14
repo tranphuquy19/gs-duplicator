@@ -15,7 +15,6 @@ export async function ChooseBranchDropdownComponent() {
 			const fullPathMatch = window.location.pathname.match(fullPathRegex);
 			const fullPath = fullPathMatch ? fullPathMatch[1] : "";
 			if (fullPath) {
-				// const vars = await glClient.getCiConfigVariables(fullPath, `refs/heads/${branchName}`) as GitlabScheduleVariable[] || [];
 				const vars = await glGraphqlClient.getCiConfigVariables(fullPath, `refs/heads/${branchName}`);
 				if (!vars) return;
 

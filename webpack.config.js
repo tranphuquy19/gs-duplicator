@@ -3,6 +3,7 @@ const path = require('path');
 
 const webpack = require('webpack');
 const TerserPlugin = require("terser-webpack-plugin");
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const { CustomizedCleanWebpackPlugin } = require('./customized-webpack-plugins');
 
@@ -10,6 +11,8 @@ const rootDir = path.resolve(__dirname);
 const srcDir = path.resolve(rootDir, './src');
 const scriptsDir = path.resolve(srcDir, './scripts');
 const manifestsDir = path.resolve(srcDir, './manifests');
+
+const isStat = process.env.STAT === 'true';
 
 const getEntries = async () => {
 	const filenames = await fs.promises.readdir(scriptsDir);
@@ -110,6 +113,7 @@ const main = async () => {
 			}),
 			new webpack.ProgressPlugin(),
 			new CustomizedCleanWebpackPlugin(),
+			...isStat ? [new BundleAnalyzerPlugin()] : [],
 		],
 		mode: 'development',
 	};

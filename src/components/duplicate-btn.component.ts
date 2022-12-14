@@ -1,4 +1,4 @@
-import $ from "jquery";
+import $ from "jquery/dist/jquery.slim";
 
 import { gitlabSvgIconUrl } from "@/config";
 import { GitlabHttpClient } from "@/shared";

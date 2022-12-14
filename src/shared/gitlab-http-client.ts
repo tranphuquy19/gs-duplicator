@@ -108,7 +108,7 @@ export class GitlabHttpClient extends HttpClient {
 		return config;
 	}
 
-	protected _handleUnauthorizedError = (error: AxiosError) => {
+	private _handleUnauthorizedError = (error: AxiosError) => {
 		if (error.response?.status === 401) {
 			this._token = getGitlabToken();
 		}

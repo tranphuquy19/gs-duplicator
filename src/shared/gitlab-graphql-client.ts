@@ -52,13 +52,6 @@ export class GitlabGraphqlClient extends HttpClient {
 		this._initInterceptor();
 	}
 
-	private _initInterceptor = () => {
-		this.client.interceptors.request.use(
-			this._handleRequest,
-			this._handleUnauthorizedError,
-		);
-	}
-
 	private _handleRequest = (config: AxiosRequestConfig): AxiosRequestConfig<any> => {
 		if (!!config && !!config.headers) {
 			config.headers['Authorization'] = `Bearer ${this._token}`;
@@ -70,6 +63,12 @@ export class GitlabGraphqlClient extends HttpClient {
 		if (error.response?.status === 401) {
 			this._token = getGitlabToken();
 		}
-		return Promise.reject(error);
+	}
+
+	private _initInterceptor = () => {
+		this.client.interceptors.request.use(
+			this._handleRequest,
+			this._handleError,
+		);
 	}
 }

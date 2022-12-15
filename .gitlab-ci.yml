@@ -11,14 +11,14 @@ stages:
 
 variables:
   VAR1:
-    description: "Variable 1"
     value: "value1"
+    description: "[value 1, value 2, value 3] - Variable 1"
   VAR2:
-    description: "Variable 2"
     value: "value2"
+    description: "Variable 2"
   VAR3:
-    description: "Variable 3"
     value: "value3"
+    description: "[text1, text2, text3] - Variable 3"
 
 build:
   stage: build

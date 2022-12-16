@@ -12,7 +12,7 @@ stages:
 variables:
   VAR1:
     value: "value1"
-    description: "[value 1, value 2, value 3] - Variable 1"
+    description: "[value 1, value 2, value 3] - Variable 1, *Example: value 1, value 2*"
   VAR2:
     value: "value2"
     description: "Variable 2"

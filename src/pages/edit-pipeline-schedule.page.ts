@@ -30,7 +30,7 @@ export const editPipelineSchedulePage = async () => {
 	const activatedCheckboxCol = checkBoxRow.find('.col-md-9');
 	activatedCheckboxCol.attr('class', 'col-md-2');
 
-	const showValueOptionsDropdownCheckbox = GitlabCheckboxComponent('Show dropdown', 'Turn on', null, isShowDropdown, 'show_dropdown_checkbox');
+	const showValueOptionsDropdownCheckbox = GitlabCheckboxComponent('Show dropdown', 'Turn on', 'col-md-2', isShowDropdown, 'show_dropdown_checkbox');
 	showValueOptionsDropdownCheckbox.insertAfter(activatedCheckboxCol);
 
 	const _rows: GitlabEditVarRow[] = [];

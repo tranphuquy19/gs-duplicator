@@ -1,5 +1,14 @@
-import { GitlabCheckboxComponent, GitlabSelectionComponent } from '@/components';
-import { getOptionsFromVarDescription, getProjectFullPath, GitlabGraphqlClient } from '@/shared';
+import {
+  GitlabCheckboxComponent,
+  GitlabSelectionComponent,
+  VarDescriptionComponent,
+} from '@/components';
+import {
+  convertMarkdownToHtml,
+  getOptionsFromVarDescription,
+  getProjectFullPath,
+  GitlabGraphqlClient,
+} from '@/shared';
 import { GitlabEditVarRow, GitlabScheduleVariableTypes } from '@/types';
 
 export const editPipelineSchedulePage = async () => {
@@ -30,6 +39,12 @@ export const editPipelineSchedulePage = async () => {
   }
 
   const persistedVariables = $('.js-row.ci-variable-row[data-is-persisted="true"]');
+  persistedVariables
+    .attr('style', 'flex-direction: column;')
+    .addClass(['border-bottom', 'pb2'])
+    .find('.ci-variable-row-body')
+    .removeClass('border-bottom')
+    .attr('style', 'padding-bottom: 4px;');
 
   const checkBoxRow = $('.js-pipeline-schedule-form.pipeline-schedule-form')
     .find('.form-group.row')
@@ -38,7 +53,7 @@ export const editPipelineSchedulePage = async () => {
   activatedCheckboxCol.attr('class', 'col-md-2');
 
   const showValueOptionsDropdownCheckbox = GitlabCheckboxComponent(
-    'Show dropdown',
+    'Show dropdown(s)',
     'Turn on',
     'col-md-2',
     isShowDropdown,
@@ -51,10 +66,7 @@ export const editPipelineSchedulePage = async () => {
   for (const persistedVariable of persistedVariables) {
     const persistedVariableRow = $(persistedVariable);
 
-    // const variableIdInput = persistedVariableRow.find(
-    //   'input[name="schedule[variables_attributes][][id]"]'
-    // );
-
+    //#region Get components
     const variableTypeSelect = persistedVariableRow.find(
       'select[name="schedule[variables_attributes][][variable_type]"]'
     );
@@ -70,8 +82,20 @@ export const editPipelineSchedulePage = async () => {
       'textarea[name="schedule[variables_attributes][][secret_value]"]'
     );
     const variableSecretValue = variableSecretValueInput.val() as string;
+    //#endregion
 
-    // const variableId = variableIdInput.attr('value');
+    //#region Adding var description
+    const descriptionTxt = ciConfigVariables.find((v) => v.key === variableKey)?.description;
+    if (descriptionTxt) {
+      const varDescriptionComponent = VarDescriptionComponent(
+        convertMarkdownToHtml(descriptionTxt)
+      );
+      varDescriptionComponent.insertAfter(persistedVariableRow.find('.ci-variable-row-body'));
+    } else {
+      persistedVariableRow.find('.ci-variable-row-body').attr('style', 'padding-bottom: 16px;');
+    }
+    //#endregion
+
     let variableSecretValueDropdown: JQuery<HTMLElement> | null = null;
     if ((keyOptions[variableKey] || []).length > 0) {
       variableSecretValueDropdown = GitlabSelectionComponent(
@@ -128,6 +152,7 @@ export const editPipelineSchedulePage = async () => {
     }
   });
 
+  //#region Reveal button click event
   revealValuesBtn.on('click', () => {
     const _isShowDropdown = $('#show_dropdown_checkbox').is(':checked');
     const isHidden = revealValuesBtn.text().includes('Reveal value');
@@ -150,4 +175,5 @@ export const editPipelineSchedulePage = async () => {
       }
     }
   });
+  //#endregion
 };

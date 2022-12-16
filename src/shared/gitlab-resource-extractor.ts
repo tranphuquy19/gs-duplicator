@@ -21,7 +21,7 @@ export const getProjectFullPath = (url: string): string => {
 };
 
 export const getOptionsFromVarDescription = (description: string): string[] => {
-  const regex = /\[(.*?)\]/;
+  const regex = /^\[(.*?)\]/;
   const match = description.match(regex);
   return match?.[1]?.split(',').map((value) => value.trim()) || [];
 };

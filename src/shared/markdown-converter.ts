@@ -9,7 +9,7 @@ export function convertMarkdownToHtml(markdownString: string): string {
   const italicHtml = '<em>$1</em>';
   const strikethroughHtml = '<del>$1</del>';
   const codeHtml = '<code>$1</code>';
-  const linkHtml = '<a href="$2">$1</a>';
+  const linkHtml = '<a href="$2" target="_blank">$1</a>';
 
   const htmlString = markdownString
     .replace(boldRegex, boldHtml)

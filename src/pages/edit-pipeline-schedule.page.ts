@@ -131,10 +131,11 @@ export const editPipelineSchedulePage = async () => {
   revealValuesBtn.on('click', () => {
     const _isShowDropdown = $('#show_dropdown_checkbox').is(':checked');
     const isHidden = revealValuesBtn.text().includes('Reveal value');
+
     if (isHidden) {
       if (_isShowDropdown) {
         for (const row of _rows) {
-          row.clone?.valueInput?.hide();
+          row.clone?.valueInput.show();
         }
       } else {
         // do nothing
@@ -142,7 +143,7 @@ export const editPipelineSchedulePage = async () => {
     } else {
       if (_isShowDropdown) {
         for (const row of _rows) {
-          row.clone?.valueInput?.show();
+          row.clone?.valueInput.hide();
         }
       } else {
         // do nothing

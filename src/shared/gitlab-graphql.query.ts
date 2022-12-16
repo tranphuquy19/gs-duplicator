@@ -14,6 +14,6 @@ export const getCiConfigVariablesQueryStr = `query ciConfigVariables($fullPath: 
 `;
 
 export interface CiConfigVariablesQuery {
-	fullPath: string;
-	ref: string;
+  fullPath: string;
+  ref: string;
 }

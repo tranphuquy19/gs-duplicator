@@ -12,8 +12,8 @@
     "build:prod:watch": "npx webpack --watch",
     "build:ts": "npx tsc",
     "build:ts:watch": "npx tsc -w",
-    "lint": "npx eslint src",
-    "lint:fix": "npx eslint src --fix"
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -37,10 +37,13 @@
   "devDependencies": {
     "@types/jquery": "^3.5.14",
     "@typescript-eslint/eslint-plugin": "^5.46.1",
+    "@typescript-eslint/parser": "^5.46.1",
     "clean-webpack-plugin": "^4.0.0",
     "eslint": "^8.29.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.8.1",

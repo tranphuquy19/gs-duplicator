@@ -18,7 +18,7 @@ class CustomizedCleanWebpackPlugin {
 		new CleanWebpackPlugin({
 			cleanAfterEveryBuildPatterns: [this.licenseTxtFilePattern],
 			protectWebpackAssets: false,
-			...this.restCleanWebpackPluginOptions
+			...this.restCleanWebpackPluginOptions,
 		}).apply(compiler);
 
 		compiler.hooks.compilation.tap('CustomizedCleanWebpackPlugin', (compilation) => {
@@ -30,12 +30,12 @@ class CustomizedCleanWebpackPlugin {
 							compilation.updateAsset(
 								fileName,
 								new webpack.sources.RawSource(
-									source.source().replace(this.licenseCommentRegex, '')
-								)
+									source.source().replace(this.licenseCommentRegex, ''),
+								),
 							);
 						}
 					});
-				}
+				},
 			);
 		});
 	}

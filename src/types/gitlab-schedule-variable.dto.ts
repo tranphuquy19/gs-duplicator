@@ -1,8 +1,8 @@
-import { GitlabScheduleVariableTypes } from "./gitlab-schedule-variable-types.enum";
+import { GitlabScheduleVariableTypes } from './gitlab-schedule-variable-types.enum';
 
 export interface GitlabScheduleVariable {
-	key: string;
-	variable_type: GitlabScheduleVariableTypes;
-	value: string;
-	description: string;
+  key: string;
+  variable_type: GitlabScheduleVariableTypes;
+  value: string;
+  description: string;
 }

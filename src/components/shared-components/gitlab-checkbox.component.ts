@@ -1,8 +1,14 @@
-import $ from "jquery/dist/jquery.slim";
+import $ from 'jquery/dist/jquery.slim';
 
-export function GitlabCheckboxComponent(label: string, controlLabel: string, className: string | null, checked: boolean = true, checkboxId?: string) {
-	const _checkboxId = checkboxId ?? label.replaceAll(' ', '') + '_checkbox';
-	const checkboxComponentHtml = `
+export function GitlabCheckboxComponent(
+  label: string,
+  controlLabel: string,
+  className: string | null,
+  checked = true,
+  checkboxId?: string
+) {
+  const _checkboxId = checkboxId ?? label.replaceAll(' ', '') + '_checkbox';
+  const checkboxComponentHtml = `
 	<div class="${className ?? 'col-md-2'}">
 		<label class="label-bold" for="${_checkboxId}">${label}</label>
 		<div>
@@ -13,5 +19,5 @@ export function GitlabCheckboxComponent(label: string, controlLabel: string, cla
 		</div>
 	</div>
 	`;
-	return $(checkboxComponentHtml);
+  return $(checkboxComponentHtml);
 }

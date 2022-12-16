@@ -1,4 +1,4 @@
 export interface DropdownItem {
-	text: string;
-	fn: () => void | Promise<void>;
+  text: string;
+  fn: () => void | Promise<void>;
 }

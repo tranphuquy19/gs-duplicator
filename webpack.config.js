@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const webpack = require('webpack');
-const TerserPlugin = require("terser-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const { CustomizedCleanWebpackPlugin } = require('./customized-webpack-plugins');
@@ -79,7 +79,7 @@ const main = async () => {
 			extensions: ['.ts', '.tsx', '.js', '.json'],
 			alias: {
 				'@': srcDir,
-			}
+			},
 		},
 		optimization: {
 			minimize: !(process.env.NODE_ENV === 'development'),
@@ -88,13 +88,16 @@ const main = async () => {
 					terserOptions: {
 						mangle: true,
 						format: {
-							comments: (node, comment) => comment.type === 'comment1'
-								&& /(^\s==\/?UserScript==)|(^\s@.+\s+.+$)|(^\s$)/.test(comment.value)
+							comments: (node, comment) =>
+								comment.type === 'comment1' &&
+								/(^\s==\/?UserScript==)|(^\s@.+\s+.+$)|(^\s$)/.test(
+									comment.value,
+								),
 						},
 						keep_fnames: false,
 						compress: true,
-					}
-				})
+					},
+				}),
 			],
 			moduleIds: 'size',
 		},
@@ -116,7 +119,7 @@ const main = async () => {
 			}),
 			new webpack.ProgressPlugin(),
 			new CustomizedCleanWebpackPlugin(),
-			...isStat ? [new BundleAnalyzerPlugin()] : [],
+			...(isStat ? [new BundleAnalyzerPlugin()] : []),
 		],
 		mode: 'development',
 	};

@@ -1,13 +1,15 @@
 import { AxiosError, AxiosRequestConfig } from "axios";
 
 import { gitlabGraphqlUrl } from "@/config";
-import { GitlabScheduleVariable, GitlabScheduleVariableTypes, GlGetCiConfigVariableResponse } from "@/types";
+import { GitlabCiConfigVariable, GitlabScheduleVariable, GitlabScheduleVariableTypes, GlGetCiConfigVariableResponse } from "@/types";
 import { getGitlabToken, getTokenFromLocalStorage } from "./get-gl-token";
 import { getCiConfigVariablesQueryStr } from "./gitlab-graphql.query";
 import { HttpClient } from "./http-client-base";
 
 export class GitlabGraphqlClient extends HttpClient {
 	private static instance?: GitlabGraphqlClient;
+	private RETRIES = 3;
+
 	constructor(private _token?: string) {
 		super(gitlabGraphqlUrl);
 		this._init();
@@ -21,23 +23,33 @@ export class GitlabGraphqlClient extends HttpClient {
 	}
 
 	async getCiConfigVariables(projectUrl: string, ref: string): Promise<GitlabScheduleVariable[] | undefined> {
+		let ciConfigVariables: GitlabCiConfigVariable[] = [];
+		let retries = 0;
 		try {
-			const { data: glGetCiConfigVarRes } = await this.client.post<GlGetCiConfigVariableResponse>('', {
-				operationName: 'ciConfigVariables',
-				query: getCiConfigVariablesQueryStr,
-				variables: {
-					fullPath: projectUrl,
-					ref,
-				}
-			});
+			let isBreak = false;
+			while (!isBreak && retries < this.RETRIES) {
 
-			const { project: { ciConfigVariables } } = glGetCiConfigVarRes;
+				const { data: glGetCiConfigVarRes } = await this.client.post<GlGetCiConfigVariableResponse>('', {
+					operationName: 'ciConfigVariables',
+					query: getCiConfigVariablesQueryStr,
+					variables: {
+						fullPath: projectUrl,
+						ref,
+					}
+				});
+				if (glGetCiConfigVarRes?.project?.ciConfigVariables) {
+					ciConfigVariables = glGetCiConfigVarRes.project.ciConfigVariables;
+					isBreak = true;
+				}
+				retries++;
+			}
 
 			return ciConfigVariables ? ciConfigVariables
-				.filter((variable: any) => variable.description !== null)
-				.map((variable: any) => ({
+				.filter((variable: GitlabCiConfigVariable) => variable.description !== null)
+				.map<GitlabScheduleVariable>((variable: GitlabCiConfigVariable) => ({
 					key: variable.key,
 					value: variable.value,
+					description: variable.description,
 					variable_type: GitlabScheduleVariableTypes.ENV_VAR,
 				})) : [];
 		} catch (error) {

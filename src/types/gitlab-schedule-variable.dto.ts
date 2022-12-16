@@ -4,4 +4,5 @@ export interface GitlabScheduleVariable {
 	key: string;
 	variable_type: GitlabScheduleVariableTypes;
 	value: string;
+	description: string;
 }

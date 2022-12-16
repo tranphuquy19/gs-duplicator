@@ -86,14 +86,17 @@ const main = async () => {
 			minimizer: [
 				new TerserPlugin({
 					terserOptions: {
-						mangle: false,
+						mangle: true,
 						format: {
 							comments: (node, comment) => comment.type === 'comment1'
 								&& /(^\s==\/?UserScript==)|(^\s@.+\s+.+$)|(^\s$)/.test(comment.value)
-						}
+						},
+						keep_fnames: false,
+						compress: true,
 					}
 				})
-			]
+			],
+			moduleIds: 'size',
 		},
 		plugins: [
 			new webpack.BannerPlugin({

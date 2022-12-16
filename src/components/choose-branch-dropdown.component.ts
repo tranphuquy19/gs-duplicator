@@ -1,5 +1,5 @@
 import { gitlabDefaultPipelineSchedule } from "@/config";
-import { GitlabGraphqlClient, GitlabHttpClient } from "@/shared";
+import { getProjectFullPath, GitlabGraphqlClient, GitlabHttpClient } from "@/shared";
 import { DropdownItem } from "@/types";
 import { GitlabDropdownComponent } from "./shared-components";
 
@@ -11,9 +11,7 @@ export async function ChooseBranchDropdownComponent() {
 	const dropdownItems = branches?.map<DropdownItem>((branchName) => ({
 		text: branchName,
 		fn: async () => {
-			const fullPathRegex = /\/(.*?)\/-\/pipeline_schedules/;
-			const fullPathMatch = window.location.pathname.match(fullPathRegex);
-			const fullPath = fullPathMatch ? fullPathMatch[1] : "";
+			const fullPath = getProjectFullPath(window.location.pathname as string);
 			if (fullPath) {
 				const vars = await glGraphqlClient.getCiConfigVariables(fullPath, `refs/heads/${branchName}`);
 				if (!vars) return;

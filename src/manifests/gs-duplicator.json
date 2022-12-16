@@ -1,6 +1,6 @@
 {
   "name": "Gitlab Schedule Duplicator",
-  "namespace": "https://doracoder.netlify.app",
+  "namespace": "https://github.com/tranphuquy19/gs-duplicator",
   "description": "Gitlab schedule duplicator",
   "match": [
     "https://gitlab.com/*/pipeline_schedules*",

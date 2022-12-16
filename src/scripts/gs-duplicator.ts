@@ -1,37 +1,17 @@
-import $ from "jquery/dist/jquery.slim";
 
-import { ChooseBranchDropdownComponent, DownloadEnvBtnComponent, DuplicateBtnComponent, QuickNewScheduleBtnComponent } from "@/components";
-import { getGitlabScheduleIdFromUrl } from "@/shared";
+import { editPipelineSchedulePage, pipelineSchedulesPage } from "@/pages";
+import { isEditPipelineScheduleUrl, isPipelineScheduleUrl } from "@/shared";
+
+const RUN_SCRIPT_AFTER_MS = 500;
 
 const main = async () => {
-	const btnGroup = $('.float-right.btn-group');
+	const url = window.location.href;
 
-	// find the buttons with attribute title="Edit" in the btnGroup
-	const playBtns = btnGroup.find(`[title='Play']`);
-	for (const btnItem of playBtns) {
-		const playBtn = $(btnItem);
-		const playBtnHref = playBtn.attr('href');
-		const scheduleId = getGitlabScheduleIdFromUrl(playBtnHref);
-		const duplicateBtn = DuplicateBtnComponent(scheduleId);
-		if (duplicateBtn) {
-			duplicateBtn.insertAfter(playBtn);
-			const downloadEnvFileBtn = DownloadEnvBtnComponent(scheduleId);
-			if (downloadEnvFileBtn) {
-				downloadEnvFileBtn.insertBefore(duplicateBtn);
-			}
-		}
+	if (isPipelineScheduleUrl(url)) {
+		setTimeout(pipelineSchedulesPage, RUN_SCRIPT_AFTER_MS);
+	} else if (isEditPipelineScheduleUrl(url)) {
+		setTimeout(editPipelineSchedulePage, RUN_SCRIPT_AFTER_MS);
 	}
-
-	// find the button with text "New schedule"
-	const newScheduleBtns = $('.btn.btn-confirm:contains("New schedule")');
-	const newScheduleBtn = $(newScheduleBtns.get());
-	const quickNewScheduleBtn = QuickNewScheduleBtnComponent();
-	if (quickNewScheduleBtn) {
-		quickNewScheduleBtn.insertBefore(newScheduleBtn);
-	}
-
-	const glChooseBranchDropdown = await ChooseBranchDropdownComponent();
-	glChooseBranchDropdown.insertBefore(quickNewScheduleBtn);
 };
 
 (async () => {

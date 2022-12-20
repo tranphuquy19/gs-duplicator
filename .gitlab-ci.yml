@@ -19,6 +19,12 @@ variables:
   VAR3:
     value: "value3"
     description: "[text1, text2, text3] - Variable 3"
+  DEPLOY_BRANCH:
+    value: "main"
+    description: "[$glProjectBranches()] - Branch to deploy to"
+  DEPLOY_BRANCH2:
+    value: "main"
+    description: "[$glProjectBranches(41703858)] - Branch to deploy to"
 
 build:
   stage: build

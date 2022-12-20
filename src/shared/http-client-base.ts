@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import {
   AxiosCacheInstance,
-  buildMemoryStorage,
+  buildWebStorage,
   defaultHeaderInterpreter,
   defaultKeyGenerator,
   setupCache,
@@ -11,12 +11,14 @@ declare module 'axios' {
   interface AxiosResponse<T = any> extends Promise<T> {}
 }
 
+const storage = buildWebStorage(window.sessionStorage, 'gs-');
+
 export abstract class HttpClient {
   protected readonly client: AxiosCacheInstance;
 
   constructor(baseURL: string) {
     this.client = setupCache(axios.create({ baseURL }), {
-      storage: buildMemoryStorage(),
+      storage: storage,
       generateKey: defaultKeyGenerator,
       headerInterpreter: defaultHeaderInterpreter,
       debug: (msg) => console.log(msg),

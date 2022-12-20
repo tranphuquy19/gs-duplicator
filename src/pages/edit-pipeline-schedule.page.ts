@@ -37,7 +37,10 @@ export const editPipelineSchedulePage = async () => {
 
   const descriptionOption: { [key: string]: string[] } = {};
   for (const ciConfigVar of ciConfigVariables) {
-    descriptionOption[ciConfigVar.key] = getOptionsFromVarDescription(ciConfigVar.description);
+    const varOptions = getOptionsFromVarDescription(ciConfigVar.description);
+    if (varOptions.length > 0) {
+      descriptionOption[ciConfigVar.key] = getOptionsFromVarDescription(ciConfigVar.description);
+    }
   }
   await varOptionStorage.setOptions(descriptionOption);
   const keyOptions = varOptionStorage.getOptions();

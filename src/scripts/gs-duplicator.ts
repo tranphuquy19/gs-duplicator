@@ -1,7 +1,7 @@
 import { editPipelineSchedulePage, pipelineSchedulesPage } from '@/pages';
 import { isEditPipelineScheduleUrl, isPipelineScheduleUrl } from '@/shared';
 
-const RUN_SCRIPT_AFTER_MS = 500;
+const RUN_SCRIPT_AFTER_MS = 250;
 
 const main = async () => {
   const url = window.location.href;

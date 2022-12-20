@@ -7,7 +7,8 @@ export function DuplicateBtnComponent(scheduleId?: string) {
   if (!scheduleId) {
     return;
   }
-  const duplicateBtnHtml = `<a title="Duplicate" class="btn gl-button btn-default btn-icon">
+  const duplicateBtnHtml = `
+		<a title="Duplicate" class="btn gl-button btn-default btn-icon">
 			<svg class="s16" data-testid="duplicate-icon">
 				<use href="${gitlabSvgIconUrl}#duplicate"></use>
 			</svg>
@@ -27,7 +28,7 @@ export function DuplicateBtnComponent(scheduleId?: string) {
       ref: schedule.ref,
       variables: schedule.variables,
     });
-    if (!!newSchedule && confirm(`Duplicate schedule success! Go to the edit page?`)) {
+    if (!!newSchedule && confirm(`Duplicated successfully! Go to the edit page?`)) {
       window.location.href = `${window.location.href}/${newSchedule?.id}/edit`;
     } else {
       window.location.reload();

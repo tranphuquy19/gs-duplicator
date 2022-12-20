@@ -8,12 +8,14 @@ import {
   getOptionsFromVarDescription,
   getProjectFullPath,
   GitlabGraphqlClient,
+  VarOptionStorage,
 } from '@/shared';
 import { GitlabEditVarRow, GitlabScheduleVariableTypes } from '@/types';
 
 export const editPipelineSchedulePage = async () => {
   const isShowDropdown = true;
 
+  const varOptionStorage = VarOptionStorage.getInstance();
   const glGraphqlClient = GitlabGraphqlClient.getInstance();
 
   const revealValuesBtn = $('.js-secret-value-reveal-button');
@@ -33,10 +35,12 @@ export const editPipelineSchedulePage = async () => {
   const ciConfigVariables =
     (await glGraphqlClient.getCiConfigVariables(fullPath, `refs/heads/${currentBranch}`)) || [];
 
-  const keyOptions: { [key: string]: string[] } = {};
+  const descriptionOption: { [key: string]: string[] } = {};
   for (const ciConfigVar of ciConfigVariables) {
-    keyOptions[ciConfigVar.key] = getOptionsFromVarDescription(ciConfigVar.description);
+    descriptionOption[ciConfigVar.key] = getOptionsFromVarDescription(ciConfigVar.description);
   }
+  await varOptionStorage.setOptions(descriptionOption);
+  const keyOptions = varOptionStorage.getOptions();
 
   const persistedVariables = $('.js-row.ci-variable-row[data-is-persisted="true"]');
   persistedVariables
@@ -82,6 +86,7 @@ export const editPipelineSchedulePage = async () => {
       'textarea[name="schedule[variables_attributes][][secret_value]"]'
     );
     const variableSecretValue = variableSecretValueInput.val() as string;
+
     //#endregion
 
     //#region Adding var description
@@ -95,6 +100,11 @@ export const editPipelineSchedulePage = async () => {
       persistedVariableRow.find('.ci-variable-row-body').attr('style', 'padding-bottom: 16px;');
     }
     //#endregion
+
+    // if variableSecretValue is not in the list of options, add it to the list
+    if (keyOptions[variableKey]?.indexOf(variableSecretValue) === -1) {
+      keyOptions[variableKey]?.push(variableSecretValue);
+    }
 
     let variableSecretValueDropdown: JQuery<HTMLElement> | null = null;
     if ((keyOptions[variableKey] || []).length > 0) {
@@ -127,12 +137,28 @@ export const editPipelineSchedulePage = async () => {
       if (isChecked) {
         if (row.clone) {
           if (row.original.valueInput.is(':visible')) {
+            // alow empty value
+            const currentValue = row.original.valueInput.val() as string;
+            if (keyOptions[row.key]?.indexOf(currentValue) === -1) {
+              keyOptions[row.key]?.push(currentValue);
+            }
+            row.clone.valueInput = GitlabSelectionComponent(
+              keyOptions[row.key] || [],
+              currentValue,
+              'schedule[variables_attributes][][secret_value]',
+              (value) => {
+                console.log('value', value);
+              }
+            );
+            row.clone.valueInput.val(currentValue);
             row.clone.valueInput.replaceAll(row.original.valueInput);
           }
         }
       } else {
         if (row.clone) {
           if (row.clone.valueInput.is(':visible')) {
+            const currentValue = row.clone.valueInput.val() as string;
+            row.original.valueInput.val(currentValue);
             row.original.valueInput.replaceAll(row.clone.valueInput);
           }
         }

@@ -103,10 +103,10 @@ export class GitlabHttpClient extends HttpClient {
     }
   }
 
-  async getProjectBranches(): Promise<string[] | undefined> {
+  async getProjectBranches(projectId?: string): Promise<string[] | undefined> {
     try {
       const branches = await this.client.get<GitlabBranch[]>(
-        `projects/${gitlabProjectId}/repository/branches`
+        `projects/${projectId || gitlabProjectId}/repository/branches`
       );
 
       return branches.map((branch: any) => branch.name);

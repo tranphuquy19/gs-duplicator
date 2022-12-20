@@ -24,7 +24,7 @@ export class VarOptionStorage {
         for (let i = 0; i < values.length; i++) {
           const value = values[i];
           if (!!value) {
-            if (value.match(/\$glProjectBranches\((\d+)?\)/)) {
+            if (value.match(/\$glBranches\((\d+)?\)/)) {
               const projectId = getProjectIdFromTemplateVar(value);
               promises.push(
                 this.glHttpClient.getProjectBranches(projectId).then((branches) => {

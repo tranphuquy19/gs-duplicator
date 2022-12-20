@@ -27,12 +27,12 @@ export const getOptionsFromVarDescription = (description: string): string[] => {
 };
 
 /**
- * Get project id from template variable string format '$glProjectBranches(:project_id)'
- * @param varStr sample string: '$glProjectBranches(41703858)'
+ * Get project id from template variable string format '$glBranches(:project_id)'
+ * @param varStr sample string: '$glBranches(41703858)'
  * @returns project id
  */
 export const getProjectIdFromTemplateVar = (varStr: string): string => {
-  const regex = /\$glProjectBranches\((\d+)?\)/;
+  const regex = /\$glBranches\((\d+)?\)/;
   const match = varStr.match(regex);
   return match?.[1] || '';
 };

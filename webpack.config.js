@@ -32,7 +32,7 @@ const getEntries = async () => {
 const getUserScriptHeader = (name, headers) => {
 	headers = {
 		...headers,
-		namespace: 'https://doracoder.netlify.app',
+		namespace: 'https://github.com/tranphuquy19',
 		author: 'tranphuquy19',
 		version: `${Date.now()}`,
 	};

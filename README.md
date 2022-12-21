@@ -2,6 +2,15 @@
 
 Gitlab Schedule Duplicator is a user script that allows you easily duplicate, create, or update the Gitlab pipeline schedule.
 
+- [Gitlab Schedule Duplicator](#gitlab-schedule-duplicator)
+	- [Features](#features)
+	- [Installation](#installation)
+	- [Usage](#usage)
+		- [Create or duplicate a schedule](#create-or-duplicate-a-schedule)
+		- [Edit a schedule](#edit-a-schedule)
+	- [Contributing](#contributing)
+	- [License](#license)
+
 ## Features
 
 ![feature 1](imgs/feature-1.png)

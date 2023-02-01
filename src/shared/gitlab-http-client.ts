@@ -1,6 +1,6 @@
 import { AxiosError, AxiosRequestConfig } from 'axios';
 
-import { gitlabApiUrl, gitlabProjectId } from '@/config';
+import { gitlabApiUrl, gitlabProjectId, gitlabRestPerPage } from '@/config';
 import { GitlabBranch, GitlabPipeline, GitlabSchedule, GitlabScheduleVariable } from '@/types';
 import { getGitlabToken, getTokenFromLocalStorage } from './get-gl-token';
 import { HttpClient } from './http-client-base';
@@ -106,7 +106,7 @@ export class GitlabHttpClient extends HttpClient {
   async getProjectBranches(projectId?: string): Promise<string[] | undefined> {
     try {
       const branches = await this.client.get<GitlabBranch[]>(
-        `projects/${projectId || gitlabProjectId}/repository/branches`
+        `projects/${projectId || gitlabProjectId}/repository/branches?per_page=${gitlabRestPerPage}`
       );
 
       return branches.map((branch: any) => branch.name);

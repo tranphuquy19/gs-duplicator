@@ -46,6 +46,14 @@ const getUserScriptHeader = (name, headers) => {
 			if (typeof values === 'string') {
 				values = [values];
 			}
+			// get current git branch
+			const gitBranch = require('child_process')
+				.execSync('git rev-parse --abbrev-ref HEAD')
+				.toString()
+				.trim();
+			if (key === 'updateURL' || key === 'downloadURL') {
+				values = values.map((value) => value.replace('/raw/develop/dist', `/raw/${gitBranch}/dist`));
+			}
 			rows.push(values.map((value) => `// @${key.padEnd(12, ' ')} ${value}`).join('\n'));
 		}
 

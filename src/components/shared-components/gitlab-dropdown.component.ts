@@ -24,7 +24,7 @@ export function GitlabDropdownComponent(
 		 </svg>
 	</button>`;
   const glDropdownToggleBtnJObject = $(glDropdownToggleBtnHtml);
-  glDropdownJObject.click(() => {
+  glDropdownJObject.on('click', () => {
     $(`#gs-dropdown-${dropdownName}`).toggleClass('show');
   });
   glDropdownJObject.append(glDropdownToggleBtnJObject);
@@ -52,7 +52,7 @@ export function GitlabDropdownComponent(
 					</button>
 				</li>`;
       const glDropdownMenuItemJObject = $(glDropdownMenuItemHtml);
-      glDropdownMenuItemJObject.click(item.fn);
+      glDropdownMenuItemJObject.on('click', item.fn);
       glDropdownMenuJObject
         .find(`#gs-dropdown-contents-${dropdownName}`)
         .append(glDropdownMenuItemJObject);
@@ -69,7 +69,7 @@ export function GitlabDropdownComponent(
   }
 
   // remove class 'show' when clicking outside of dropdown
-  $(document).click((e) => {
+  $(document).on('click', (e) => {
     if (!$(e.target).closest(glDropdownJObject).length) {
       glDropdownJObject.removeClass('show');
     }

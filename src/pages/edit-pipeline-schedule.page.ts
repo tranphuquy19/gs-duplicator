@@ -28,7 +28,7 @@ export const editPipelineSchedulePage = async () => {
     .trim();
 
   if (revealValuesBtn) {
-    revealValuesBtn.click();
+    revealValuesBtn.on('click', () => {});
   }
 
   const fullPath = getProjectFullPath(window.location.pathname as string);
@@ -173,7 +173,7 @@ export const editPipelineSchedulePage = async () => {
     reloadForm(isShowDropdown);
   }
 
-  showValueOptionsDropdownCheckbox.click((e) => {
+  showValueOptionsDropdownCheckbox.on('click', (e) => {
     if (e.target.nodeName !== 'INPUT') return;
     else {
       const isChecked = $('#show_dropdown_checkbox').is(':checked');

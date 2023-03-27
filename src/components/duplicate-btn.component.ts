@@ -15,7 +15,7 @@ export function DuplicateBtnComponent(scheduleId?: string) {
 		</a>`;
   const duplicateBtnJObject = $(duplicateBtnHtml);
   // add click event to the duplicateBtn
-  duplicateBtnJObject.click(async () => {
+  duplicateBtnJObject.on('click', async function () {
     const glClient = GitlabHttpClient.getInstance();
     const schedule = await glClient.getPipeLineScheduleById(scheduleId);
     if (!schedule) return;

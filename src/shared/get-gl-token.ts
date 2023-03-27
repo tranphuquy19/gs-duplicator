@@ -1,4 +1,4 @@
-import { gitlabTokenLocalStorageKey } from '@/config';
+import { gitlabTokenLocalStorageKey, saveGitlabToken } from '@/config';
 
 export function getTokenFromLocalStorage(): string {
   const _lsToken = window.atob(localStorage.getItem(gitlabTokenLocalStorageKey) || '');
@@ -12,7 +12,7 @@ export function getTokenFromLocalStorage(): string {
 export function getGitlabToken(): string {
   const inputToken = prompt('Invalid Gitlab token. Please enter a valid token:');
   if (inputToken && inputToken.length > 0) {
-    localStorage.setItem(gitlabTokenLocalStorageKey, window.btoa(inputToken));
+    saveGitlabToken(inputToken);
     return inputToken;
   } else {
     throw new Error('token is required');

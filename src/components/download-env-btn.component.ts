@@ -14,7 +14,7 @@ export function DownloadEnvBtnComponent(scheduleId?: string) {
 		</a>`;
   const downloadEnvBtnJObject = $(downloadEnvBtnHtml);
   // add click event to the downloadEnvBtn
-  downloadEnvBtnJObject.click(async () => {
+  downloadEnvBtnJObject.on('click', async () => {
     const glClient = GitlabHttpClient.getInstance();
     const schedule = await glClient.getPipeLineScheduleById(scheduleId);
     if (!schedule) return;

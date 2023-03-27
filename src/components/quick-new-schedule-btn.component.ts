@@ -6,8 +6,8 @@ export function QuickNewScheduleBtnComponent() {
 		<span>Quick new schedule</span>
 	</a>`;
   const quickNewScheduleBtnJObject = $(quickNewScheduleBtnHtml);
-  quickNewScheduleBtnJObject.click(async () => {
-    $(`#gs-dropdown-choose-branch`).show();
+  quickNewScheduleBtnJObject.on('click', function () {
+    $(`#gs-dropdown-choose-branch`).toggle();
   });
   return quickNewScheduleBtnJObject;
 }

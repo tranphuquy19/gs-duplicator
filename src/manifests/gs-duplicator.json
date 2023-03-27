@@ -6,7 +6,7 @@
     "https://gitlab.com/*/pipeline_schedules*",
     "https://*.gitlab.com/*/pipeline_schedules*"
   ],
-  "grant": "none",
+  "grant": ["GM_addStyle"],
   "run-at": "document-end",
   "updateURL": "https://gitlab.com/tranphuquy19/gs-duplicator/-/raw/main/dist/gs-duplicator.user.js",
   "downloadURL": "https://gitlab.com/tranphuquy19/gs-duplicator/-/raw/main/dist/gs-duplicator.user.js",

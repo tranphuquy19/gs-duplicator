@@ -17,8 +17,6 @@ export function GitlabToolSettingsBtnComponent() {
 
   const addModal = () => {
     const modalJObject = GitlabToolSettingsModalComponent((eventType, payload) => {
-      console.log('modalJObject', eventType, payload);
-
       switch (eventType) {
         case 'close':
         case 'cancel':

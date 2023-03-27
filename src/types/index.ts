@@ -8,3 +8,4 @@ export * from './gitlab-branch.dto';
 export * from './gitlab-ciconfigvariable.dto';
 export * from './gitlab-pipeline.dto';
 export * from './gitlab-edit-var-row.interface';
+export * from './gitlab-tool-settings.interface';

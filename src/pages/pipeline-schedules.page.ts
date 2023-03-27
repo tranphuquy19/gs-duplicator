@@ -3,6 +3,7 @@ import {
   DownloadEnvBtnComponent,
   QuickNewScheduleBtnComponent,
   ChooseBranchDropdownComponent,
+  GitlabToolSettingsBtnComponent,
 } from '@/components';
 import { getGitlabScheduleIdFromUrl } from '@/shared';
 
@@ -29,8 +30,10 @@ export const pipelineSchedulesPage = async () => {
   const newScheduleBtns = $('.btn.btn-confirm:contains("New schedule")');
   const newScheduleBtn = $(newScheduleBtns.get());
   const quickNewScheduleBtn = QuickNewScheduleBtnComponent();
+  const settingsBtn = GitlabToolSettingsBtnComponent();
   if (quickNewScheduleBtn) {
     quickNewScheduleBtn.insertBefore(newScheduleBtn);
+    settingsBtn.insertAfter(newScheduleBtn);
   }
 
   const glChooseBranchDropdown = await ChooseBranchDropdownComponent();

@@ -28,7 +28,7 @@ export const editPipelineSchedulePage = async () => {
     .trim();
 
   if (revealValuesBtn) {
-    revealValuesBtn.on('click', () => {});
+    revealValuesBtn.trigger('click');
   }
 
   const fullPath = getProjectFullPath(window.location.pathname as string);

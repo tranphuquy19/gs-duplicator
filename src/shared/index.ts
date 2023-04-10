@@ -7,3 +7,4 @@ export * from './get-gl-token';
 export * from './gitlab-graphql-client';
 export * from './markdown-converter';
 export * from './var-option-storage';
+export * from './collections';

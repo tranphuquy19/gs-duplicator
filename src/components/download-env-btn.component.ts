@@ -1,7 +1,14 @@
 import $ from 'jquery/dist/jquery.slim';
 
-import { gitlabSvgIconUrl } from '@/config';
-import { downloadEnvFile, GitlabHttpClient } from '@/shared';
+import { gitlabDefaultPipelineSchedule, gitlabSvgIconUrl, includeAllVariables } from '@/config';
+import {
+  downloadEnvFile,
+  getProjectFullPath,
+  GitlabGraphqlClient,
+  GitlabHttpClient,
+  leftJoin,
+} from '@/shared';
+import { GitlabScheduleVariable } from '@/types';
 
 export function DownloadEnvBtnComponent(scheduleId?: string) {
   if (!scheduleId) {
@@ -16,10 +23,38 @@ export function DownloadEnvBtnComponent(scheduleId?: string) {
   // add click event to the downloadEnvBtn
   downloadEnvBtnJObject.on('click', async () => {
     const glClient = GitlabHttpClient.getInstance();
+    const glGraphqlClient = GitlabGraphqlClient.getInstance();
+    const variables: GitlabScheduleVariable[] = [];
     const schedule = await glClient.getPipeLineScheduleById(scheduleId);
     if (!schedule) return;
+    console.log('schedule', schedule);
 
-    downloadEnvFile(schedule.variables ?? [], schedule.description);
+    if (includeAllVariables) {
+      const fullPath = getProjectFullPath(window.location.pathname as string);
+
+      const ciVariables =
+        (await glGraphqlClient.getCiConfigVariables(
+          fullPath,
+          schedule?.ref || gitlabDefaultPipelineSchedule.ref
+        )) || [];
+      console.log('ciVariables', ciVariables);
+
+      // left join ciVariables and schedule.variables
+      const joined = leftJoin<GitlabScheduleVariable, 'key'>(
+        ciVariables,
+        schedule?.variables ?? [],
+        'key',
+        (left, right) => ({
+          ...left,
+          ...right,
+        })
+      );
+      variables.push(...joined);
+    } else {
+      variables.push(...(schedule?.variables ?? []));
+    }
+
+    downloadEnvFile(variables, schedule.description);
   });
   return downloadEnvBtnJObject;
 }

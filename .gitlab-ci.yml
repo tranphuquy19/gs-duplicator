@@ -28,6 +28,12 @@ variables:
   DEPLOY_BRANCH3:
     value: "main"
     description: "[$glBranches(42014162), inline-branch-1, inline-branch-2] - Branch to deploy to"
+  EXTERNAL_VAR1:
+    value: "external-value1"
+    description: "External variable 1"
+  EXTERNAL_VAR2:
+    value: "external-value2"
+    description: "External variable 2"
 
 build:
   stage: build

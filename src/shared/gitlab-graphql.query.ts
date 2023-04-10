@@ -1,7 +1,7 @@
 export const getCiConfigVariablesQueryStr = `query ciConfigVariables($fullPath: ID!, $ref: String!) {
   project(fullPath: $fullPath) {
     id
-    ciConfigVariables(sha: $ref) {
+    ciConfigVariables(ref: $ref) {
       description
       key
       value

@@ -4,7 +4,7 @@ const gitlabTokenLocalStorageKey = 'gitlab_token';
 const gitlabUrl = document.location.origin;
 const gitlabApiUrl = `${gitlabUrl}/api/v4`;
 const gitlabGraphqlUrl = `${gitlabUrl}/api/graphql`;
-const gitlabProjectId = (<HTMLInputElement>document.querySelector('#project_id'))?.value;
+const gitlabProjectId = (<HTMLInputElement>document.querySelector('#project_id'))?.value || document.querySelector('body')?.getAttribute('data-project-id');
 const gitlabToken = window.atob(localStorage.getItem(gitlabTokenLocalStorageKey) || '');
 
 let includeAllVariables = false;

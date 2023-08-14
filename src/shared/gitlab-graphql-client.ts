@@ -8,7 +8,8 @@ import {
   GlGetCiConfigVariableResponse,
 } from '@/types';
 import { getGitlabToken, getTokenFromLocalStorage } from './get-gl-token';
-import { getCiConfigVariablesQueryStr } from './gitlab-graphql.query';
+import { getCiConfigVariablesQueryStr, getPipelineSchedulesQueryStr } from './gitlab-graphql.query';
+import { getScheduleIdFromGid } from './gitlab-resource-extractor';
 import { HttpClient } from './http-client-base';
 
 export class GitlabGraphqlClient extends HttpClient {
@@ -69,6 +70,27 @@ export class GitlabGraphqlClient extends HttpClient {
         this._handleUnauthorizedError(error);
       }
     }
+  }
+
+  async getPipelineSchedulesQuery(projectPath: string): Promise<any> {
+    const { data } = await this.client.post('', {
+      operationName: 'getPipelineSchedulesQuery',
+      query: getPipelineSchedulesQueryStr,
+      variables: {
+        ids: null,
+        projectPath,
+      },
+    });
+    return data;
+  }
+
+  async getPipelineScheduleIdsQuery(projectPath: string): Promise<any[]> {
+    const res = await this.getPipelineSchedulesQuery(projectPath);
+    console.log('getPipelineScheduleIdsQuery', res);
+
+    return res?.project?.pipelineSchedules?.nodes?.map((node: any) => {
+      return getScheduleIdFromGid(node.id);
+    });
   }
 
   private _init() {

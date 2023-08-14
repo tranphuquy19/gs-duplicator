@@ -26,6 +26,13 @@ export const getOptionsFromVarDescription = (description: string): string[] => {
   return match?.[1]?.split(',').map((value) => value.trim()) || [];
 };
 
+export const getScheduleIdFromGid = (gid: string): string => {
+  //gid://gitlab/Ci::PipelineSchedule/<six_digits>
+  const regex = /\/(\d+)$/;
+  const match = gid.match(regex);
+  return match?.[1] || '';
+};
+
 /**
  * Get project id from template variable string format '$glBranches(:project_id)'
  * @param varStr sample string: '$glBranches(41703858)'

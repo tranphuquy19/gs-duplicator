@@ -7,7 +7,7 @@ let glToolsSettingsModalOpenedState = false;
 
 export function GitlabToolSettingsBtnComponent() {
   const glToolSettingsBtnHtml = `
-	<a class="btn gl-button btn-default">
+	<a class="btn gl-button btn-default ml-2">
 		<svg class="s16" data-testid="settings-icon">
 				<use href="${gitlabSvgIconUrl}#settings"></use>
 		</svg>

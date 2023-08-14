@@ -2,7 +2,7 @@ import $ from 'jquery/dist/jquery.slim';
 
 export function QuickNewScheduleBtnComponent() {
   const quickNewScheduleBtnHtml = `
-	<a class="btn gl-button btn-success">
+	<a class="btn gl-button btn-success mr-2">
 		<span>Quick new schedule</span>
 	</a>`;
   const quickNewScheduleBtnJObject = $(quickNewScheduleBtnHtml);

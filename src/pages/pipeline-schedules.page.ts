@@ -12,10 +12,12 @@ export const pipelineSchedulesPage = async () => {
   const fullPath = getProjectFullPath(window.location.pathname as string);
   const pipeLineIds = await glGraphqlClient.getPipelineScheduleIdsQuery(fullPath);
 
-  const btnGroup = $('.tab-pane.active').find('.btn-group');
-
   // find the buttons with attribute title="Play" in the btnGroup
-  const playBtns = btnGroup.find(`[title='Run pipeline schedule']`);
+  let playBtns = $('.tab-pane.active').find('.btn-group').find(`[title='Run pipeline schedule']`);
+  if (playBtns.length === 0) {
+    playBtns = $('.btn-group').find(`[title='Play']`);
+  }
+
   for (const [index, btnItem] of Array.from(playBtns).entries()) {
     const editBtn = $(btnItem);
     // const playBtnHref = editBtn.attr('href') as string;

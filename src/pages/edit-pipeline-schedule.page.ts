@@ -1,5 +1,6 @@
 import {
   GitlabCheckboxComponent,
+  GitlabRemoveVariableRowComponent,
   GitlabSelectionComponent,
   VarDescriptionComponent,
 } from '@/components';
@@ -17,6 +18,19 @@ import {
   GitlabScheduleVariableTypes,
   IUpdatePipelineScheduleUIVariable,
 } from '@/types';
+
+const getPersistedVariables = () => {
+  let persistedVariables: JQuery<HTMLElement> | HTMLElement[] = $(
+    'div[data-qa-selector="ci_variable_row_container"]'
+  );
+  if (persistedVariables.length === 0) {
+    console.error('[GitLab Duplicator]-persistedVariables is empty');
+  } else {
+    // remove last persistedVariables item from array
+    persistedVariables = Array.from(persistedVariables).slice(0, -1);
+  }
+  return persistedVariables;
+};
 
 export const editPipelineSchedulePage = async () => {
   const isShowDropdown = true;
@@ -58,21 +72,7 @@ export const editPipelineSchedulePage = async () => {
   await varOptionStorage.setOptions(descriptionOption);
   const keyOptions = varOptionStorage.getOptions();
 
-  let persistedVariables: JQuery<HTMLElement> | HTMLElement[] = $(
-    'div[data-qa-selector="ci_variable_row_container"]'
-  );
-  // persistedVariables
-  //   .attr('style', 'flex-direction: column;')
-  //   .addClass(['border-bottom', 'pb2'])
-  //   .find('.ci-variable-row-body')
-  //   .removeClass('border-bottom')
-  //   .attr('style', 'padding-bottom: 4px;');
-  if (persistedVariables.length === 0) {
-    console.error('[GitLab Duplicator]-persistedVariables is empty');
-  } else {
-    // remove last persistedVariables item from array
-    persistedVariables = Array.from(persistedVariables).slice(0, -1);
-  }
+  const persistedVariables = getPersistedVariables();
 
   // Activated checkbox
   const checkBoxRow = $('.gl-form-checkbox.gl-mb-3.custom-control.custom-checkbox');
@@ -94,10 +94,10 @@ export const editPipelineSchedulePage = async () => {
 
     //#region Get components
     const variableTypeSelect = persistedVariableRow.find(
-      'select[name="schedule[variables_attributes][][variable_type]"]'
+      'button.btn.dropdown-toggle.gl-dropdown-toggle'
     );
 
-    const variableType = variableTypeSelect.val() as GitlabScheduleVariableTypes;
+    const variableType = variableTypeSelect.text().trim() as GitlabScheduleVariableTypes;
 
     const variableKeyInput = persistedVariableRow.find(
       'input[data-qa-selector="ci_variable_key_field"]'
@@ -111,6 +111,18 @@ export const editPipelineSchedulePage = async () => {
 
     const variableSecretValue = variableSecretValueInput.val() as string;
 
+    const removeVariableBtn = persistedVariableRow.find(
+      'button[data-testid="remove-ci-variable-row"'
+    );
+    removeVariableBtn.addClass('origin-remove-variable-btn');
+
+    removeVariableBtn.hide();
+    const newRemoveVariableBtn = GitlabRemoveVariableRowComponent();
+    newRemoveVariableBtn.insertAfter(removeVariableBtn);
+    newRemoveVariableBtn.on('click', () => {
+      persistedVariableRow.remove();
+    });
+
     //#endregion
 
     //#region Adding var description
@@ -119,6 +131,9 @@ export const editPipelineSchedulePage = async () => {
       const varDescriptionComponent = VarDescriptionComponent(
         convertMarkdownToHtml(descriptionTxt)
       );
+      removeVariableBtn.on('click', () => {
+        varDescriptionComponent.remove();
+      });
       // varDescriptionComponent.insertAfter(persistedVariableRow.find('.ci-variable-row'));
       persistedVariableRow.append(varDescriptionComponent);
     } else {
@@ -204,6 +219,8 @@ export const editPipelineSchedulePage = async () => {
       reloadForm(isChecked);
       editPipelineScheduleBtn.show();
       newEditPipelineScheduleBtn.hide();
+      $('.origin-remove-variable-btn').show();
+      $('.custom-remove-variable-btn').hide();
     }
   });
 
@@ -234,15 +251,8 @@ export const editPipelineSchedulePage = async () => {
 
   newEditPipelineScheduleBtn.on('click', async () => {
     const updatedVariables: IUpdatePipelineScheduleUIVariable[] = [];
-    let crtPersistedVariables: JQuery<HTMLElement> | HTMLElement[] = $(
-      'div[data-qa-selector="ci_variable_row_container"]'
-    );
-    if (crtPersistedVariables.length === 1) {
-      console.error('[GitLab Duplicator]-persistedVariables is empty');
-    } else {
-      // remove last persistedVariables item from array
-      crtPersistedVariables = Array.from(crtPersistedVariables).slice(0, -1);
-    }
+    const crtPersistedVariables = getPersistedVariables();
+
     for (const persistedVariable of crtPersistedVariables) {
       const persistedVariableRow = $(persistedVariable);
       const variableKeyInput = persistedVariableRow.find(

@@ -27,7 +27,6 @@ export function DownloadEnvBtnComponent(scheduleId?: string) {
     const variables: GitlabScheduleVariable[] = [];
     const schedule = await glClient.getPipeLineScheduleById(scheduleId);
     if (!schedule) return;
-    console.log('schedule', schedule);
 
     if (includeAllVariables) {
       const fullPath = getProjectFullPath(window.location.pathname as string);
@@ -37,7 +36,6 @@ export function DownloadEnvBtnComponent(scheduleId?: string) {
           fullPath,
           schedule?.ref || gitlabDefaultPipelineSchedule.ref
         )) || [];
-      console.log('ciVariables', ciVariables);
 
       // left join ciVariables and schedule.variables
       const joined = leftJoin<GitlabScheduleVariable, 'key'>(

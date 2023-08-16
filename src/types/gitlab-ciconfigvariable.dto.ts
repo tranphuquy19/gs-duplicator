@@ -3,7 +3,7 @@ export interface GitlabCiConfigVariable {
   key: string;
   value: string;
   valueOptions?: any;
-  __typename: string;
+  __typename?: string;
 }
 
 export interface GitlabProject {

@@ -9,8 +9,14 @@ import {
   getProjectFullPath,
   GitlabGraphqlClient,
   VarOptionStorage,
+  $,
+  getScheduleIdFromUrl,
 } from '@/shared';
-import { GitlabEditVarRow, GitlabScheduleVariableTypes } from '@/types';
+import {
+  GitlabEditVarRow,
+  GitlabScheduleVariableTypes,
+  IUpdatePipelineScheduleUIVariable,
+} from '@/types';
 
 export const editPipelineSchedulePage = async () => {
   const isShowDropdown = true;
@@ -18,10 +24,17 @@ export const editPipelineSchedulePage = async () => {
   const varOptionStorage = VarOptionStorage.getInstance();
   const glGraphqlClient = GitlabGraphqlClient.getInstance();
 
-  const revealValuesBtn = $('.js-secret-value-reveal-button');
-  $('.ci-variable-row-remove-button').css({ 'margin-left': '3rem' });
+  const revealValuesBtn = $('button[data-testid="variable-security-btn"');
+  // $('.ci-variable-row-remove-button').css({ 'margin-left': '3rem' });
 
-  const currentBranch = $('div[data-testid=schedule-target-ref]')
+  const editPipelineScheduleBtn = $('button[data-testid="schedule-submit-button"');
+  editPipelineScheduleBtn.hide();
+  const newEditPipelineScheduleBtn = $(
+    '<button type="button" class="btn btn-confirm btn-md gl-button">Edit pipeline schedule</button>'
+  );
+  newEditPipelineScheduleBtn.insertAfter(editPipelineScheduleBtn);
+
+  const currentBranch = $('div[id="schedule-target-branch-tag"]')
     .find('button')
     .first()
     .text()
@@ -45,33 +58,39 @@ export const editPipelineSchedulePage = async () => {
   await varOptionStorage.setOptions(descriptionOption);
   const keyOptions = varOptionStorage.getOptions();
 
-  const persistedVariables = $('.js-row.ci-variable-row[data-is-persisted="true"]');
-  persistedVariables
-    .attr('style', 'flex-direction: column;')
-    .addClass(['border-bottom', 'pb2'])
-    .find('.ci-variable-row-body')
-    .removeClass('border-bottom')
-    .attr('style', 'padding-bottom: 4px;');
+  let persistedVariables: JQuery<HTMLElement> | HTMLElement[] = $(
+    'div[data-qa-selector="ci_variable_row_container"]'
+  );
+  // persistedVariables
+  //   .attr('style', 'flex-direction: column;')
+  //   .addClass(['border-bottom', 'pb2'])
+  //   .find('.ci-variable-row-body')
+  //   .removeClass('border-bottom')
+  //   .attr('style', 'padding-bottom: 4px;');
+  if (persistedVariables.length === 0) {
+    console.error('[GitLab Duplicator]-persistedVariables is empty');
+  } else {
+    // remove last persistedVariables item from array
+    persistedVariables = Array.from(persistedVariables).slice(0, -1);
+  }
 
-  const checkBoxRow = $('.js-pipeline-schedule-form.pipeline-schedule-form')
-    .find('.form-group.row')
-    .last();
-  const activatedCheckboxCol = checkBoxRow.find('.col-md-9');
-  activatedCheckboxCol.attr('class', 'col-md-2');
+  // Activated checkbox
+  const checkBoxRow = $('.gl-form-checkbox.gl-mb-3.custom-control.custom-checkbox');
 
   const showValueOptionsDropdownCheckbox = GitlabCheckboxComponent(
     'Show dropdown(s)',
     'Turn on',
-    'col-md-2',
+    'pl-0',
     isShowDropdown,
     'show_dropdown_checkbox'
   );
-  showValueOptionsDropdownCheckbox.insertAfter(activatedCheckboxCol);
+  showValueOptionsDropdownCheckbox.insertAfter(checkBoxRow);
 
   const _rows: GitlabEditVarRow[] = [];
 
   for (const persistedVariable of persistedVariables) {
     const persistedVariableRow = $(persistedVariable);
+    persistedVariableRow.find('div[data-testid="ci-variable-row"').removeClass('gl-mb-3 gl-pb-2');
 
     //#region Get components
     const variableTypeSelect = persistedVariableRow.find(
@@ -81,13 +100,15 @@ export const editPipelineSchedulePage = async () => {
     const variableType = variableTypeSelect.val() as GitlabScheduleVariableTypes;
 
     const variableKeyInput = persistedVariableRow.find(
-      'input[name="schedule[variables_attributes][][key]"]'
+      'input[data-qa-selector="ci_variable_key_field"]'
     );
+
     const variableKey = variableKeyInput.val() as string;
 
     const variableSecretValueInput = persistedVariableRow.find(
-      'textarea[name="schedule[variables_attributes][][secret_value]"]'
+      'textarea[data-qa-selector="ci_variable_value_field"]'
     );
+
     const variableSecretValue = variableSecretValueInput.val() as string;
 
     //#endregion
@@ -98,7 +119,8 @@ export const editPipelineSchedulePage = async () => {
       const varDescriptionComponent = VarDescriptionComponent(
         convertMarkdownToHtml(descriptionTxt)
       );
-      varDescriptionComponent.insertAfter(persistedVariableRow.find('.ci-variable-row-body'));
+      // varDescriptionComponent.insertAfter(persistedVariableRow.find('.ci-variable-row'));
+      persistedVariableRow.append(varDescriptionComponent);
     } else {
       persistedVariableRow.find('.ci-variable-row-body').attr('style', 'padding-bottom: 16px;');
     }
@@ -114,7 +136,8 @@ export const editPipelineSchedulePage = async () => {
       variableSecretValueDropdown = GitlabSelectionComponent(
         keyOptions[variableKey] || [],
         variableSecretValue,
-        'schedule[variables_attributes][][secret_value]',
+        'pipeline-form-ci-variable-value',
+        'ci_variable_value_field',
         (value) => {
           console.log('value', value);
         }
@@ -148,7 +171,8 @@ export const editPipelineSchedulePage = async () => {
             row.clone.valueInput = GitlabSelectionComponent(
               keyOptions[row.key] || [],
               currentValue,
-              'schedule[variables_attributes][][secret_value]',
+              'pipeline-form-ci-variable-value',
+              'ci_variable_value_field',
               (value) => {
                 console.log('value', value);
               }
@@ -178,6 +202,8 @@ export const editPipelineSchedulePage = async () => {
     else {
       const isChecked = $('#show_dropdown_checkbox').is(':checked');
       reloadForm(isChecked);
+      editPipelineScheduleBtn.show();
+      newEditPipelineScheduleBtn.hide();
     }
   });
 
@@ -204,5 +230,46 @@ export const editPipelineSchedulePage = async () => {
       }
     }
   });
+  //#endregion
+
+  newEditPipelineScheduleBtn.on('click', async () => {
+    const updatedVariables: IUpdatePipelineScheduleUIVariable[] = [];
+    let crtPersistedVariables: JQuery<HTMLElement> | HTMLElement[] = $(
+      'div[data-qa-selector="ci_variable_row_container"]'
+    );
+    if (crtPersistedVariables.length === 1) {
+      console.error('[GitLab Duplicator]-persistedVariables is empty');
+    } else {
+      // remove last persistedVariables item from array
+      crtPersistedVariables = Array.from(crtPersistedVariables).slice(0, -1);
+    }
+    for (const persistedVariable of crtPersistedVariables) {
+      const persistedVariableRow = $(persistedVariable);
+      const variableKeyInput = persistedVariableRow.find(
+        'input[data-qa-selector="ci_variable_key_field"]'
+      );
+      const variableKey = variableKeyInput.val() as string;
+      if (variableKey === undefined) continue;
+
+      const variableSecretValueInput = persistedVariableRow.find(
+        '[data-qa-selector="ci_variable_value_field"]'
+      );
+      const variableSecretValue = variableSecretValueInput.val() as string;
+      if (variableSecretValue === undefined) continue;
+
+      updatedVariables.push({
+        key: variableKey,
+        value: variableSecretValue,
+      });
+    }
+    await glGraphqlClient.updatePipelineSchedule(
+      getScheduleIdFromUrl(window.location.pathname as string),
+      fullPath,
+      updatedVariables
+    );
+    // navigate to pipeline schedules page
+    window.location.href = `${window.location.origin}/${fullPath}/-/pipeline_schedules`;
+  });
+
   //#endregion
 };

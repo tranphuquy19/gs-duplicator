@@ -2,13 +2,21 @@ import { AxiosError, AxiosRequestConfig } from 'axios';
 
 import { gitlabGraphqlUrl } from '@/config';
 import {
+  GetPipelineSchedules,
   GitlabCiConfigVariable,
   GitlabScheduleVariable,
   GitlabScheduleVariableTypes,
   GlGetCiConfigVariableResponse,
+  IUpdatePipelineScheduleUIVariable,
+  PipelineScheduleData,
+  PipelineScheduleVariable,
 } from '@/types';
 import { getGitlabToken, getTokenFromLocalStorage } from './get-gl-token';
-import { getCiConfigVariablesQueryStr, getPipelineSchedulesQueryStr } from './gitlab-graphql.query';
+import {
+  getCiConfigVariablesQueryStr,
+  getPipelineSchedulesQueryStr,
+  updatePipelineScheduleMutationStr,
+} from './gitlab-graphql.query';
 import { getScheduleIdFromGid } from './gitlab-resource-extractor';
 import { HttpClient } from './http-client-base';
 
@@ -72,12 +80,21 @@ export class GitlabGraphqlClient extends HttpClient {
     }
   }
 
-  async getPipelineSchedulesQuery(projectPath: string): Promise<any> {
-    const { data } = await this.client.post('', {
+  /**
+   * Get Gitlab pipeline schedules by ids
+   * @param projectPath
+   * @param ids - let null to get all schedules
+   * @returns
+   */
+  async getPipelineSchedulesQuery(
+    projectPath: string,
+    ids: string | null = null
+  ): Promise<PipelineScheduleData> {
+    const { data } = await this.client.post<GetPipelineSchedules>('', {
       operationName: 'getPipelineSchedulesQuery',
       query: getPipelineSchedulesQueryStr,
       variables: {
-        ids: null,
+        ids: ids,
         projectPath,
       },
     });
@@ -86,11 +103,92 @@ export class GitlabGraphqlClient extends HttpClient {
 
   async getPipelineScheduleIdsQuery(projectPath: string): Promise<any[]> {
     const res = await this.getPipelineSchedulesQuery(projectPath);
-    console.log('getPipelineScheduleIdsQuery', res);
 
     return res?.project?.pipelineSchedules?.nodes?.map((node: any) => {
       return getScheduleIdFromGid(node.id);
     });
+  }
+
+  async updatePipelineSchedule(
+    pipelineScheduleId: string,
+    projectPath: string,
+    updatedVariables: IUpdatePipelineScheduleUIVariable[]
+  ): Promise<any> {
+    const crtPipelineSchedule = await this.getPipelineSchedulesQuery(
+      projectPath,
+      pipelineScheduleId
+    );
+
+    const crtPipelineScheduleVariables = crtPipelineSchedule.project.pipelineSchedules.nodes[0]
+      ?.variables.nodes as PipelineScheduleVariable[];
+
+    const _variables: PipelineScheduleVariable[] =
+      crtPipelineScheduleVariables?.map<PipelineScheduleVariable>(
+        (pipelineVariable: PipelineScheduleVariable) => {
+          const updatedVariable = updatedVariables.find(
+            (variable: IUpdatePipelineScheduleUIVariable) => variable.key === pipelineVariable.key
+          );
+          // check pipelineVariable is deleted by key
+          const isDeleted: boolean =
+            updatedVariables.findIndex(
+              (variable: IUpdatePipelineScheduleUIVariable) => variable.key === pipelineVariable.key
+            ) === -1;
+
+          return {
+            ...pipelineVariable,
+            __typename: undefined,
+            value: updatedVariable?.value || pipelineVariable.value,
+            destroy: isDeleted,
+          };
+        }
+      );
+
+    // check if there are new variables in updatedVariables by key
+    const newVariables = updatedVariables.filter((variable: IUpdatePipelineScheduleUIVariable) => {
+      return (
+        crtPipelineScheduleVariables?.findIndex(
+          (pipelineVariable: PipelineScheduleVariable) => pipelineVariable.key === variable.key
+        ) === -1
+      );
+    });
+
+    const _newVariables = newVariables.map<PipelineScheduleVariable>(
+      (_newVariable: IUpdatePipelineScheduleUIVariable) => {
+        return {
+          key: _newVariable.key,
+          value: _newVariable.value,
+          variableType: 'ENV_VAR',
+        };
+      }
+    );
+
+    if (newVariables.length > 0) {
+      _variables?.push(..._newVariables);
+    }
+
+    const payload = {
+      operationName: 'updatePipelineSchedule',
+      query: updatePipelineScheduleMutationStr,
+      variables: {
+        input: {
+          ...crtPipelineSchedule.project.pipelineSchedules.nodes[0],
+          __typename: undefined,
+          editPath: undefined,
+          forTag: undefined,
+          lastPipeline: undefined,
+          nextRunAt: undefined,
+          realNextRun: undefined,
+          refForDisplay: undefined,
+          refPath: undefined,
+          userPermissions: undefined,
+          owner: undefined,
+          variables: _variables,
+        },
+      },
+    };
+
+    const res = await this.client.post<any>('', payload);
+    return res;
   }
 
   private _init() {

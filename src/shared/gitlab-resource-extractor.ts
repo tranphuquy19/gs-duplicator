@@ -33,6 +33,13 @@ export const getScheduleIdFromGid = (gid: string): string => {
   return match?.[1] || '';
 };
 
+export const getScheduleIdFromUrl = (url: string): string => {
+  //https://gitlab.com/<project_path>/-/pipeline_schedules/<schedule_id>/edit?id=<schedule_id>
+  const regex = /\/pipeline_schedules\/(\d+)/;
+  const match = url.match(regex);
+  return match?.[1] || '';
+};
+
 /**
  * Get project id from template variable string format '$glBranches(:project_id)'
  * @param varStr sample string: '$glBranches(41703858)'

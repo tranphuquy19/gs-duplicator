@@ -1,7 +1,13 @@
 import { AxiosError, AxiosRequestConfig } from 'axios';
 
 import { gitlabApiUrl, gitlabProjectId, gitlabRestPerPage } from '@/config';
-import { GitlabBranch, GitlabPipeline, GitlabSchedule, GitlabScheduleVariable } from '@/types';
+import {
+  GitlabBranch,
+  GitlabCiConfigVariable,
+  GitlabPipeline,
+  GitlabSchedule,
+  GitlabScheduleVariable,
+} from '@/types';
 import { getGitlabToken, getTokenFromLocalStorage } from './get-gl-token';
 import { HttpClient } from './http-client-base';
 
@@ -110,6 +116,19 @@ export class GitlabHttpClient extends HttpClient {
       );
 
       return branches.map((branch: any) => branch.name);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        this._handleUnauthorizedError(error);
+      }
+    }
+  }
+
+  async getProjectVariables(projectId: string): Promise<GitlabCiConfigVariable | undefined> {
+    try {
+      const variables = await this.client.get<GitlabCiConfigVariable>(
+        `projects/${projectId}/variables`
+      );
+      return variables;
     } catch (error) {
       if (error instanceof AxiosError) {
         this._handleUnauthorizedError(error);

@@ -37,7 +37,7 @@ variables:
 
 build:
   stage: build
-  image: node:12
+  image: node:14
   script:
     - npm install
     - npm run build

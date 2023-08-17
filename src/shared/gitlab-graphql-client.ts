@@ -7,9 +7,10 @@ import {
   GitlabScheduleVariable,
   GitlabScheduleVariableTypes,
   GlGetCiConfigVariableResponse,
-  IUpdatePipelineScheduleUIVariable,
+  UpdatePipelineScheduleVariable,
   PipelineScheduleData,
   PipelineScheduleVariable,
+  UpdatePipelineSchedule,
 } from '@/types';
 import { getGitlabToken, getTokenFromLocalStorage } from './get-gl-token';
 import {
@@ -112,8 +113,9 @@ export class GitlabGraphqlClient extends HttpClient {
   async updatePipelineSchedule(
     pipelineScheduleId: string,
     projectPath: string,
-    updatedVariables: IUpdatePipelineScheduleUIVariable[]
+    updatedPipelineSchedule: UpdatePipelineSchedule
   ): Promise<any> {
+    const updatedVariables = updatedPipelineSchedule.variables;
     const crtPipelineSchedule = await this.getPipelineSchedulesQuery(
       projectPath,
       pipelineScheduleId
@@ -126,12 +128,12 @@ export class GitlabGraphqlClient extends HttpClient {
       crtPipelineScheduleVariables?.map<PipelineScheduleVariable>(
         (pipelineVariable: PipelineScheduleVariable) => {
           const updatedVariable = updatedVariables.find(
-            (variable: IUpdatePipelineScheduleUIVariable) => variable.key === pipelineVariable.key
+            (variable: UpdatePipelineScheduleVariable) => variable.key === pipelineVariable.key
           );
           // check pipelineVariable is deleted by key
           const isDeleted: boolean =
             updatedVariables.findIndex(
-              (variable: IUpdatePipelineScheduleUIVariable) => variable.key === pipelineVariable.key
+              (variable: UpdatePipelineScheduleVariable) => variable.key === pipelineVariable.key
             ) === -1;
 
           return {
@@ -144,7 +146,7 @@ export class GitlabGraphqlClient extends HttpClient {
       );
 
     // check if there are new variables in updatedVariables by key
-    const newVariables = updatedVariables.filter((variable: IUpdatePipelineScheduleUIVariable) => {
+    const newVariables = updatedVariables.filter((variable: UpdatePipelineScheduleVariable) => {
       return (
         crtPipelineScheduleVariables?.findIndex(
           (pipelineVariable: PipelineScheduleVariable) => pipelineVariable.key === variable.key
@@ -153,7 +155,7 @@ export class GitlabGraphqlClient extends HttpClient {
     });
 
     const _newVariables = newVariables.map<PipelineScheduleVariable>(
-      (_newVariable: IUpdatePipelineScheduleUIVariable) => {
+      (_newVariable: UpdatePipelineScheduleVariable) => {
         return {
           key: _newVariable.key,
           value: _newVariable.value,
@@ -172,6 +174,14 @@ export class GitlabGraphqlClient extends HttpClient {
       variables: {
         input: {
           ...crtPipelineSchedule.project.pipelineSchedules.nodes[0],
+          active: updatedPipelineSchedule.activate,
+          cron: updatedPipelineSchedule.cron,
+          cronTimezone: updatedPipelineSchedule.cronTimezone,
+          description: updatedPipelineSchedule.description,
+          ref: updatedPipelineSchedule.ref,
+          variables: _variables,
+
+          // remove unused fields
           __typename: undefined,
           editPath: undefined,
           forTag: undefined,
@@ -182,7 +192,6 @@ export class GitlabGraphqlClient extends HttpClient {
           refPath: undefined,
           userPermissions: undefined,
           owner: undefined,
-          variables: _variables,
         },
       },
     };

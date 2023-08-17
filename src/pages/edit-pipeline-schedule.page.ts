@@ -16,7 +16,8 @@ import {
 import {
   GitlabEditVarRow,
   GitlabScheduleVariableTypes,
-  IUpdatePipelineScheduleUIVariable,
+  UpdatePipelineSchedule,
+  UpdatePipelineScheduleVariable,
 } from '@/types';
 
 const getPersistedVariables = () => {
@@ -250,7 +251,7 @@ export const editPipelineSchedulePage = async () => {
   //#endregion
 
   newEditPipelineScheduleBtn.on('click', async () => {
-    const updatedVariables: IUpdatePipelineScheduleUIVariable[] = [];
+    const updatedVariables: UpdatePipelineScheduleVariable[] = [];
     const crtPersistedVariables = getPersistedVariables();
 
     for (const persistedVariable of crtPersistedVariables) {
@@ -272,10 +273,27 @@ export const editPipelineSchedulePage = async () => {
         value: variableSecretValue,
       });
     }
+
+    // get last div
+    const scheduleVueElement = $(
+      '#content-body > div.col-lg-8.gl-pl-0'
+    )?.get()[0] as HTMLDivElement & {
+      __vue__?: any;
+    };
+    const scheduleVueInstanceData = scheduleVueElement.__vue__.$data;
+
+    const updatedPipelineSchedule: UpdatePipelineSchedule = {
+      description: scheduleVueInstanceData.description,
+      cron: scheduleVueInstanceData.cron,
+      cronTimezone: scheduleVueInstanceData.cronTimezone,
+      ref: scheduleVueInstanceData.scheduleRef,
+      activate: scheduleVueInstanceData.activated,
+      variables: updatedVariables,
+    };
     await glGraphqlClient.updatePipelineSchedule(
       getScheduleIdFromUrl(window.location.pathname as string),
       fullPath,
-      updatedVariables
+      updatedPipelineSchedule
     );
     // navigate to pipeline schedules page
     window.location.href = `${window.location.origin}/${fullPath}/-/pipeline_schedules`;

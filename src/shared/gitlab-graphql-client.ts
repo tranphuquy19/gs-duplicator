@@ -139,7 +139,7 @@ export class GitlabGraphqlClient extends HttpClient {
           return {
             ...pipelineVariable,
             __typename: undefined,
-            value: updatedVariable?.value || pipelineVariable.value,
+            value: updatedVariable?.value || '',
             destroy: isDeleted,
           };
         }

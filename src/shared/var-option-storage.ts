@@ -16,6 +16,7 @@ export class VarOptionStorage {
     return VarOptionStorage.instance;
   }
 
+  // Extract the options from the variable description
   public async setOptions(options: { [key: string]: string[] }): Promise<void> {
     const promises: Promise<void>[] = [];
     for (const key of Object.keys(options)) {

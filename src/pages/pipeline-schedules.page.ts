@@ -5,12 +5,15 @@ import {
   GitlabToolSettingsBtnComponent,
   QuickNewScheduleBtnComponent,
 } from '@/components';
-import { GitlabGraphqlClient, getProjectFullPath } from '@/shared';
+import { GitlabGraphqlClient, getProjectFullPath, waitForElement } from '@/shared';
 
 export const pipelineSchedulesPage = async () => {
   const glGraphqlClient = GitlabGraphqlClient.getInstance();
   const fullPath = getProjectFullPath(window.location.pathname as string);
-  const pipeLineIds = await glGraphqlClient.getPipelineScheduleIdsQuery(fullPath);
+  const [pipeLineIds, _] = await Promise.all([
+    glGraphqlClient.getPipelineScheduleIdsQuery(fullPath),
+    waitForElement('tr[data-testid="pipeline-schedule-table-row"]'), // wait for the pipeline schedule table to be rendered
+  ]);
 
   // find the buttons with attribute title="Play" in the btnGroup
   let playBtns = $('.tab-pane.active').find('.btn-group').find(`[title='Run pipeline schedule']`);

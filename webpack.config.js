@@ -102,6 +102,7 @@ const main = async () => {
 									comment.value,
 								),
 						},
+						keep_classnames: false,
 						keep_fnames: false,
 						compress: true,
 					},
@@ -129,7 +130,7 @@ const main = async () => {
 			new CustomizedCleanWebpackPlugin(),
 			...(isStat ? [new BundleAnalyzerPlugin()] : []),
 		],
-		mode: 'development',
+		mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
 	};
 };
 

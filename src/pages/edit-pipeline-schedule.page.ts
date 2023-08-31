@@ -5,13 +5,14 @@ import {
   VarDescriptionComponent,
 } from '@/components';
 import {
+  $,
+  GitlabGraphqlClient,
+  VarOptionStorage,
   convertMarkdownToHtml,
   getOptionsFromVarDescription,
   getProjectFullPath,
-  GitlabGraphqlClient,
-  VarOptionStorage,
-  $,
   getScheduleIdFromUrl,
+  waitForElement,
 } from '@/shared';
 import {
   GitlabEditVarRow,
@@ -38,6 +39,14 @@ export const editPipelineSchedulePage = async () => {
 
   const varOptionStorage = VarOptionStorage.getInstance();
   const glGraphqlClient = GitlabGraphqlClient.getInstance();
+
+  // wait for the page to be rendered
+  await Promise.all([
+    waitForElement('div[data-qa-selector="ci_variable_row_container"]'),
+    waitForElement('button[data-testid="variable-security-btn"'),
+    waitForElement('button[data-testid="schedule-submit-button"'),
+    waitForElement('div[id="schedule-target-branch-tag"]'),
+  ]);
 
   const revealValuesBtn = $('button[data-testid="variable-security-btn"');
   // $('.ci-variable-row-remove-button').css({ 'margin-left': '3rem' });
@@ -91,7 +100,7 @@ export const editPipelineSchedulePage = async () => {
 
   for (const persistedVariable of persistedVariables) {
     const persistedVariableRow = $(persistedVariable);
-    persistedVariableRow.find('div[data-testid="ci-variable-row"').removeClass('gl-mb-3 gl-pb-2');
+    persistedVariableRow.find('div[data-testid="ci-variable-row"]').removeClass('gl-mb-3 gl-pb-2');
 
     //#region Get components
     const variableTypeSelect = persistedVariableRow.find(
@@ -113,7 +122,7 @@ export const editPipelineSchedulePage = async () => {
     const variableSecretValue = variableSecretValueInput.val() as string;
 
     const removeVariableBtn = persistedVariableRow.find(
-      'button[data-testid="remove-ci-variable-row"'
+      'button[data-testid="remove-ci-variable-row"]'
     );
     removeVariableBtn.addClass('origin-remove-variable-btn');
 
@@ -138,7 +147,9 @@ export const editPipelineSchedulePage = async () => {
       // varDescriptionComponent.insertAfter(persistedVariableRow.find('.ci-variable-row'));
       persistedVariableRow.append(varDescriptionComponent);
     } else {
-      persistedVariableRow.find('.ci-variable-row-body').attr('style', 'padding-bottom: 16px;');
+      persistedVariableRow
+        .find('div[data-testid="ci-variable-row"]')
+        .attr('style', 'padding-bottom: 16px;');
     }
     //#endregion
 

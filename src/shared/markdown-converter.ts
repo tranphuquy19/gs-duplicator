@@ -19,6 +19,23 @@ export function convertMarkdownToHtml(markdownString: string): string {
   const customOpenTagHtml = '&lt;$1&gt;';
   const customCloseTagHtml = '&lt;/$1&gt;';
 
+  // convert special characters between backticks to html entities
+  // get the text between backticks
+  const textBetweenBackticks = markdownString.match(/`(.*?)`/g);
+  if (textBetweenBackticks) {
+    textBetweenBackticks.forEach((text: string) => {
+      // get the text between backticks
+      const textWithoutBackticks = text.replace(/`/g, '');
+      // convert special characters to html entities
+      const div = document.createElement('div');
+      div.innerText = div.textContent = textWithoutBackticks;
+      const textWithHtmlEntities = div.innerHTML;
+      // replace the text between backticks with the text with html entities
+      markdownString = markdownString.replace(text, `\`${textWithHtmlEntities}\``);
+    });
+  }
+
+  // convert markdown to html
   const htmlString = markdownString
     .replace(customCloseTagRegex, customCloseTagHtml)
     .replace(customOpenTagRegex, customOpenTagHtml)

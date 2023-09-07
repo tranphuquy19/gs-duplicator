@@ -20,6 +20,11 @@ let gitlabDefaultPipelineSchedule = {
   ref: 'main',
 };
 let wrappedVarBy = '"';
+let replaceEnterWithN = true;
+let getTheOptionsFrom = 'var_description';
+let autoShowDropDown = true;
+let enableMarkdownVarDescription = true;
+let sortVarByName = true;
 
 const gitlabToolSettingsLSKey = 'gitlab-tool-settings';
 const gitlabToolSettings = localStorage.getItem(gitlabToolSettingsLSKey);
@@ -32,15 +37,25 @@ if (gitlabToolSettings === null) {
       gitlabSvgIconUrl,
       gitlabRestPerPage,
       includeAllVariables,
+      getTheOptionsFrom,
+      autoShowDropDown,
+      enableMarkdownVarDescription,
+      sortVarByName,
+      replaceEnterWithN,
     } as GitlabToolSettings)
   );
 } else {
-  const settings = JSON.parse(gitlabToolSettings);
+  const settings = JSON.parse(gitlabToolSettings) as GitlabToolSettings;
   gitlabDefaultPipelineSchedule = settings.gitlabDefaultPipelineSchedule;
   wrappedVarBy = settings.wrappedVarBy;
   gitlabSvgIconUrl = settings.gitlabSvgIconUrl;
   gitlabRestPerPage = settings.gitlabRestPerPage;
   includeAllVariables = settings.includeAllVariables;
+  getTheOptionsFrom = settings.getTheOptionsFrom;
+  autoShowDropDown = settings.autoShowDropDown;
+  enableMarkdownVarDescription = settings.enableMarkdownVarDescription;
+  sortVarByName = settings.sortVarByName;
+  replaceEnterWithN = settings.replaceEnterWithN;
 }
 
 const saveGitlabToken = (token: string) => {
@@ -68,6 +83,11 @@ export {
   gitlabDefaultPipelineSchedule,
   wrappedVarBy,
   includeAllVariables,
+  getTheOptionsFrom,
+  autoShowDropDown,
+  enableMarkdownVarDescription,
+  sortVarByName,
+  replaceEnterWithN,
   saveGitlabToken,
   saveGitlabToolSettings,
 };

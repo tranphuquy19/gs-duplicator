@@ -102,12 +102,14 @@ const main = async () => {
 									comment.value,
 								),
 						},
+						keep_classnames: false,
 						keep_fnames: false,
 						compress: true,
 					},
 				}),
 			],
 			moduleIds: 'size',
+			usedExports: true,
 		},
 		plugins: [
 			new webpack.BannerPlugin({
@@ -129,7 +131,7 @@ const main = async () => {
 			new CustomizedCleanWebpackPlugin(),
 			...(isStat ? [new BundleAnalyzerPlugin()] : []),
 		],
-		mode: 'development',
+		mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
 	};
 };
 

@@ -1,4 +1,4 @@
-import { wrappedVarBy } from '@/config';
+import { replaceEnterWithN, wrappedVarBy } from '@/config';
 import { GitlabScheduleVariable } from '@/types';
 
 function saveAs(blob: Blob, filename: string): void {
@@ -12,10 +12,13 @@ function saveAs(blob: Blob, filename: string): void {
 
 export function downloadEnvFile(variables: GitlabScheduleVariable[], description: string): void {
   const envFileContent = variables
-    .map(
-      (variable) =>
-        `${variable.key}=${wrappedVarBy}${variable.value.replaceAll('"', '\\"')}${wrappedVarBy}`
-    )
+    .map((variable) => {
+      const keyValue = `${variable.key}=${wrappedVarBy}${variable.value.replaceAll(
+        '"',
+        '\\"'
+      )}${wrappedVarBy}`;
+      return replaceEnterWithN ? keyValue.replaceAll('\n', '\\n') : keyValue;
+    })
     .join('\n');
   const blob = new Blob([envFileContent], { type: 'text/plain;charset=utf-8' });
   saveAs(blob, `${description}.env`);

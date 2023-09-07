@@ -108,7 +108,7 @@ export function GitlabToolSettingsModalComponent(
 								Get the options from: </label>
 							<div>
 								<select id="i-get-the-options-from" required="required" aria-required="true"
-									class="gl-form-select custom-select">
+									class="gl-form-select custom-select" disabled>
 									<option value="var_description">Variable description</option>
 									<option value="gitlab_variable_options"
 										title="See: https://docs.gitlab.com/ee/ci/yaml/#variablesoptions">Gitlab variable options</option>
@@ -122,7 +122,7 @@ export function GitlabToolSettingsModalComponent(
 						<div role="group" class="form-group gl-form-group mb-1">
 							<div class="gl-form-checkbox custom-control custom-checkbox">
 								<input id="i-schedule-page-auto-show-dropdown" type="checkbox" name="checkboxes-5"
-									class="custom-control-input" value="squash">
+									class="custom-control-input" disabled>
 								<label for="i-schedule-page-auto-show-dropdown" class="custom-control-label">Auto show dropdown(s)
 								</label>
 							</div>
@@ -130,7 +130,7 @@ export function GitlabToolSettingsModalComponent(
 						<div role="group" class="form-group gl-form-group mb-1">
 							<div class="gl-form-checkbox custom-control custom-checkbox">
 								<input id="i-enable-markdown-var-description" type="checkbox" name="checkboxes-6"
-									class="custom-control-input" value="squash">
+									class="custom-control-input" disabled>
 								<label for="i-enable-markdown-var-description" class="custom-control-label">Enable markdown variable
 									description
 								</label>
@@ -139,7 +139,7 @@ export function GitlabToolSettingsModalComponent(
 						<div role="group" class="form-group gl-form-group mb-1">
 							<div class="gl-form-checkbox custom-control custom-checkbox">
 								<input id="i-sort-var-by-name" type="checkbox" name="checkboxes-7" class="custom-control-input"
-									value="squash">
+									 disabled>
 								<label for="i-sort-var-by-name" class="custom-control-label">Sort variables by name (A-Z)
 								</label>
 							</div>

@@ -10,6 +10,7 @@ export interface GitlabToolSettings {
   autoShowDropDown: boolean;
   enableMarkdownVarDescription: boolean;
   sortVarByName: boolean;
+  replaceEnterWithN: boolean;
 }
 
 export interface GitlabDefaultPipelineSchedule {

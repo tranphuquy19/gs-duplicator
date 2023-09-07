@@ -109,6 +109,7 @@ const main = async () => {
 				}),
 			],
 			moduleIds: 'size',
+			usedExports: true,
 		},
 		plugins: [
 			new webpack.BannerPlugin({

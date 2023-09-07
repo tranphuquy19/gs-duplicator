@@ -20,6 +20,7 @@ let gitlabDefaultPipelineSchedule = {
   ref: 'main',
 };
 let wrappedVarBy = '"';
+let replaceEnterWithN = true;
 let getTheOptionsFrom = 'var_description';
 let autoShowDropDown = true;
 let enableMarkdownVarDescription = true;
@@ -40,6 +41,7 @@ if (gitlabToolSettings === null) {
       autoShowDropDown,
       enableMarkdownVarDescription,
       sortVarByName,
+      replaceEnterWithN,
     } as GitlabToolSettings)
   );
 } else {
@@ -53,6 +55,7 @@ if (gitlabToolSettings === null) {
   autoShowDropDown = settings.autoShowDropDown;
   enableMarkdownVarDescription = settings.enableMarkdownVarDescription;
   sortVarByName = settings.sortVarByName;
+  replaceEnterWithN = settings.replaceEnterWithN;
 }
 
 const saveGitlabToken = (token: string) => {
@@ -84,6 +87,7 @@ export {
   autoShowDropDown,
   enableMarkdownVarDescription,
   sortVarByName,
+  replaceEnterWithN,
   saveGitlabToken,
   saveGitlabToolSettings,
 };

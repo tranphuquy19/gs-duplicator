@@ -11,6 +11,7 @@ import {
   includeAllVariables,
   sortVarByName,
   wrappedVarBy,
+  replaceEnterWithN,
 } from '@/config';
 import { GetTheOptionsFrom } from '@/shared';
 import { GitlabDefaultPipelineSchedule, GitlabToolSettings } from '@/types';
@@ -232,6 +233,7 @@ export function GitlabToolSettingsModalComponent(
       .find('#i-enable-markdown-var-description')
       .prop('checked', enableMarkdownVarDescription);
     modalJObject.find('#i-sort-var-by-name').prop('checked', sortVarByName);
+    modalJObject.find('#i-replace-enter-with-n').prop('checked', replaceEnterWithN);
 
     const { active, cron, description, cron_timezone, ref } = gitlabDefaultPipelineSchedule;
     modalJObject.find('#i-default-schedule-description').val(description);
@@ -291,6 +293,7 @@ export function GitlabToolSettingsModalComponent(
       .prop('checked');
     const sortVarByName = modalJObject.find('#i-sort-var-by-name').prop('checked');
     const includeAllVariables = modalJObject.find('#i-include-all-variables').prop('checked');
+    const replaceEnterWithN = modalJObject.find('#i-replace-enter-with-n').prop('checked');
     const gitlabDefaultPipelineSchedule: GitlabDefaultPipelineSchedule = {
       active: modalJObject.find('#i-default-schedule-active-by-default').prop('checked'),
       cron:
@@ -313,6 +316,7 @@ export function GitlabToolSettingsModalComponent(
         autoShowDropDown,
         enableMarkdownVarDescription,
         sortVarByName,
+        replaceEnterWithN,
       },
     ];
   };

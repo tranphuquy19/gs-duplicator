@@ -99,11 +99,12 @@ export class GitlabHttpClient extends HttpClient {
     if (!scheduleId) {
       throw new Error('scheduleId is required');
     }
+
     const _newVariable: CreateGitlabScheduleVariable = {
       key: variable.key,
       value: variable.value,
       variable_type:
-        variable.variable_type == GitlabScheduleVariableTypes.ENV_VAR
+        variable.variable_type == CreateGitlabScheduleVariableTypes.ENV_VAR
           ? CreateGitlabScheduleVariableTypes.ENV_VAR
           : CreateGitlabScheduleVariableTypes.FILE,
     };

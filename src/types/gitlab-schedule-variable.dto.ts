@@ -5,7 +5,7 @@ import {
 
 export interface GitlabScheduleVariable {
   key: string;
-  variable_type: GitlabScheduleVariableTypes;
+  variable_type: GitlabScheduleVariableTypes | CreateGitlabScheduleVariableTypes;
   value: string;
   description: string;
   valueOptions: string[];

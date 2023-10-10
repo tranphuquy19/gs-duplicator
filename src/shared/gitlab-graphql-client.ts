@@ -23,7 +23,7 @@ import { HttpClient } from './http-client-base';
 
 export class GitlabGraphqlClient extends HttpClient {
   private static instance?: GitlabGraphqlClient;
-  private RETRIES = 3;
+  private RETRIES = 5;
 
   constructor(private _token?: string) {
     super(gitlabGraphqlUrl);
@@ -57,7 +57,12 @@ export class GitlabGraphqlClient extends HttpClient {
             },
           }
         );
-        if (glGetCiConfigVarRes?.project?.ciConfigVariables) {
+
+        if (
+          glGetCiConfigVarRes?.project?.ciConfigVariables !== null &&
+          !!glGetCiConfigVarRes &&
+          glGetCiConfigVarRes?.project?.ciConfigVariables?.length != 0
+        ) {
           ciConfigVariables = glGetCiConfigVarRes.project.ciConfigVariables;
           isBreak = true;
         }
@@ -72,6 +77,7 @@ export class GitlabGraphqlClient extends HttpClient {
               value: variable.value,
               description: variable.description,
               variable_type: GitlabScheduleVariableTypes.ENV_VAR,
+              valueOptions: variable.valueOptions,
             }))
         : [];
     } catch (error) {

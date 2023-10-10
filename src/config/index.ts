@@ -21,7 +21,7 @@ let gitlabDefaultPipelineSchedule = {
 };
 let wrappedVarBy = '"';
 let replaceEnterWithN = true;
-let getTheOptionsFrom = 'var_description';
+let getTheOptionsFrom = 'merge_both'; // var_description, gitlab_variable_options, merge_both
 let autoShowDropDown = true;
 let enableMarkdownVarDescription = true;
 let sortVarByName = true;
@@ -72,6 +72,27 @@ const saveGitlabToolSettings = (settings: Partial<GitlabToolSettings>) => {
 };
 
 export {
+  gitlabTokenLocalStorageKey,
+  gitlabUrl,
+  gitlabApiUrl,
+  gitlabGraphqlUrl,
+  gitlabProjectId,
+  gitlabToken,
+  gitlabSvgIconUrl,
+  gitlabRestPerPage,
+  gitlabDefaultPipelineSchedule,
+  wrappedVarBy,
+  includeAllVariables,
+  getTheOptionsFrom,
+  autoShowDropDown,
+  enableMarkdownVarDescription,
+  sortVarByName,
+  replaceEnterWithN,
+  saveGitlabToken,
+  saveGitlabToolSettings,
+};
+
+export default {
   gitlabTokenLocalStorageKey,
   gitlabUrl,
   gitlabApiUrl,

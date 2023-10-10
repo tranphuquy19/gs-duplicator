@@ -18,3 +18,10 @@ export function waitForElement(selector: string): Promise<Element | null> {
     });
   });
 }
+
+// this method will replace all ${key} in html with the value of params[key]
+export function htmlVarInjector(html: string, params: any) {
+  return html.replace(/\${(.*?)}/g, (match, key) => {
+    return params[key];
+  });
+}

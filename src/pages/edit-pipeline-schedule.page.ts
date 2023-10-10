@@ -4,8 +4,10 @@ import {
   GitlabSelectionComponent,
   VarDescriptionComponent,
 } from '@/components';
+import { getTheOptionsFrom } from '@/config';
 import {
   $,
+  GetTheOptionsFrom,
   GitlabGraphqlClient,
   VarOptionStorage,
   convertMarkdownToHtml,
@@ -75,8 +77,28 @@ export const editPipelineSchedulePage = async () => {
   const descriptionOption: { [key: string]: string[] } = {};
   for (const ciConfigVar of ciConfigVariables) {
     const varOptions = getOptionsFromVarDescription(ciConfigVar.description);
-    if (varOptions.length > 0) {
-      descriptionOption[ciConfigVar.key] = getOptionsFromVarDescription(ciConfigVar.description);
+
+    if (getTheOptionsFrom === GetTheOptionsFrom.VAR_DESCRIPTION) {
+      if (varOptions.length > 0) {
+        descriptionOption[ciConfigVar.key] = getOptionsFromVarDescription(ciConfigVar.description);
+      }
+    } else if (getTheOptionsFrom === GetTheOptionsFrom.GITLAB_VARIABLE_OPTIONS) {
+      if (!!ciConfigVar.valueOptions && ciConfigVar.valueOptions.length > 0) {
+        descriptionOption[ciConfigVar.key] = ciConfigVar.valueOptions;
+      }
+    } else if (getTheOptionsFrom === GetTheOptionsFrom.MERGE_BOTH) {
+      if (
+        varOptions.length > 0 ||
+        (!!ciConfigVar.valueOptions && ciConfigVar.valueOptions.length > 0)
+      ) {
+        const glValueOptions = ciConfigVar.valueOptions || [];
+        // create a set to remove duplicate values
+        const mergedOptions = new Set([
+          ...getOptionsFromVarDescription(ciConfigVar.description),
+          ...glValueOptions,
+        ]);
+        descriptionOption[ciConfigVar.key] = Array.from(mergedOptions);
+      }
     }
   }
   await varOptionStorage.setOptions(descriptionOption);
@@ -185,9 +207,9 @@ export const editPipelineSchedulePage = async () => {
     });
   }
 
-  const reloadForm = (isChecked: boolean) => {
+  const reloadForm = (allowShowDropdown: boolean) => {
     for (const row of _rows) {
-      if (isChecked) {
+      if (allowShowDropdown) {
         if (row.clone) {
           if (row.original.valueInput.is(':visible')) {
             // alow empty value

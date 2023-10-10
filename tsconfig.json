@@ -5,13 +5,16 @@
     "target": "ES2015",
     "lib": [
       "DOM",
-      "ESNext"
+      "ESNext",
+      "DOM.Iterable"
     ],
     "outDir": "./dist",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,

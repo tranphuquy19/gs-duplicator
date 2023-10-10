@@ -2,11 +2,14 @@ import { AxiosError, AxiosRequestConfig } from 'axios';
 
 import { gitlabApiUrl, gitlabProjectId, gitlabRestPerPage } from '@/config';
 import {
+  CreateGitlabScheduleVariable,
+  CreateGitlabScheduleVariableTypes,
   GitlabBranch,
   GitlabCiConfigVariable,
   GitlabPipeline,
   GitlabSchedule,
   GitlabScheduleVariable,
+  GitlabScheduleVariableTypes,
 } from '@/types';
 import { getGitlabToken, getTokenFromLocalStorage } from './get-gl-token';
 import { HttpClient } from './http-client-base';
@@ -92,14 +95,22 @@ export class GitlabHttpClient extends HttpClient {
   async createPipelineScheduleVariable(
     scheduleId: number | undefined,
     variable: GitlabScheduleVariable
-  ): Promise<GitlabScheduleVariable | undefined> {
+  ): Promise<CreateGitlabScheduleVariable | undefined> {
     if (!scheduleId) {
       throw new Error('scheduleId is required');
     }
+    const _newVariable: CreateGitlabScheduleVariable = {
+      key: variable.key,
+      value: variable.value,
+      variable_type:
+        variable.variable_type == GitlabScheduleVariableTypes.ENV_VAR
+          ? CreateGitlabScheduleVariableTypes.ENV_VAR
+          : CreateGitlabScheduleVariableTypes.FILE,
+    };
     try {
-      const newVariable = await this.client.post<GitlabScheduleVariable>(
+      const newVariable = await this.client.post<CreateGitlabScheduleVariable>(
         `projects/${gitlabProjectId}/pipeline_schedules/${scheduleId}/variables`,
-        variable
+        _newVariable
       );
       return newVariable;
     } catch (error) {

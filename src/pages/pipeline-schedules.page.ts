@@ -16,18 +16,23 @@ export const pipelineSchedulesPage = async () => {
   ]);
 
   // find the buttons with attribute title="Play" in the btnGroup
-  let playBtns = $('.tab-pane.active').find('.btn-group').find(`[title='Run pipeline schedule']`);
-  if (playBtns.length === 0) {
-    playBtns = $('.btn-group').find(`[title='Play']`);
-  }
+  // let playBtns = $('.tab-pane.active').find('.btn-group').find(`[title='Run pipeline schedule']`);
+  // if (playBtns.length === 0) {
+  //   playBtns = $('.btn-group').find(`[title='Play']`);
+  // }
 
-  for (const [index, btnItem] of Array.from(playBtns).entries()) {
-    const editBtn = $(btnItem);
+  // find the buttons with attribute datat-testid="delete-pipeline-schedule-btn" in the btnGroup
+  const deleteBtns = $('.tab-pane.active')
+    .find('.btn-group')
+    .find(`[data-testid='delete-pipeline-schedule-btn']`);
+
+  for (const [index, btnItem] of Array.from(deleteBtns).entries()) {
+    const delBtn = $(btnItem);
     // const playBtnHref = editBtn.attr('href') as string;
     // const scheduleId = getGitlabScheduleIdFromUrl(playBtnHref);
     const duplicateBtn = DuplicateBtnComponent(pipeLineIds[index]);
     if (duplicateBtn) {
-      duplicateBtn.insertAfter(editBtn);
+      duplicateBtn.insertBefore(delBtn);
       const downloadEnvFileBtn = DownloadEnvBtnComponent(pipeLineIds[index]);
       if (downloadEnvFileBtn) {
         downloadEnvFileBtn.insertBefore(duplicateBtn);

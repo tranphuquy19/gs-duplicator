@@ -8,7 +8,7 @@ export function DuplicateBtnComponent(scheduleId?: string) {
     return;
   }
   const duplicateBtnHtml = `
-		<a title="Duplicate" class="btn gl-button btn-default btn-icon">
+		<a title="Duplicate" class="btn gl-button btn-default btn-icon" style="margin-right: 1em;">
 			<svg class="s16" data-testid="duplicate-icon">
 				<use href="${gitlabSvgIconUrl}#duplicate"></use>
 			</svg>

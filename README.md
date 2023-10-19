@@ -22,7 +22,7 @@ Gitlab Schedule Duplicator is a user script that allows you easily duplicate, cr
 1. Install a user script manager:
 	- Install [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) extension for Chrome.
 	- Install [Greasemonkey](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/) extension for Firefox.
-2. Click [here](https://gitlab.com/tranphuquy19/gs-duplicator/-/raw/main/dist/gs-duplicator.user.js) to install the script.
+2. Click [here](https://gitlab.com/tranphuquy19/gs-duplicator/-/raw/main/dist/gs-duplicator.user.min.js) to install the script.
 3. Go to Gitlab and enjoy!
 
 ## Usage

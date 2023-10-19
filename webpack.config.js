@@ -34,7 +34,7 @@ const getUserScriptHeader = (name, headers) => {
 		...headers,
 		namespace: 'https://github.com/tranphuquy19',
 		author: 'tranphuquy19',
-		version: `${Date.now()}`,
+		version: `${process.env.USER_SCRIPT_VERSION || Date.now()}`,
 	};
 
 	const getHeaderRows = () => {
@@ -52,7 +52,13 @@ const getUserScriptHeader = (name, headers) => {
 				.toString()
 				.trim();
 			if (key === 'updateURL' || key === 'downloadURL') {
-				values = values.map((value) => value.replace('/raw/develop/dist', `/raw/${gitBranch}/dist`));
+				values = values.map((value) => {
+					let _value = value.replace('/raw/develop/dist', `/raw/${gitBranch}/dist`);
+					if (process.env.MINIMIZE === 'true') {
+						_value = _value.replace(/\.user\.js$/, '.user.min.js');
+					}
+					return _value;
+				});
 			}
 			rows.push(values.map((value) => `// @${key.padEnd(12, ' ')} ${value}`).join('\n'));
 		}
@@ -70,9 +76,10 @@ const main = async () => {
 
 	return {
 		entry: entries,
+		stats: { warnings: false },
 		output: {
 			path: path.resolve(__dirname, 'dist'),
-			filename: '[name].user.js',
+			filename: process.env.MINIMIZE === 'true' ? '[name].user.min.js' : '[name].user.js',
 		},
 		module: {
 			rules: [
@@ -90,7 +97,7 @@ const main = async () => {
 			},
 		},
 		optimization: {
-			minimize: !(process.env.NODE_ENV === 'development'),
+			minimize: process.env.MINIMIZE === 'true',
 			minimizer: [
 				new TerserPlugin({
 					terserOptions: {
@@ -112,6 +119,7 @@ const main = async () => {
 			usedExports: true,
 		},
 		plugins: [
+			new webpack.ProgressPlugin(),
 			new webpack.BannerPlugin({
 				banner: (info) => {
 					const name = info.chunk.name;
@@ -127,11 +135,10 @@ const main = async () => {
 				__test: process.env.NODE_ENV === 'test',
 				__version: Date.now(),
 			}),
-			new webpack.ProgressPlugin(),
 			new CustomizedCleanWebpackPlugin(),
 			...(isStat ? [new BundleAnalyzerPlugin()] : []),
 		],
-		mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
+		mode: process.env.NODE_ENV,
 	};
 };
 

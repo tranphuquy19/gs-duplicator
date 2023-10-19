@@ -55,7 +55,7 @@ const getUserScriptHeader = (name, headers) => {
 				values = values.map((value) => {
 					let _value = value.replace('/raw/develop/dist', `/raw/${gitBranch}/dist`);
 					if (process.env.MINIMIZE === 'true') {
-						_value = _value.replace(/\.user\.js$/, '.user.min.js');
+						_value = _value.replace(/\.user\.js$/, '.min.user.js');
 					}
 					return _value;
 				});
@@ -79,7 +79,7 @@ const main = async () => {
 		stats: { warnings: false },
 		output: {
 			path: path.resolve(__dirname, 'dist'),
-			filename: process.env.MINIMIZE === 'true' ? '[name].user.min.js' : '[name].user.js',
+			filename: process.env.MINIMIZE === 'true' ? '[name].min.user.js' : '[name].user.js',
 		},
 		module: {
 			rules: [

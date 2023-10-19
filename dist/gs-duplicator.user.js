@@ -10,7 +10,7 @@
 // @downloadURL  https://gitlab.com/tranphuquy19/gs-duplicator/-/raw/main/dist/gs-duplicator.user.js
 // @license      MIT
 // @author       tranphuquy19
-// @version      1697689808647
+// @version      1697690708884
 // ==/UserScript==
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ([

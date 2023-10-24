@@ -10,7 +10,7 @@
 // @downloadURL  https://gitlab.com/tranphuquy19/gs-duplicator/-/raw/main/dist/gs-duplicator.user.js
 // @license      MIT
 // @author       tranphuquy19
-// @version      1697690708884
+// @version      1698123165271
 // ==/UserScript==
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ([
@@ -12247,7 +12247,7 @@ class GitlabHttpClient extends http_client_base_1.HttpClient {
             const _newVariable = {
                 key: variable.key,
                 value: variable.value,
-                variable_type: variable.variable_type == types_1.CreateGitlabScheduleVariableTypes.ENV_VAR
+                variable_type: variable.variable_type !== types_1.CreateGitlabScheduleVariableTypes.FILE
                     ? types_1.CreateGitlabScheduleVariableTypes.ENV_VAR
                     : types_1.CreateGitlabScheduleVariableTypes.FILE,
             };

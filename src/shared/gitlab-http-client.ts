@@ -104,7 +104,7 @@ export class GitlabHttpClient extends HttpClient {
       key: variable.key,
       value: variable.value,
       variable_type:
-        variable.variable_type == CreateGitlabScheduleVariableTypes.ENV_VAR
+        variable.variable_type !== CreateGitlabScheduleVariableTypes.FILE
           ? CreateGitlabScheduleVariableTypes.ENV_VAR
           : CreateGitlabScheduleVariableTypes.FILE,
     };

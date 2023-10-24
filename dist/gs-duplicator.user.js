@@ -10,7 +10,7 @@
 // @downloadURL  https://gitlab.com/tranphuquy19/gs-duplicator/-/raw/main/dist/gs-duplicator.user.js
 // @license      MIT
 // @author       tranphuquy19
-// @version      1698123165271
+// @version      1698167013494
 // ==/UserScript==
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ([
@@ -83,12 +83,12 @@ else {
     exports.wrappedVarBy = wrappedVarBy = settings.wrappedVarBy;
     exports.gitlabSvgIconUrl = gitlabSvgIconUrl = settings.gitlabSvgIconUrl;
     exports.gitlabRestPerPage = gitlabRestPerPage = settings.gitlabRestPerPage;
-    exports.includeAllVariables = includeAllVariables = settings.includeAllVariables;
-    exports.getTheOptionsFrom = getTheOptionsFrom = settings.getTheOptionsFrom;
-    exports.autoShowDropDown = autoShowDropDown = settings.autoShowDropDown;
-    exports.enableMarkdownVarDescription = enableMarkdownVarDescription = settings.enableMarkdownVarDescription;
-    exports.sortVarByName = sortVarByName = settings.sortVarByName;
-    exports.replaceEnterWithN = replaceEnterWithN = settings.replaceEnterWithN;
+    exports.includeAllVariables = includeAllVariables = settings.includeAllVariables || false;
+    exports.getTheOptionsFrom = getTheOptionsFrom = settings.getTheOptionsFrom || 'merge_both';
+    exports.autoShowDropDown = autoShowDropDown = settings.autoShowDropDown || true;
+    exports.enableMarkdownVarDescription = enableMarkdownVarDescription = settings.enableMarkdownVarDescription || true;
+    exports.sortVarByName = sortVarByName = settings.sortVarByName || false;
+    exports.replaceEnterWithN = replaceEnterWithN = settings.replaceEnterWithN || true;
 }
 const saveGitlabToken = (token) => {
     localStorage.setItem(gitlabTokenLocalStorageKey, window.btoa(token));

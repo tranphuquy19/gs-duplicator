@@ -50,12 +50,12 @@ if (gitlabToolSettings === null) {
   wrappedVarBy = settings.wrappedVarBy;
   gitlabSvgIconUrl = settings.gitlabSvgIconUrl;
   gitlabRestPerPage = settings.gitlabRestPerPage;
-  includeAllVariables = settings.includeAllVariables;
-  getTheOptionsFrom = settings.getTheOptionsFrom;
-  autoShowDropDown = settings.autoShowDropDown;
-  enableMarkdownVarDescription = settings.enableMarkdownVarDescription;
-  sortVarByName = settings.sortVarByName;
-  replaceEnterWithN = settings.replaceEnterWithN;
+  includeAllVariables = settings.includeAllVariables || false;
+  getTheOptionsFrom = settings.getTheOptionsFrom || 'merge_both';
+  autoShowDropDown = settings.autoShowDropDown || true;
+  enableMarkdownVarDescription = settings.enableMarkdownVarDescription || true;
+  sortVarByName = settings.sortVarByName || false;
+  replaceEnterWithN = settings.replaceEnterWithN || true;
 }
 
 const saveGitlabToken = (token: string) => {

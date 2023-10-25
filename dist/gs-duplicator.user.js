@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gitlab Schedule Duplicator
 // @namespace    https://github.com/tranphuquy19
-// @description  Gitlab schedule duplicator
+// @description  The [gs-duplicator] is a user-friendly utility tool for GitLab that enhances the overall experience by simplifying the duplication, creation, and updating of GitLab pipeline schedules. Key features of this tool include the ability to clone schedules with identical configurations, edit schedules using dropdown options derived from variable descriptions, and download schedule configurations as .env files for easy backup and transfer. With its additional features, the gs-duplicator aims to streamline and optimize the GitLab workflow, providing users with a more efficient and user-friendly experience.
 // @match        https://gitlab.com/*/pipeline_schedules*
 // @match        https://*.gitlab.com/*/pipeline_schedules*
 // @grant        GM_addStyle
@@ -10,7 +10,7 @@
 // @downloadURL  https://gitlab.com/tranphuquy19/gs-duplicator/-/raw/main/dist/gs-duplicator.user.js
 // @license      MIT
 // @author       tranphuquy19
-// @version      1698167013494
+// @version      1698204070776
 // ==/UserScript==
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ([

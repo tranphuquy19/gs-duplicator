@@ -60,6 +60,20 @@ const getUserScriptHeader = (name, headers) => {
 					return _value;
 				});
 			}
+			if (key === 'description') {
+				// replace ${gitCommitId} with current git commit id
+				values = values.map((value) => {
+					let _value = value.replace(
+						/\${gitCommitId}/g,
+						require('child_process')
+							.execSync('git rev-parse --short HEAD')
+							.toString()
+							.trim(),
+					);
+					return _value;
+				}
+				);
+			}
 			rows.push(values.map((value) => `// @${key.padEnd(12, ' ')} ${value}`).join('\n'));
 		}
 

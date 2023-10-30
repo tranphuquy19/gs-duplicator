@@ -14,6 +14,7 @@ export const EDIT_PIPELINE_SCHEDULE_PAGE_SELECTORS = {
   CI_VARIABLE_ROW: 'div[data-testid="ci-variable-row"]',
   VARIABLE_KEY_INPUT: 'input[data-testid="pipeline-form-ci-variable-key"]',
   VARIABLE_SECRET_HIDDEN_INPUT: 'textarea[data-testid="pipeline-form-ci-variable-hidden-value"]',
-  VARIABLE_SECRET_INPUT: 'textarea[data-testid="pipeline-form-ci-variable-value"]',
+  VARIABLE_SECRET_INPUT_CLASS: 'pipeline-form-ci-variable-value',
+  VARIABLE_SECRET_INPUT: `:is(textarea, select)[data-testid="pipeline-form-ci-variable-value"]`,
   REMOVE_VARIABLE_BTN: 'button[data-testid="remove-ci-variable-row"]',
 };

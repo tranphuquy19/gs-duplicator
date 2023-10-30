@@ -33,6 +33,7 @@ const {
   VARIABLE_KEY_INPUT,
   VARIABLE_SECRET_INPUT,
   // VARIABLE_SECRET_HIDDEN_INPUT,
+  VARIABLE_SECRET_INPUT_CLASS,
   REMOVE_VARIABLE_BTN,
 } = EDIT_PIPELINE_SCHEDULE_PAGE_SELECTORS;
 
@@ -188,7 +189,7 @@ export const editPipelineSchedulePage = async () => {
       variableSecretValueDropdown = GitlabSelectionComponent(
         keyOptions[variableKey] || [],
         variableSecretValue,
-        'pipeline-form-ci-variable-value',
+        VARIABLE_SECRET_INPUT_CLASS,
         'ci_variable_value_field',
         (value) => {
           console.log('value', value);

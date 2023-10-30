@@ -15,6 +15,7 @@ import {
   getProjectFullPath,
   getScheduleIdFromUrl,
   waitForElement,
+  EDIT_PIPELINE_SCHEDULE_PAGE_SELECTORS,
 } from '@/shared';
 import {
   GitlabEditVarRow,
@@ -23,10 +24,20 @@ import {
   UpdatePipelineScheduleVariable,
 } from '@/types';
 
+const {
+  ROW_CONTAINER,
+  REVEAL_VALUES_BTN,
+  SUBMIT_BTN,
+  BRANCH_SELECT,
+  CI_VARIABLE_ROW,
+  VARIABLE_KEY_INPUT,
+  VARIABLE_SECRET_INPUT,
+  // VARIABLE_SECRET_HIDDEN_INPUT,
+  REMOVE_VARIABLE_BTN,
+} = EDIT_PIPELINE_SCHEDULE_PAGE_SELECTORS;
+
 const getPersistedVariables = () => {
-  let persistedVariables: JQuery<HTMLElement> | HTMLElement[] = $(
-    'div[data-qa-selector="ci_variable_row_container"]'
-  );
+  let persistedVariables: JQuery<HTMLElement> | HTMLElement[] = $(ROW_CONTAINER);
   if (persistedVariables.length === 0) {
     console.error('[GitLab Duplicator]-persistedVariables is empty');
   } else {
@@ -43,28 +54,27 @@ export const editPipelineSchedulePage = async () => {
   const glGraphqlClient = GitlabGraphqlClient.getInstance();
 
   // wait for the page to be rendered
+  console.info('Waiting for the page to be rendered');
   await Promise.all([
-    waitForElement('div[data-qa-selector="ci_variable_row_container"]'),
-    waitForElement('button[data-testid="variable-security-btn"'),
-    waitForElement('button[data-testid="schedule-submit-button"'),
-    waitForElement('div[id="schedule-target-branch-tag"]'),
+    waitForElement(ROW_CONTAINER),
+    waitForElement(REVEAL_VALUES_BTN),
+    waitForElement(SUBMIT_BTN),
+    waitForElement(BRANCH_SELECT),
   ]);
+  console.info('Page is rendered');
 
-  const revealValuesBtn = $('button[data-testid="variable-security-btn"');
+  const revealValuesBtn = $(REVEAL_VALUES_BTN);
+
   // $('.ci-variable-row-remove-button').css({ 'margin-left': '3rem' });
 
-  const editPipelineScheduleBtn = $('button[data-testid="schedule-submit-button"');
+  const editPipelineScheduleBtn = $(SUBMIT_BTN);
   editPipelineScheduleBtn.hide();
   const newEditPipelineScheduleBtn = $(
     '<button type="button" class="btn btn-confirm btn-md gl-button">Edit pipeline schedule</button>'
   );
   newEditPipelineScheduleBtn.insertAfter(editPipelineScheduleBtn);
 
-  const currentBranch = $('div[id="schedule-target-branch-tag"]')
-    .find('button')
-    .first()
-    .text()
-    .trim();
+  const currentBranch = $(BRANCH_SELECT).find('button').first().text().trim();
 
   if (revealValuesBtn) {
     revealValuesBtn.trigger('click');
@@ -97,6 +107,7 @@ export const editPipelineSchedulePage = async () => {
           ...getOptionsFromVarDescription(ciConfigVar.description),
           ...glValueOptions,
         ]);
+
         descriptionOption[ciConfigVar.key] = Array.from(mergedOptions);
       }
     }
@@ -122,7 +133,7 @@ export const editPipelineSchedulePage = async () => {
 
   for (const persistedVariable of persistedVariables) {
     const persistedVariableRow = $(persistedVariable);
-    persistedVariableRow.find('div[data-testid="ci-variable-row"]').removeClass('gl-mb-3 gl-pb-2');
+    persistedVariableRow.find(CI_VARIABLE_ROW).removeClass('gl-mb-3 gl-pb-2');
 
     //#region Get components
     const variableTypeSelect = persistedVariableRow.find(
@@ -131,21 +142,15 @@ export const editPipelineSchedulePage = async () => {
 
     const variableType = variableTypeSelect.text().trim() as GitlabScheduleVariableTypes;
 
-    const variableKeyInput = persistedVariableRow.find(
-      'input[data-qa-selector="ci_variable_key_field"]'
-    );
+    const variableKeyInput = persistedVariableRow.find(VARIABLE_KEY_INPUT);
 
     const variableKey = variableKeyInput.val() as string;
 
-    const variableSecretValueInput = persistedVariableRow.find(
-      'textarea[data-qa-selector="ci_variable_value_field"]'
-    );
+    const variableSecretValueInput = persistedVariableRow.find(VARIABLE_SECRET_INPUT);
 
     const variableSecretValue = variableSecretValueInput.val() as string;
 
-    const removeVariableBtn = persistedVariableRow.find(
-      'button[data-testid="remove-ci-variable-row"]'
-    );
+    const removeVariableBtn = persistedVariableRow.find(REMOVE_VARIABLE_BTN);
     removeVariableBtn.addClass('origin-remove-variable-btn');
 
     removeVariableBtn.hide();
@@ -169,9 +174,7 @@ export const editPipelineSchedulePage = async () => {
       // varDescriptionComponent.insertAfter(persistedVariableRow.find('.ci-variable-row'));
       persistedVariableRow.append(varDescriptionComponent);
     } else {
-      persistedVariableRow
-        .find('div[data-testid="ci-variable-row"]')
-        .attr('style', 'padding-bottom: 16px;');
+      persistedVariableRow.find(CI_VARIABLE_ROW).attr('style', 'padding-bottom: 16px;');
     }
     //#endregion
 
@@ -289,15 +292,12 @@ export const editPipelineSchedulePage = async () => {
 
     for (const persistedVariable of crtPersistedVariables) {
       const persistedVariableRow = $(persistedVariable);
-      const variableKeyInput = persistedVariableRow.find(
-        'input[data-qa-selector="ci_variable_key_field"]'
-      );
+      const variableKeyInput = persistedVariableRow.find(VARIABLE_KEY_INPUT);
       const variableKey = variableKeyInput.val() as string;
+
       if (variableKey === undefined) continue;
 
-      const variableSecretValueInput = persistedVariableRow.find(
-        '[data-qa-selector="ci_variable_value_field"]'
-      );
+      const variableSecretValueInput = persistedVariableRow.find(VARIABLE_SECRET_INPUT);
       const variableSecretValue = variableSecretValueInput.val() as string;
       if (variableSecretValue === undefined) continue;
 
@@ -323,6 +323,7 @@ export const editPipelineSchedulePage = async () => {
       activate: scheduleVueInstanceData.activated,
       variables: updatedVariables,
     };
+
     await glGraphqlClient.updatePipelineSchedule(
       getScheduleIdFromUrl(window.location.pathname as string),
       fullPath,

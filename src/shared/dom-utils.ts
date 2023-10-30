@@ -1,14 +1,33 @@
-export function waitForElement(selector: string): Promise<Element | null> {
-  return new Promise((resolve) => {
-    if (document.querySelector(selector)) {
-      return resolve(document.querySelector(selector));
+/**
+ * Wait for an element to appear in the DOM
+ * @param selector CSS selector
+ * @param timeout Timeout in milliseconds
+ * @returns
+ */
+export function waitForElement(selector: string, timeout = 5000): Promise<Element | null> {
+  return new Promise((resolve, reject) => {
+    const element = document.querySelector(selector);
+    if (element) {
+      return resolve(element);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const observer = new MutationObserver((mutations) => {
-      if (document.querySelector(selector)) {
+    let observer: MutationObserver | null = null;
+
+    const timeoutId = setTimeout(() => {
+      if (observer) {
         observer.disconnect();
-        resolve(document.querySelector(selector));
+      }
+      reject(`Element with selector ${selector} not found within ${timeout}ms`);
+    }, timeout);
+
+    observer = new MutationObserver(() => {
+      const element = document.querySelector(selector);
+      if (element) {
+        clearTimeout(timeoutId);
+        if (observer) {
+          observer.disconnect();
+        }
+        resolve(element);
       }
     });
 

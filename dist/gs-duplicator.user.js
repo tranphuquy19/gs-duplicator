@@ -11,7 +11,7 @@
 // @supportURL   https://github.com/tranphuquy19/gs-duplicator/issues
 // @license      MIT
 // @author       tranphuquy19
-// @version      1698308163787
+// @version      1698650404501
 // ==/UserScript==
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ([
@@ -13600,8 +13600,11 @@ exports.editPipelineSchedulePage = void 0;
 const components_1 = __webpack_require__(6);
 const config_1 = __webpack_require__(0);
 const shared_1 = __webpack_require__(2);
+const { ROW_CONTAINER, REVEAL_VALUES_BTN, SUBMIT_BTN, BRANCH_SELECT, CI_VARIABLE_ROW, VARIABLE_KEY_INPUT, VARIABLE_SECRET_INPUT, 
+// VARIABLE_SECRET_HIDDEN_INPUT,
+REMOVE_VARIABLE_BTN, } = shared_1.EDIT_PIPELINE_SCHEDULE_PAGE_SELECTORS;
 const getPersistedVariables = () => {
-    let persistedVariables = (0, shared_1.$)('div[data-qa-selector="ci_variable_row_container"]');
+    let persistedVariables = (0, shared_1.$)(ROW_CONTAINER);
     if (persistedVariables.length === 0) {
         console.error('[GitLab Duplicator]-persistedVariables is empty');
     }
@@ -13617,23 +13620,21 @@ const editPipelineSchedulePage = () => __awaiter(void 0, void 0, void 0, functio
     const varOptionStorage = shared_1.VarOptionStorage.getInstance();
     const glGraphqlClient = shared_1.GitlabGraphqlClient.getInstance();
     // wait for the page to be rendered
+    console.info('Waiting for the page to be rendered');
     yield Promise.all([
-        (0, shared_1.waitForElement)('div[data-qa-selector="ci_variable_row_container"]'),
-        (0, shared_1.waitForElement)('button[data-testid="variable-security-btn"'),
-        (0, shared_1.waitForElement)('button[data-testid="schedule-submit-button"'),
-        (0, shared_1.waitForElement)('div[id="schedule-target-branch-tag"]'),
+        (0, shared_1.waitForElement)(ROW_CONTAINER),
+        (0, shared_1.waitForElement)(REVEAL_VALUES_BTN),
+        (0, shared_1.waitForElement)(SUBMIT_BTN),
+        (0, shared_1.waitForElement)(BRANCH_SELECT),
     ]);
-    const revealValuesBtn = (0, shared_1.$)('button[data-testid="variable-security-btn"');
+    console.info('Page is rendered');
+    const revealValuesBtn = (0, shared_1.$)(REVEAL_VALUES_BTN);
     // $('.ci-variable-row-remove-button').css({ 'margin-left': '3rem' });
-    const editPipelineScheduleBtn = (0, shared_1.$)('button[data-testid="schedule-submit-button"');
+    const editPipelineScheduleBtn = (0, shared_1.$)(SUBMIT_BTN);
     editPipelineScheduleBtn.hide();
     const newEditPipelineScheduleBtn = (0, shared_1.$)('<button type="button" class="btn btn-confirm btn-md gl-button">Edit pipeline schedule</button>');
     newEditPipelineScheduleBtn.insertAfter(editPipelineScheduleBtn);
-    const currentBranch = (0, shared_1.$)('div[id="schedule-target-branch-tag"]')
-        .find('button')
-        .first()
-        .text()
-        .trim();
+    const currentBranch = (0, shared_1.$)(BRANCH_SELECT).find('button').first().text().trim();
     if (revealValuesBtn) {
         revealValuesBtn.trigger('click');
     }
@@ -13675,15 +13676,15 @@ const editPipelineSchedulePage = () => __awaiter(void 0, void 0, void 0, functio
     const _rows = [];
     for (const persistedVariable of persistedVariables) {
         const persistedVariableRow = (0, shared_1.$)(persistedVariable);
-        persistedVariableRow.find('div[data-testid="ci-variable-row"]').removeClass('gl-mb-3 gl-pb-2');
+        persistedVariableRow.find(CI_VARIABLE_ROW).removeClass('gl-mb-3 gl-pb-2');
         //#region Get components
         const variableTypeSelect = persistedVariableRow.find('button.btn.dropdown-toggle.gl-dropdown-toggle');
         const variableType = variableTypeSelect.text().trim();
-        const variableKeyInput = persistedVariableRow.find('input[data-qa-selector="ci_variable_key_field"]');
+        const variableKeyInput = persistedVariableRow.find(VARIABLE_KEY_INPUT);
         const variableKey = variableKeyInput.val();
-        const variableSecretValueInput = persistedVariableRow.find('textarea[data-qa-selector="ci_variable_value_field"]');
+        const variableSecretValueInput = persistedVariableRow.find(VARIABLE_SECRET_INPUT);
         const variableSecretValue = variableSecretValueInput.val();
-        const removeVariableBtn = persistedVariableRow.find('button[data-testid="remove-ci-variable-row"]');
+        const removeVariableBtn = persistedVariableRow.find(REMOVE_VARIABLE_BTN);
         removeVariableBtn.addClass('origin-remove-variable-btn');
         removeVariableBtn.hide();
         const newRemoveVariableBtn = (0, components_1.GitlabRemoveVariableRowComponent)();
@@ -13703,9 +13704,7 @@ const editPipelineSchedulePage = () => __awaiter(void 0, void 0, void 0, functio
             persistedVariableRow.append(varDescriptionComponent);
         }
         else {
-            persistedVariableRow
-                .find('div[data-testid="ci-variable-row"]')
-                .attr('style', 'padding-bottom: 16px;');
+            persistedVariableRow.find(CI_VARIABLE_ROW).attr('style', 'padding-bottom: 16px;');
         }
         //#endregion
         // if variableSecretValue is not in the list of options, add it to the list
@@ -13809,11 +13808,11 @@ const editPipelineSchedulePage = () => __awaiter(void 0, void 0, void 0, functio
         const crtPersistedVariables = getPersistedVariables();
         for (const persistedVariable of crtPersistedVariables) {
             const persistedVariableRow = (0, shared_1.$)(persistedVariable);
-            const variableKeyInput = persistedVariableRow.find('input[data-qa-selector="ci_variable_key_field"]');
+            const variableKeyInput = persistedVariableRow.find(VARIABLE_KEY_INPUT);
             const variableKey = variableKeyInput.val();
             if (variableKey === undefined)
                 continue;
-            const variableSecretValueInput = persistedVariableRow.find('[data-qa-selector="ci_variable_value_field"]');
+            const variableSecretValueInput = persistedVariableRow.find(VARIABLE_SECRET_INPUT);
             const variableSecretValue = variableSecretValueInput.val();
             if (variableSecretValue === undefined)
                 continue;
@@ -13849,13 +13848,25 @@ exports.editPipelineSchedulePage = editPipelineSchedulePage;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.GetTheOptionsFrom = void 0;
+exports.EDIT_PIPELINE_SCHEDULE_PAGE_SELECTORS = exports.GetTheOptionsFrom = void 0;
 var GetTheOptionsFrom;
 (function (GetTheOptionsFrom) {
     GetTheOptionsFrom["VAR_DESCRIPTION"] = "var_description";
     GetTheOptionsFrom["GITLAB_VARIABLE_OPTIONS"] = "gitlab_variable_options";
     GetTheOptionsFrom["MERGE_BOTH"] = "merge_both";
 })(GetTheOptionsFrom = exports.GetTheOptionsFrom || (exports.GetTheOptionsFrom = {}));
+// Define selectors of EditPipelineSchedulePage component
+exports.EDIT_PIPELINE_SCHEDULE_PAGE_SELECTORS = {
+    ROW_CONTAINER: 'fieldset > div > div',
+    REVEAL_VALUES_BTN: 'button[data-testid="variable-security-btn"]',
+    SUBMIT_BTN: 'button[data-testid="schedule-submit-button"]',
+    BRANCH_SELECT: 'div[id="schedule-target-branch-tag"]',
+    CI_VARIABLE_ROW: 'div[data-testid="ci-variable-row"]',
+    VARIABLE_KEY_INPUT: 'input[data-testid="pipeline-form-ci-variable-key"]',
+    VARIABLE_SECRET_HIDDEN_INPUT: 'textarea[data-testid="pipeline-form-ci-variable-hidden-value"]',
+    VARIABLE_SECRET_INPUT: 'textarea[data-testid="pipeline-form-ci-variable-value"]',
+    REMOVE_VARIABLE_BTN: 'button[data-testid="remove-ci-variable-row"]',
+};
 
 
 /***/ }),
@@ -14123,16 +14134,33 @@ exports.leftJoin = leftJoin;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.htmlVarInjector = exports.waitForElement = void 0;
-function waitForElement(selector) {
-    return new Promise((resolve) => {
-        if (document.querySelector(selector)) {
-            return resolve(document.querySelector(selector));
+/**
+ * Wait for an element to appear in the DOM
+ * @param selector CSS selector
+ * @param timeout Timeout in milliseconds
+ * @returns
+ */
+function waitForElement(selector, timeout = 5000) {
+    return new Promise((resolve, reject) => {
+        const element = document.querySelector(selector);
+        if (element) {
+            return resolve(element);
         }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const observer = new MutationObserver((mutations) => {
-            if (document.querySelector(selector)) {
+        let observer = null;
+        const timeoutId = setTimeout(() => {
+            if (observer) {
                 observer.disconnect();
-                resolve(document.querySelector(selector));
+            }
+            reject(`Element with selector ${selector} not found within ${timeout}ms`);
+        }, timeout);
+        observer = new MutationObserver(() => {
+            const element = document.querySelector(selector);
+            if (element) {
+                clearTimeout(timeoutId);
+                if (observer) {
+                    observer.disconnect();
+                }
+                resolve(element);
             }
         });
         observer.observe(document.body, {

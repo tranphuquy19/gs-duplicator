@@ -21,6 +21,22 @@ export const pipelineSchedulesPage = async () => {
   //   playBtns = $('.btn-group').find(`[title='Play']`);
   // }
 
+  // find the button with text "New schedule"
+  const newScheduleBtns = $('.btn.btn-confirm:contains("New schedule")');
+  const newScheduleBtn = $(newScheduleBtns.get());
+  const quickNewScheduleBtn = QuickNewScheduleBtnComponent();
+  const settingsBtn = GitlabToolSettingsBtnComponent();
+
+  // create a new div btnGroup with class ml-auto, move the newScheduleBtn to the enter of the new btnGroup
+  const newBtnGroup = $('<div class="gl-ml-auto"></div>');
+  newBtnGroup.insertBefore(newScheduleBtn);
+  newScheduleBtn.appendTo(newBtnGroup);
+
+  if (quickNewScheduleBtn) {
+    quickNewScheduleBtn.insertBefore(newScheduleBtn);
+    settingsBtn.insertAfter(newScheduleBtn);
+  }
+
   // find the buttons with attribute datat-testid="delete-pipeline-schedule-btn" in the btnGroup
   const deleteBtns = $('.tab-pane.active')
     .find('.btn-group')
@@ -38,22 +54,6 @@ export const pipelineSchedulesPage = async () => {
         downloadEnvFileBtn.insertBefore(duplicateBtn);
       }
     }
-  }
-
-  // find the button with text "New schedule"
-  const newScheduleBtns = $('.btn.btn-confirm:contains("New schedule")');
-  const newScheduleBtn = $(newScheduleBtns.get());
-  const quickNewScheduleBtn = QuickNewScheduleBtnComponent();
-  const settingsBtn = GitlabToolSettingsBtnComponent();
-
-  // create a new div btnGroup with class ml-auto, move the newScheduleBtn to the enter of the new btnGroup
-  const newBtnGroup = $('<div class="gl-ml-auto"></div>');
-  newBtnGroup.insertBefore(newScheduleBtn);
-  newScheduleBtn.appendTo(newBtnGroup);
-
-  if (quickNewScheduleBtn) {
-    quickNewScheduleBtn.insertBefore(newScheduleBtn);
-    settingsBtn.insertAfter(newScheduleBtn);
   }
 
   const glChooseBranchDropdown = await ChooseBranchDropdownComponent();

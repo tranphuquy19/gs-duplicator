@@ -5,12 +5,12 @@ export interface GitlabToolSettings {
   wrappedVarBy: string;
   gitlabSvgIconUrl: string;
   gitlabRestPerPage: number;
-  includeAllVariables: boolean;
-  getTheOptionsFrom: GetTheOptionsFrom;
-  autoShowDropDown: boolean;
-  enableMarkdownVarDescription: boolean;
-  sortVarByName: boolean;
-  replaceEnterWithN: boolean;
+  includeAllVariables?: boolean;
+  getTheOptionsFrom?: GetTheOptionsFrom;
+  autoShowDropDown?: boolean;
+  enableMarkdownVarDescription?: boolean;
+  sortVarByName?: boolean;
+  replaceEnterWithN?: boolean;
 }
 
 export interface GitlabDefaultPipelineSchedule {

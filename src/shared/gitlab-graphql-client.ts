@@ -103,6 +103,10 @@ export class GitlabGraphqlClient extends HttpClient {
       variables: {
         ids: ids,
         projectPath,
+        first: 50,
+        last: null,
+        nextPageCursor: '',
+        prevPageCursor: '',
       },
     });
     return data;

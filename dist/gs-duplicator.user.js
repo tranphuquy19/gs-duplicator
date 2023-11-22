@@ -11,14 +11,11 @@
 // @supportURL   https://github.com/tranphuquy19/gs-duplicator/issues
 // @license      MIT
 // @author       tranphuquy19
-// @version      1698651987351
+// @version      1700669084671
 // ==/UserScript==
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ([
 /* 0 */
-/*!*****************************!*\
-  !*** ./src/config/index.ts ***!
-  \*****************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -128,9 +125,6 @@ exports["default"] = {
 
 /***/ }),
 /* 1 */
-/*!*************************************************!*\
-  !*** ./node_modules/jquery/dist/jquery.slim.js ***!
-  \*************************************************/
 /***/ (function(module, exports) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -8755,9 +8749,6 @@ return jQuery;
 
 /***/ }),
 /* 2 */
-/*!*****************************!*\
-  !*** ./src/shared/index.ts ***!
-  \*****************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8777,26 +8768,23 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(/*! ./collections */ 34), exports);
-__exportStar(__webpack_require__(/*! ./constants */ 29), exports);
-__exportStar(__webpack_require__(/*! ./dom-utils */ 35), exports);
-__exportStar(__webpack_require__(/*! ./download-env-file */ 36), exports);
-__exportStar(__webpack_require__(/*! ./get-gl-token */ 9), exports);
-__exportStar(__webpack_require__(/*! ./gitlab-graphql-client */ 16), exports);
-__exportStar(__webpack_require__(/*! ./gitlab-graphql.query */ 31), exports);
-__exportStar(__webpack_require__(/*! ./gitlab-http-client */ 8), exports);
-__exportStar(__webpack_require__(/*! ./gitlab-resource-extractor */ 10), exports);
-__exportStar(__webpack_require__(/*! ./http-client-base */ 3), exports);
-__exportStar(__webpack_require__(/*! ./jquery-utils */ 18), exports);
-__exportStar(__webpack_require__(/*! ./markdown-converter */ 50), exports);
-__exportStar(__webpack_require__(/*! ./var-option-storage */ 19), exports);
+__exportStar(__webpack_require__(34), exports);
+__exportStar(__webpack_require__(29), exports);
+__exportStar(__webpack_require__(35), exports);
+__exportStar(__webpack_require__(36), exports);
+__exportStar(__webpack_require__(9), exports);
+__exportStar(__webpack_require__(16), exports);
+__exportStar(__webpack_require__(31), exports);
+__exportStar(__webpack_require__(8), exports);
+__exportStar(__webpack_require__(10), exports);
+__exportStar(__webpack_require__(3), exports);
+__exportStar(__webpack_require__(18), exports);
+__exportStar(__webpack_require__(50), exports);
+__exportStar(__webpack_require__(19), exports);
 
 
 /***/ }),
 /* 3 */
-/*!****************************************!*\
-  !*** ./src/shared/http-client-base.ts ***!
-  \****************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8806,8 +8794,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.HttpClient = void 0;
-const axios_1 = __importDefault(__webpack_require__(/*! axios */ 4));
-const axios_cache_interceptor_1 = __webpack_require__(/*! axios-cache-interceptor */ 32);
+const axios_1 = __importDefault(__webpack_require__(4));
+const axios_cache_interceptor_1 = __webpack_require__(32);
 const storage = (0, axios_cache_interceptor_1.buildWebStorage)(window.sessionStorage, 'gs-');
 class HttpClient {
     constructor(baseURL) {
@@ -8834,9 +8822,6 @@ exports.HttpClient = HttpClient;
 
 /***/ }),
 /* 4 */
-/*!***************************************************!*\
-  !*** ./node_modules/axios/dist/browser/axios.cjs ***!
-  \***************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -12058,9 +12043,6 @@ module.exports = axios;
 
 /***/ }),
 /* 5 */
-/*!****************************!*\
-  !*** ./src/types/index.ts ***!
-  \****************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12080,25 +12062,22 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(/*! ./dropdown-item.interface */ 37), exports);
-__exportStar(__webpack_require__(/*! ./gitlab-branch.dto */ 38), exports);
-__exportStar(__webpack_require__(/*! ./gitlab-ciconfigvariable.dto */ 39), exports);
-__exportStar(__webpack_require__(/*! ./gitlab-edit-var-row.interface */ 40), exports);
-__exportStar(__webpack_require__(/*! ./gitlab-get-pipeline-schedule.interface */ 41), exports);
-__exportStar(__webpack_require__(/*! ./gitlab-pipeline.dto */ 42), exports);
-__exportStar(__webpack_require__(/*! ./gitlab-schedule-variable-types.enum */ 17), exports);
-__exportStar(__webpack_require__(/*! ./gitlab-schedule-variable.dto */ 43), exports);
-__exportStar(__webpack_require__(/*! ./gitlab-schedule.dto */ 44), exports);
-__exportStar(__webpack_require__(/*! ./gitlab-tool-settings.interface */ 45), exports);
-__exportStar(__webpack_require__(/*! ./gitlab-update-pipeline-schedule.interface */ 46), exports);
-__exportStar(__webpack_require__(/*! ./http-methods.enum */ 30), exports);
+__exportStar(__webpack_require__(37), exports);
+__exportStar(__webpack_require__(38), exports);
+__exportStar(__webpack_require__(39), exports);
+__exportStar(__webpack_require__(40), exports);
+__exportStar(__webpack_require__(41), exports);
+__exportStar(__webpack_require__(42), exports);
+__exportStar(__webpack_require__(17), exports);
+__exportStar(__webpack_require__(43), exports);
+__exportStar(__webpack_require__(44), exports);
+__exportStar(__webpack_require__(45), exports);
+__exportStar(__webpack_require__(46), exports);
+__exportStar(__webpack_require__(30), exports);
 
 
 /***/ }),
 /* 6 */
-/*!*********************************!*\
-  !*** ./src/components/index.ts ***!
-  \*********************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12118,20 +12097,17 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(/*! ./duplicate-btn.component */ 12), exports);
-__exportStar(__webpack_require__(/*! ./quick-new-schedule-btn.component */ 20), exports);
-__exportStar(__webpack_require__(/*! ./download-env-btn.component */ 13), exports);
-__exportStar(__webpack_require__(/*! ./shared-components */ 7), exports);
-__exportStar(__webpack_require__(/*! ./choose-branch-dropdown.component */ 25), exports);
-__exportStar(__webpack_require__(/*! ./var-description.component */ 51), exports);
-__exportStar(__webpack_require__(/*! ./gl-duplicator-settings-btn.component */ 26), exports);
+__exportStar(__webpack_require__(12), exports);
+__exportStar(__webpack_require__(20), exports);
+__exportStar(__webpack_require__(13), exports);
+__exportStar(__webpack_require__(7), exports);
+__exportStar(__webpack_require__(25), exports);
+__exportStar(__webpack_require__(51), exports);
+__exportStar(__webpack_require__(26), exports);
 
 
 /***/ }),
 /* 7 */
-/*!***************************************************!*\
-  !*** ./src/components/shared-components/index.ts ***!
-  \***************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12151,17 +12127,14 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(/*! ./gitlab-checkbox.component */ 21), exports);
-__exportStar(__webpack_require__(/*! ./gitlab-dropdown.component */ 22), exports);
-__exportStar(__webpack_require__(/*! ./gitlab-rm-variable-row.component */ 23), exports);
-__exportStar(__webpack_require__(/*! ./gitlab-selection.component */ 24), exports);
+__exportStar(__webpack_require__(21), exports);
+__exportStar(__webpack_require__(22), exports);
+__exportStar(__webpack_require__(23), exports);
+__exportStar(__webpack_require__(24), exports);
 
 
 /***/ }),
 /* 8 */
-/*!******************************************!*\
-  !*** ./src/shared/gitlab-http-client.ts ***!
-  \******************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12177,11 +12150,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GitlabHttpClient = void 0;
-const axios_1 = __webpack_require__(/*! axios */ 4);
-const config_1 = __webpack_require__(/*! @/config */ 0);
-const types_1 = __webpack_require__(/*! @/types */ 5);
-const get_gl_token_1 = __webpack_require__(/*! ./get-gl-token */ 9);
-const http_client_base_1 = __webpack_require__(/*! ./http-client-base */ 3);
+const axios_1 = __webpack_require__(4);
+const config_1 = __webpack_require__(0);
+const types_1 = __webpack_require__(5);
+const get_gl_token_1 = __webpack_require__(9);
+const http_client_base_1 = __webpack_require__(3);
 class GitlabHttpClient extends http_client_base_1.HttpClient {
     constructor(_token) {
         super(config_1.gitlabApiUrl);
@@ -12326,16 +12299,13 @@ exports.GitlabHttpClient = GitlabHttpClient;
 
 /***/ }),
 /* 9 */
-/*!************************************!*\
-  !*** ./src/shared/get-gl-token.ts ***!
-  \************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getGitlabToken = exports.getTokenFromLocalStorage = void 0;
-const config_1 = __webpack_require__(/*! @/config */ 0);
+const config_1 = __webpack_require__(0);
 function getTokenFromLocalStorage() {
     const _lsToken = window.atob(localStorage.getItem(config_1.gitlabTokenLocalStorageKey) || '');
     if (_lsToken && _lsToken.length > 0) {
@@ -12361,9 +12331,6 @@ exports.getGitlabToken = getGitlabToken;
 
 /***/ }),
 /* 10 */
-/*!*************************************************!*\
-  !*** ./src/shared/gitlab-resource-extractor.ts ***!
-  \*************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -12428,9 +12395,6 @@ exports.getProjectIdFromTemplateVar = getProjectIdFromTemplateVar;
 
 /***/ }),
 /* 11 */
-/*!****************************!*\
-  !*** ./src/pages/index.ts ***!
-  \****************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12450,15 +12414,12 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(/*! ./pipeline-schedules.page */ 15), exports);
-__exportStar(__webpack_require__(/*! ./edit-pipeline-schedule.page */ 28), exports);
+__exportStar(__webpack_require__(15), exports);
+__exportStar(__webpack_require__(28), exports);
 
 
 /***/ }),
 /* 12 */
-/*!***************************************************!*\
-  !*** ./src/components/duplicate-btn.component.ts ***!
-  \***************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12477,9 +12438,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DuplicateBtnComponent = void 0;
-const jquery_slim_1 = __importDefault(__webpack_require__(/*! jquery/dist/jquery.slim */ 1));
-const config_1 = __webpack_require__(/*! @/config */ 0);
-const shared_1 = __webpack_require__(/*! @/shared */ 2);
+const jquery_slim_1 = __importDefault(__webpack_require__(1));
+const config_1 = __webpack_require__(0);
+const shared_1 = __webpack_require__(2);
 function DuplicateBtnComponent(scheduleId) {
     if (!scheduleId) {
         return;
@@ -12521,9 +12482,6 @@ exports.DuplicateBtnComponent = DuplicateBtnComponent;
 
 /***/ }),
 /* 13 */
-/*!******************************************************!*\
-  !*** ./src/components/download-env-btn.component.ts ***!
-  \******************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12542,9 +12500,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DownloadEnvBtnComponent = void 0;
-const jquery_slim_1 = __importDefault(__webpack_require__(/*! jquery/dist/jquery.slim */ 1));
-const config_1 = __webpack_require__(/*! @/config */ 0);
-const shared_1 = __webpack_require__(/*! @/shared */ 2);
+const jquery_slim_1 = __importDefault(__webpack_require__(1));
+const config_1 = __webpack_require__(0);
+const shared_1 = __webpack_require__(2);
 function DownloadEnvBtnComponent(scheduleId) {
     if (!scheduleId) {
         return;
@@ -12583,9 +12541,6 @@ exports.DownloadEnvBtnComponent = DownloadEnvBtnComponent;
 
 /***/ }),
 /* 14 */
-/*!**************************************!*\
-  !*** ./src/scripts/gs-duplicator.ts ***!
-  \**************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12600,9 +12555,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const styles_1 = __webpack_require__(/*! @/styles */ 33);
-const pages_1 = __webpack_require__(/*! @/pages */ 11);
-const shared_1 = __webpack_require__(/*! @/shared */ 2);
+const styles_1 = __webpack_require__(33);
+const pages_1 = __webpack_require__(11);
+const shared_1 = __webpack_require__(2);
 const RUN_SCRIPT_AFTER_MS = 0;
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const url = window.location.href;
@@ -12626,9 +12581,6 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
 
 /***/ }),
 /* 15 */
-/*!**********************************************!*\
-  !*** ./src/pages/pipeline-schedules.page.ts ***!
-  \**********************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12644,8 +12596,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.pipelineSchedulesPage = void 0;
-const components_1 = __webpack_require__(/*! @/components */ 6);
-const shared_1 = __webpack_require__(/*! @/shared */ 2);
+const components_1 = __webpack_require__(6);
+const shared_1 = __webpack_require__(2);
 const pipelineSchedulesPage = () => __awaiter(void 0, void 0, void 0, function* () {
     const glGraphqlClient = shared_1.GitlabGraphqlClient.getInstance();
     const fullPath = (0, shared_1.getProjectFullPath)(window.location.pathname);
@@ -12658,6 +12610,19 @@ const pipelineSchedulesPage = () => __awaiter(void 0, void 0, void 0, function* 
     // if (playBtns.length === 0) {
     //   playBtns = $('.btn-group').find(`[title='Play']`);
     // }
+    // find the button with text "New schedule"
+    const newScheduleBtns = $('.btn.btn-confirm:contains("New schedule")');
+    const newScheduleBtn = $(newScheduleBtns.get());
+    const quickNewScheduleBtn = (0, components_1.QuickNewScheduleBtnComponent)();
+    const settingsBtn = (0, components_1.GitlabToolSettingsBtnComponent)();
+    // create a new div btnGroup with class ml-auto, move the newScheduleBtn to the enter of the new btnGroup
+    const newBtnGroup = $('<div class="gl-ml-auto"></div>');
+    newBtnGroup.insertBefore(newScheduleBtn);
+    newScheduleBtn.appendTo(newBtnGroup);
+    if (quickNewScheduleBtn) {
+        quickNewScheduleBtn.insertBefore(newScheduleBtn);
+        settingsBtn.insertAfter(newScheduleBtn);
+    }
     // find the buttons with attribute datat-testid="delete-pipeline-schedule-btn" in the btnGroup
     const deleteBtns = $('.tab-pane.active')
         .find('.btn-group')
@@ -12675,19 +12640,6 @@ const pipelineSchedulesPage = () => __awaiter(void 0, void 0, void 0, function* 
             }
         }
     }
-    // find the button with text "New schedule"
-    const newScheduleBtns = $('.btn.btn-confirm:contains("New schedule")');
-    const newScheduleBtn = $(newScheduleBtns.get());
-    const quickNewScheduleBtn = (0, components_1.QuickNewScheduleBtnComponent)();
-    const settingsBtn = (0, components_1.GitlabToolSettingsBtnComponent)();
-    // create a new div btnGroup with class ml-auto, move the newScheduleBtn to the enter of the new btnGroup
-    const newBtnGroup = $('<div class="gl-ml-auto"></div>');
-    newBtnGroup.insertBefore(newScheduleBtn);
-    newScheduleBtn.appendTo(newBtnGroup);
-    if (quickNewScheduleBtn) {
-        quickNewScheduleBtn.insertBefore(newScheduleBtn);
-        settingsBtn.insertAfter(newScheduleBtn);
-    }
     const glChooseBranchDropdown = yield (0, components_1.ChooseBranchDropdownComponent)();
     glChooseBranchDropdown.insertBefore(quickNewScheduleBtn);
 });
@@ -12696,9 +12648,6 @@ exports.pipelineSchedulesPage = pipelineSchedulesPage;
 
 /***/ }),
 /* 16 */
-/*!*********************************************!*\
-  !*** ./src/shared/gitlab-graphql-client.ts ***!
-  \*********************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12714,13 +12663,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GitlabGraphqlClient = void 0;
-const axios_1 = __webpack_require__(/*! axios */ 4);
-const config_1 = __webpack_require__(/*! @/config */ 0);
-const types_1 = __webpack_require__(/*! @/types */ 5);
-const get_gl_token_1 = __webpack_require__(/*! ./get-gl-token */ 9);
-const gitlab_graphql_query_1 = __webpack_require__(/*! ./gitlab-graphql.query */ 31);
-const gitlab_resource_extractor_1 = __webpack_require__(/*! ./gitlab-resource-extractor */ 10);
-const http_client_base_1 = __webpack_require__(/*! ./http-client-base */ 3);
+const axios_1 = __webpack_require__(4);
+const config_1 = __webpack_require__(0);
+const types_1 = __webpack_require__(5);
+const get_gl_token_1 = __webpack_require__(9);
+const gitlab_graphql_query_1 = __webpack_require__(31);
+const gitlab_resource_extractor_1 = __webpack_require__(10);
+const http_client_base_1 = __webpack_require__(3);
 class GitlabGraphqlClient extends http_client_base_1.HttpClient {
     constructor(_token) {
         super(config_1.gitlabGraphqlUrl);
@@ -12806,6 +12755,10 @@ class GitlabGraphqlClient extends http_client_base_1.HttpClient {
                 variables: {
                     ids: ids,
                     projectPath,
+                    first: 50,
+                    last: null,
+                    nextPageCursor: '',
+                    prevPageCursor: '',
                 },
             });
             return data;
@@ -12869,9 +12822,6 @@ exports.GitlabGraphqlClient = GitlabGraphqlClient;
 
 /***/ }),
 /* 17 */
-/*!**********************************************************!*\
-  !*** ./src/types/gitlab-schedule-variable-types.enum.ts ***!
-  \**********************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -12892,9 +12842,6 @@ var CreateGitlabScheduleVariableTypes;
 
 /***/ }),
 /* 18 */
-/*!************************************!*\
-  !*** ./src/shared/jquery-utils.ts ***!
-  \************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12904,7 +12851,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.$ = void 0;
-const jquery_slim_1 = __importDefault(__webpack_require__(/*! jquery/dist/jquery.slim */ 1));
+const jquery_slim_1 = __importDefault(__webpack_require__(1));
 function $(selector) {
     const htmlElements = (0, jquery_slim_1.default)(selector);
     if (htmlElements.length === 0) {
@@ -12917,9 +12864,6 @@ exports.$ = $;
 
 /***/ }),
 /* 19 */
-/*!******************************************!*\
-  !*** ./src/shared/var-option-storage.ts ***!
-  \******************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12935,8 +12879,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.VarOptionStorage = void 0;
-const gitlab_http_client_1 = __webpack_require__(/*! ./gitlab-http-client */ 8);
-const gitlab_resource_extractor_1 = __webpack_require__(/*! ./gitlab-resource-extractor */ 10);
+const gitlab_http_client_1 = __webpack_require__(8);
+const gitlab_resource_extractor_1 = __webpack_require__(10);
 class VarOptionStorage {
     constructor() {
         this.glHttpClient = gitlab_http_client_1.GitlabHttpClient.getInstance();
@@ -13006,9 +12950,6 @@ exports.VarOptionStorage = VarOptionStorage;
 
 /***/ }),
 /* 20 */
-/*!************************************************************!*\
-  !*** ./src/components/quick-new-schedule-btn.component.ts ***!
-  \************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13018,7 +12959,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.QuickNewScheduleBtnComponent = void 0;
-const jquery_slim_1 = __importDefault(__webpack_require__(/*! jquery/dist/jquery.slim */ 1));
+const jquery_slim_1 = __importDefault(__webpack_require__(1));
 function QuickNewScheduleBtnComponent() {
     const quickNewScheduleBtnHtml = `
 	<a class="btn gl-button btn-success mr-2">
@@ -13035,9 +12976,6 @@ exports.QuickNewScheduleBtnComponent = QuickNewScheduleBtnComponent;
 
 /***/ }),
 /* 21 */
-/*!***********************************************************************!*\
-  !*** ./src/components/shared-components/gitlab-checkbox.component.ts ***!
-  \***********************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13047,7 +12985,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GitlabCheckboxComponent = void 0;
-const jquery_slim_1 = __importDefault(__webpack_require__(/*! jquery/dist/jquery.slim */ 1));
+const jquery_slim_1 = __importDefault(__webpack_require__(1));
 function GitlabCheckboxComponent(label, controlLabel, className, checked = true, checkboxId) {
     const _checkboxId = checkboxId !== null && checkboxId !== void 0 ? checkboxId : label.replaceAll(' ', '') + '_checkbox';
     const checkboxComponentHtml = `
@@ -13068,9 +13006,6 @@ exports.GitlabCheckboxComponent = GitlabCheckboxComponent;
 
 /***/ }),
 /* 22 */
-/*!***********************************************************************!*\
-  !*** ./src/components/shared-components/gitlab-dropdown.component.ts ***!
-  \***********************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13080,8 +13015,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GitlabDropdownComponent = void 0;
-const jquery_slim_1 = __importDefault(__webpack_require__(/*! jquery/dist/jquery.slim */ 1));
-const config_1 = __webpack_require__(/*! @/config */ 0);
+const jquery_slim_1 = __importDefault(__webpack_require__(1));
+const config_1 = __webpack_require__(0);
 function GitlabDropdownComponent(dropdownName, dropdownTitle, dropdownItems) {
     // Dropdown
     const glDropdownHtml = `
@@ -13152,9 +13087,6 @@ exports.GitlabDropdownComponent = GitlabDropdownComponent;
 
 /***/ }),
 /* 23 */
-/*!******************************************************************************!*\
-  !*** ./src/components/shared-components/gitlab-rm-variable-row.component.ts ***!
-  \******************************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13164,8 +13096,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GitlabRemoveVariableRowComponent = void 0;
-const jquery_slim_1 = __importDefault(__webpack_require__(/*! jquery/dist/jquery.slim */ 1));
-const config_1 = __webpack_require__(/*! @/config */ 0);
+const jquery_slim_1 = __importDefault(__webpack_require__(1));
+const config_1 = __webpack_require__(0);
 function GitlabRemoveVariableRowComponent() {
     const removeBtnHtml = `
 	<button data-testid="remove-ci-variable-row" aria-label="Remove variable" type="button" class="btn gl-md-ml-3 gl-mb-3 custom-remove-variable-btn btn-danger btn-md gl-button btn-danger-secondary btn-icon">
@@ -13181,9 +13113,6 @@ exports.GitlabRemoveVariableRowComponent = GitlabRemoveVariableRowComponent;
 
 /***/ }),
 /* 24 */
-/*!************************************************************************!*\
-  !*** ./src/components/shared-components/gitlab-selection.component.ts ***!
-  \************************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13193,7 +13122,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GitlabSelectionComponent = void 0;
-const jquery_slim_1 = __importDefault(__webpack_require__(/*! jquery/dist/jquery.slim */ 1));
+const jquery_slim_1 = __importDefault(__webpack_require__(1));
 function GitlabSelectionComponent(options, selectedValue, data_testId, data_qaSelector, action) {
     const gitlabSelectionHtml = `
 	<select class="js-ci-variable-input-variable-type form-control select-control custom-select table-section" data-testid=${data_testId} data-qa-selector=${data_qaSelector}>
@@ -13212,9 +13141,6 @@ exports.GitlabSelectionComponent = GitlabSelectionComponent;
 
 /***/ }),
 /* 25 */
-/*!************************************************************!*\
-  !*** ./src/components/choose-branch-dropdown.component.ts ***!
-  \************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13230,9 +13156,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ChooseBranchDropdownComponent = void 0;
-const config_1 = __webpack_require__(/*! @/config */ 0);
-const shared_1 = __webpack_require__(/*! @/shared */ 2);
-const shared_components_1 = __webpack_require__(/*! ./shared-components */ 7);
+const config_1 = __webpack_require__(0);
+const shared_1 = __webpack_require__(2);
+const shared_components_1 = __webpack_require__(7);
 function ChooseBranchDropdownComponent() {
     return __awaiter(this, void 0, void 0, function* () {
         const glClient = shared_1.GitlabHttpClient.getInstance();
@@ -13265,9 +13191,6 @@ exports.ChooseBranchDropdownComponent = ChooseBranchDropdownComponent;
 
 /***/ }),
 /* 26 */
-/*!****************************************************************!*\
-  !*** ./src/components/gl-duplicator-settings-btn.component.ts ***!
-  \****************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13277,9 +13200,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GitlabToolSettingsBtnComponent = void 0;
-const jquery_slim_1 = __importDefault(__webpack_require__(/*! jquery/dist/jquery.slim */ 1));
-const config_1 = __webpack_require__(/*! @/config */ 0);
-const gl_settings_modal_component_1 = __webpack_require__(/*! ./gl-settings-modal.component */ 27);
+const jquery_slim_1 = __importDefault(__webpack_require__(1));
+const config_1 = __webpack_require__(0);
+const gl_settings_modal_component_1 = __webpack_require__(27);
 let glToolsSettingsModalOpenedState = false;
 function GitlabToolSettingsBtnComponent() {
     const glToolSettingsBtnHtml = `
@@ -13334,9 +13257,6 @@ exports.GitlabToolSettingsBtnComponent = GitlabToolSettingsBtnComponent;
 
 /***/ }),
 /* 27 */
-/*!*******************************************************!*\
-  !*** ./src/components/gl-settings-modal.component.ts ***!
-  \*******************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13346,9 +13266,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GitlabToolSettingsModalComponent = void 0;
-const jquery_slim_1 = __importDefault(__webpack_require__(/*! jquery/dist/jquery.slim */ 1));
-const config_1 = __webpack_require__(/*! @/config */ 0);
-const shared_1 = __webpack_require__(/*! @/shared */ 2);
+const jquery_slim_1 = __importDefault(__webpack_require__(1));
+const config_1 = __webpack_require__(0);
+const shared_1 = __webpack_require__(2);
 function GitlabToolSettingsModalComponent(cbEvent) {
     const modalHtml = `<div style="position: absolute; z-index: 1040;">
 	<div role="dialog" aria-label="Gitlab Tool Settings" class="modal show gl-modal" aria-modal="true"
@@ -13666,9 +13586,6 @@ exports.GitlabToolSettingsModalComponent = GitlabToolSettingsModalComponent;
 
 /***/ }),
 /* 28 */
-/*!**************************************************!*\
-  !*** ./src/pages/edit-pipeline-schedule.page.ts ***!
-  \**************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13684,9 +13601,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.editPipelineSchedulePage = void 0;
-const components_1 = __webpack_require__(/*! @/components */ 6);
-const config_1 = __webpack_require__(/*! @/config */ 0);
-const shared_1 = __webpack_require__(/*! @/shared */ 2);
+const components_1 = __webpack_require__(6);
+const config_1 = __webpack_require__(0);
+const shared_1 = __webpack_require__(2);
 const { ROW_CONTAINER, REVEAL_VALUES_BTN, SUBMIT_BTN, BRANCH_SELECT, CI_VARIABLE_ROW, VARIABLE_KEY_INPUT, VARIABLE_SECRET_INPUT, 
 // VARIABLE_SECRET_HIDDEN_INPUT,
 VARIABLE_SECRET_INPUT_CLASS, REMOVE_VARIABLE_BTN, } = shared_1.EDIT_PIPELINE_SCHEDULE_PAGE_SELECTORS;
@@ -13930,9 +13847,6 @@ exports.editPipelineSchedulePage = editPipelineSchedulePage;
 
 /***/ }),
 /* 29 */
-/*!*********************************!*\
-  !*** ./src/shared/constants.ts ***!
-  \*********************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -13962,9 +13876,6 @@ exports.EDIT_PIPELINE_SCHEDULE_PAGE_SELECTORS = {
 
 /***/ }),
 /* 30 */
-/*!****************************************!*\
-  !*** ./src/types/http-methods.enum.ts ***!
-  \****************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -13983,9 +13894,6 @@ var HttpMethods;
 
 /***/ }),
 /* 31 */
-/*!********************************************!*\
-  !*** ./src/shared/gitlab-graphql.query.ts ***!
-  \********************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -14006,7 +13914,7 @@ exports.getCiConfigVariablesQueryStr = `query ciConfigVariables($fullPath: ID!, 
   }
 }
 `;
-exports.getPipelineSchedulesQueryStr = `query getPipelineSchedulesQuery($projectPath: ID!, $status: PipelineScheduleStatus, $ids: [ID!] = null) {
+exports.getPipelineSchedulesQueryStr = `query getPipelineSchedulesQuery($projectPath: ID!, $status: PipelineScheduleStatus, $ids: [ID!] = null, $first: Int, $last: Int, $prevPageCursor: String = "", $nextPageCursor: String = "") {
   currentUser {
     id
     username
@@ -14014,7 +13922,14 @@ exports.getPipelineSchedulesQueryStr = `query getPipelineSchedulesQuery($project
   }
   project(fullPath: $projectPath) {
     id
-    pipelineSchedules(status: $status, ids: $ids) {
+    pipelineSchedules(
+      status: $status
+      ids: $ids
+      first: $first
+      last: $last
+      after: $nextPageCursor
+      before: $prevPageCursor
+    ) {
       count
       nodes {
         id
@@ -14068,10 +13983,22 @@ exports.getPipelineSchedulesQueryStr = `query getPipelineSchedulesQuery($project
         }
         __typename
       }
+      pageInfo {
+        ...PageInfo
+        __typename
+      }
       __typename
     }
     __typename
   }
+}
+
+fragment PageInfo on PageInfo {
+  hasNextPage
+  hasPreviousPage
+  startCursor
+  endCursor
+  __typename
 }
 `;
 exports.getPipelineScheduleQueryStr = `query getPipelineSchedulesQuery($projectPath: ID!, $status: PipelineScheduleStatus, $ids: [ID!] = null) {
@@ -14154,18 +14081,12 @@ exports.updatePipelineScheduleMutationStr = `mutation updatePipelineSchedule($in
 
 /***/ }),
 /* 32 */
-/*!*************************************************************!*\
-  !*** ./node_modules/axios-cache-interceptor/dist/index.cjs ***!
-  \*************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-(()=>{"use strict";var e={d:(t,a)=>{for(var r in a)e.o(a,r)&&!e.o(t,r)&&Object.defineProperty(t,r,{enumerable:!0,get:a[r]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r:e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}},t={};e.r(t),e.d(t,{Header:()=>r,buildKeyGenerator:()=>b,buildMemoryStorage:()=>v,buildStorage:()=>w,buildWebStorage:()=>C,canStale:()=>p,createCacheResponse:()=>d,createValidateStatus:()=>i,defaultHeaderInterpreter:()=>n,defaultKeyGenerator:()=>I,defaultRequestInterceptor:()=>u,defaultResponseInterceptor:()=>h,isExpired:()=>m,isMethodIn:()=>s,isStorage:()=>g,setupCache:()=>x,testCachePredicate:()=>f,updateCache:()=>l,updateStaleRequest:()=>c});const a=__webpack_require__(/*! cache-parser */ 47),r=Object.freeze({IfModifiedSince:"if-modified-since",LastModified:"last-modified",IfNoneMatch:"if-none-match",CacheControl:"cache-control",ETag:"etag",Expires:"expires",Age:"age",XAxiosCacheEtag:"x-axios-cache-etag",XAxiosCacheLastModified:"x-axios-cache-last-modified",XAxiosCacheStaleIfError:"x-axios-cache-stale-if-error"}),n=e=>{if(!e)return"not enough headers";const t=e[r.CacheControl];if(t){const{noCache:n,noStore:o,mustRevalidate:i,maxAge:s,immutable:c}=(0,a.parse)(String(t));if(n||o)return"dont cache";if(c)return 31536e6;if(i)return 0;if(void 0!==s){const t=e[r.Age];return t?1e3*(s-Number(t)):1e3*s}}const n=e[r.Expires];if(n){const e=Date.parse(String(n))-Date.now();return e>=0?e:"dont cache"}return"not enough headers"},o=__webpack_require__(/*! fast-defer */ 48);function i(e){return e?t=>e(t)||304===t:e=>e>=200&&e<300||304===e}function s(e="get",t=[]){return e=e.toLowerCase(),t.some((t=>t===e))}function c(e,t){var a;t.headers||(t.headers={});const{etag:n,modifiedSince:o}=t.cache;if(n){const o=!0===n?null===(a=e.data)||void 0===a?void 0:a.headers[r.ETag]:n;o&&(t.headers[r.IfNoneMatch]=o)}o&&(t.headers[r.IfModifiedSince]=!0===o?e.data.headers[r.LastModified]||new Date(e.createdAt).toUTCString():o.toUTCString())}function d(e,t){return 304===e.status&&t?(e.cached=!0,e.data=t.data,e.status=t.status,e.statusText=t.statusText,e.headers=Object.assign(Object.assign({},t.headers),e.headers),t):{data:e.data,status:e.status,statusText:e.statusText,headers:e.headers}}function u(e){const t=async t=>{var a;const r=t.id=e.generateKey(t);if(!1===t.cache)return t;if(t.cache=Object.assign(Object.assign({},e.defaults.cache),t.cache),!s(t.method,t.cache.methods))return t;let n=await e.storage.get(r,t);const d=t.cache.override;e:if("empty"===n.state||"stale"===n.state||d){if(e.waiting[r]&&!d&&(n=await e.storage.get(r,t),"empty"!==n.state)){0;break e}return e.waiting[r]=(0,o.deferred)(),null===(a=e.waiting[r])||void 0===a||a.catch((()=>{})),await e.storage.set(r,{state:"loading",previous:d?n.data?"stale":"empty":n.state,data:n.data,createdAt:d&&!n.createdAt?Date.now():n.createdAt},t),"stale"===n.state&&c(n,t),t.validateStatus=i(t.validateStatus),t}let u;if("loading"===n.state){const a=e.waiting[r];if(!a)return await e.storage.remove(r,t),t;0;try{u=await a}catch(e){return t}}else u=n.data;return t.adapter=()=>Promise.resolve({config:t,data:u.data,headers:u.headers,status:u.status,statusText:u.statusText,cached:!0,id:r}),t};return{onFulfilled:t,apply:()=>e.interceptors.request.use(t)}}async function f(e,t){var a;if("function"==typeof t)return t(e);const{statusCheck:r,responseMatch:n,containsHeaders:o}=t;if(r&&!await r(e.status)||n&&!await n(e))return!1;if(o)for(const[t,r]of Object.entries(o))if(!await r(null!==(a=e.headers[t.toLowerCase()])&&void 0!==a?a:e.headers[t]))return!1;return!0}async function l(e,t,a){if("function"==typeof a)return a(t);for(const[r,n]of Object.entries(a)){if("delete"===n){await e.remove(r,t.config);continue}const a=await e.get(r,t.config);if("loading"===a.state)continue;const o=await n(a,t);"delete"!==o?"ignore"!==o&&await e.set(r,o,t.config):await e.remove(r,t.config)}}function h(e){const t=async(t,a)=>{var r;await e.storage.remove(t,a),null===(r=e.waiting[t])||void 0===r||r.reject(),delete e.waiting[t]},a=async a=>{var n,o,i;const s=a.id=null!==(n=(i=a.config).id)&&void 0!==n?n:i.id=e.generateKey(a.config);if(null!==(o=a.cached)&&void 0!==o||(a.cached=!1),a.cached)return a;const c=a.config.cache;if(!c)return Object.assign(Object.assign({},a),{cached:!1});const u=a.config,h=await e.storage.get(s,u);if((null==c?void 0:c.update)&&await l(e.storage,a,c.update),"loading"!==h.state)return a;if(!h.data&&!await f(a,c.cachePredicate))return await t(s,u),a;for(const e of Object.keys(a.headers))e.startsWith("x-axios-cache")&&delete a.headers[e];c.etag&&!0!==c.etag&&(a.headers[r.XAxiosCacheEtag]=c.etag),c.modifiedSince&&(a.headers[r.XAxiosCacheLastModified]=!0===c.modifiedSince?"use-cache-timestamp":c.modifiedSince.toUTCString());let g=c.ttl||-1;if(null==c?void 0:c.interpretHeader){const r=e.headerInterpreter(a.headers);if("dont cache"===r)return await t(s,u),a;g="not enough headers"===r?g:r}const p=d(a,h.data);"function"==typeof g&&(g=await g(a)),c.staleIfError&&(a.headers[r.XAxiosCacheStaleIfError]=String(g));const m={state:"cached",ttl:g,createdAt:Date.now(),data:p},w=e.waiting[s];return w&&(w.resolve(m.data),delete e.waiting[s]),await e.storage.set(s,m,u),a},n=async a=>{var r;const n=a.config;if(!(null==n?void 0:n.cache)||!n.id)throw a;const o=await e.storage.get(n.id,n),i=n.cache;if("loading"!==o.state||"stale"!==o.previous)throw await t(n.id,n),a;if(null==i?void 0:i.staleIfError){const t="function"==typeof i.staleIfError?await i.staleIfError(a.response,o,a):i.staleIfError;if(!0===t||"number"==typeof t&&o.createdAt+t>Date.now())return null===(r=e.waiting[n.id])||void 0===r||r.resolve(o.data),delete e.waiting[n.id],await e.storage.set(n.id,{state:"stale",createdAt:Date.now(),data:o.data},n),{cached:!0,config:n,id:n.id,data:o.data.data,headers:o.data.headers,status:o.data.status,statusText:o.data.statusText}}throw a};return{onFulfilled:a,onRejected:n,apply:()=>e.interceptors.response.use(a,n)}}const g=e=>!!e&&!!e["is-storage"];function p(e){const t=e.data.headers;return r.ETag in t||r.LastModified in t||r.XAxiosCacheEtag in t||r.XAxiosCacheStaleIfError in t||r.XAxiosCacheLastModified in t}function m(e){return e.createdAt+e.ttl<=Date.now()}function w({set:e,find:t,remove:a}){return{"is-storage":1,set:e,remove:a,get:async(r,n)=>{const o=await t(r,n);if(!o)return{state:"empty"};if("cached"!==o.state||!m(o))return o;if(p(o)){const t={state:"stale",createdAt:o.createdAt,data:o.data};return await e(r,t,n),t}return await a(r,n),{state:"empty"}}}}function v(e=!1){const t=w({set:(e,a)=>{t.data[e]=a},remove:e=>{delete t.data[e]},find:a=>{const r=t.data[a];return e&&void 0!==r?"function"==typeof structuredClone?structuredClone(r):JSON.parse(JSON.stringify(r)):r}});return t.data=Object.create(null),t}const y=__webpack_require__(/*! object-code */ 49),S=/^\/|\/$/g;function b(e){return t=>{if(t.id)return t.id;const a=e(t);return"string"==typeof a||"number"==typeof a?`${a}`:`${(0,y.hash)(a)}`}}const I=b((({baseURL:e="",url:t="",method:a="get",params:r,data:n})=>(e&&(e=e.replace(S,"")),t&&(t=t.replace(S,"")),a&&(a=a.toLowerCase()),{url:e+(e&&t?"/":"")+t,params:r,method:a,data:n})));function x(e,t={}){var a,r,o,i,s;const c=e;if(c.storage=t.storage||v(),!g(c.storage))throw new Error("Use buildStorage() function");return c.waiting=t.waiting||{},c.generateKey=t.generateKey||I,c.headerInterpreter=t.headerInterpreter||n,c.requestInterceptor=t.requestInterceptor||u(c),c.responseInterceptor=t.responseInterceptor||h(c),c.debug=t.debug,c.defaults.cache={update:t.update||{},ttl:null!==(a=t.ttl)&&void 0!==a?a:3e5,methods:t.methods||["get"],cachePredicate:t.cachePredicate||{statusCheck:e=>e>=200&&e<400},etag:null===(r=t.etag)||void 0===r||r,modifiedSince:null!==(o=t.modifiedSince)&&void 0!==o?o:!1===t.etag,interpretHeader:null===(i=t.interpretHeader)||void 0===i||i,staleIfError:null===(s=t.staleIfError)||void 0===s||s,override:!1},c.requestInterceptor.apply(),c.responseInterceptor.apply(),c}function C(e,t=""){return w({find:a=>{const r=e.getItem(t+a);return r?JSON.parse(r):void 0},remove:a=>{e.removeItem(t+a)},set:(a,r)=>{const n=()=>e.setItem(t+a,JSON.stringify(r));try{return n()}catch(r){const o=Object.entries(e).filter((e=>e[0].startsWith(t))).map((e=>[e[0],JSON.parse(e[1])]));for(const t of o)"cached"===t[1].state&&m(t[1])&&!p(t[1])&&e.removeItem(t[0]);try{return n()}catch(t){const a=o.sort(((e,t)=>(e[1].createdAt||0)-(t[1].createdAt||0)));for(const t of a){e.removeItem(t[0]);try{return n()}catch(e){}}}e.removeItem(t+a)}}})}module.exports=t})();
+(()=>{"use strict";var e={d:(t,a)=>{for(var r in a)e.o(a,r)&&!e.o(t,r)&&Object.defineProperty(t,r,{enumerable:!0,get:a[r]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r:e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}},t={};e.r(t),e.d(t,{Header:()=>r,buildKeyGenerator:()=>b,buildMemoryStorage:()=>v,buildStorage:()=>w,buildWebStorage:()=>C,canStale:()=>p,createCacheResponse:()=>d,createValidateStatus:()=>i,defaultHeaderInterpreter:()=>n,defaultKeyGenerator:()=>I,defaultRequestInterceptor:()=>u,defaultResponseInterceptor:()=>h,isExpired:()=>m,isMethodIn:()=>s,isStorage:()=>g,setupCache:()=>x,testCachePredicate:()=>f,updateCache:()=>l,updateStaleRequest:()=>c});const a=__webpack_require__(47),r=Object.freeze({IfModifiedSince:"if-modified-since",LastModified:"last-modified",IfNoneMatch:"if-none-match",CacheControl:"cache-control",ETag:"etag",Expires:"expires",Age:"age",XAxiosCacheEtag:"x-axios-cache-etag",XAxiosCacheLastModified:"x-axios-cache-last-modified",XAxiosCacheStaleIfError:"x-axios-cache-stale-if-error"}),n=e=>{if(!e)return"not enough headers";const t=e[r.CacheControl];if(t){const{noCache:n,noStore:o,mustRevalidate:i,maxAge:s,immutable:c}=(0,a.parse)(String(t));if(n||o)return"dont cache";if(c)return 31536e6;if(i)return 0;if(void 0!==s){const t=e[r.Age];return t?1e3*(s-Number(t)):1e3*s}}const n=e[r.Expires];if(n){const e=Date.parse(String(n))-Date.now();return e>=0?e:"dont cache"}return"not enough headers"},o=__webpack_require__(48);function i(e){return e?t=>e(t)||304===t:e=>e>=200&&e<300||304===e}function s(e="get",t=[]){return e=e.toLowerCase(),t.some((t=>t===e))}function c(e,t){var a;t.headers||(t.headers={});const{etag:n,modifiedSince:o}=t.cache;if(n){const o=!0===n?null===(a=e.data)||void 0===a?void 0:a.headers[r.ETag]:n;o&&(t.headers[r.IfNoneMatch]=o)}o&&(t.headers[r.IfModifiedSince]=!0===o?e.data.headers[r.LastModified]||new Date(e.createdAt).toUTCString():o.toUTCString())}function d(e,t){return 304===e.status&&t?(e.cached=!0,e.data=t.data,e.status=t.status,e.statusText=t.statusText,e.headers=Object.assign(Object.assign({},t.headers),e.headers),t):{data:e.data,status:e.status,statusText:e.statusText,headers:e.headers}}function u(e){const t=async t=>{var a;const r=t.id=e.generateKey(t);if(!1===t.cache)return t;if(t.cache=Object.assign(Object.assign({},e.defaults.cache),t.cache),!s(t.method,t.cache.methods))return t;let n=await e.storage.get(r,t);const d=t.cache.override;e:if("empty"===n.state||"stale"===n.state||d){if(e.waiting[r]&&!d&&(n=await e.storage.get(r,t),"empty"!==n.state)){0;break e}return e.waiting[r]=(0,o.deferred)(),null===(a=e.waiting[r])||void 0===a||a.catch((()=>{})),await e.storage.set(r,{state:"loading",previous:d?n.data?"stale":"empty":n.state,data:n.data,createdAt:d&&!n.createdAt?Date.now():n.createdAt},t),"stale"===n.state&&c(n,t),t.validateStatus=i(t.validateStatus),t}let u;if("loading"===n.state){const a=e.waiting[r];if(!a)return await e.storage.remove(r,t),t;0;try{u=await a}catch(e){return t}}else u=n.data;return t.adapter=()=>Promise.resolve({config:t,data:u.data,headers:u.headers,status:u.status,statusText:u.statusText,cached:!0,id:r}),t};return{onFulfilled:t,apply:()=>e.interceptors.request.use(t)}}async function f(e,t){var a;if("function"==typeof t)return t(e);const{statusCheck:r,responseMatch:n,containsHeaders:o}=t;if(r&&!await r(e.status)||n&&!await n(e))return!1;if(o)for(const[t,r]of Object.entries(o))if(!await r(null!==(a=e.headers[t.toLowerCase()])&&void 0!==a?a:e.headers[t]))return!1;return!0}async function l(e,t,a){if("function"==typeof a)return a(t);for(const[r,n]of Object.entries(a)){if("delete"===n){await e.remove(r,t.config);continue}const a=await e.get(r,t.config);if("loading"===a.state)continue;const o=await n(a,t);"delete"!==o?"ignore"!==o&&await e.set(r,o,t.config):await e.remove(r,t.config)}}function h(e){const t=async(t,a)=>{var r;await e.storage.remove(t,a),null===(r=e.waiting[t])||void 0===r||r.reject(),delete e.waiting[t]},a=async a=>{var n,o,i;const s=a.id=null!==(n=(i=a.config).id)&&void 0!==n?n:i.id=e.generateKey(a.config);if(null!==(o=a.cached)&&void 0!==o||(a.cached=!1),a.cached)return a;const c=a.config.cache;if(!c)return Object.assign(Object.assign({},a),{cached:!1});const u=a.config,h=await e.storage.get(s,u);if((null==c?void 0:c.update)&&await l(e.storage,a,c.update),"loading"!==h.state)return a;if(!h.data&&!await f(a,c.cachePredicate))return await t(s,u),a;for(const e of Object.keys(a.headers))e.startsWith("x-axios-cache")&&delete a.headers[e];c.etag&&!0!==c.etag&&(a.headers[r.XAxiosCacheEtag]=c.etag),c.modifiedSince&&(a.headers[r.XAxiosCacheLastModified]=!0===c.modifiedSince?"use-cache-timestamp":c.modifiedSince.toUTCString());let g=c.ttl||-1;if(null==c?void 0:c.interpretHeader){const r=e.headerInterpreter(a.headers);if("dont cache"===r)return await t(s,u),a;g="not enough headers"===r?g:r}const p=d(a,h.data);"function"==typeof g&&(g=await g(a)),c.staleIfError&&(a.headers[r.XAxiosCacheStaleIfError]=String(g));const m={state:"cached",ttl:g,createdAt:Date.now(),data:p},w=e.waiting[s];return w&&(w.resolve(m.data),delete e.waiting[s]),await e.storage.set(s,m,u),a},n=async a=>{var r;const n=a.config;if(!(null==n?void 0:n.cache)||!n.id)throw a;const o=await e.storage.get(n.id,n),i=n.cache;if("loading"!==o.state||"stale"!==o.previous)throw await t(n.id,n),a;if(null==i?void 0:i.staleIfError){const t="function"==typeof i.staleIfError?await i.staleIfError(a.response,o,a):i.staleIfError;if(!0===t||"number"==typeof t&&o.createdAt+t>Date.now())return null===(r=e.waiting[n.id])||void 0===r||r.resolve(o.data),delete e.waiting[n.id],await e.storage.set(n.id,{state:"stale",createdAt:Date.now(),data:o.data},n),{cached:!0,config:n,id:n.id,data:o.data.data,headers:o.data.headers,status:o.data.status,statusText:o.data.statusText}}throw a};return{onFulfilled:a,onRejected:n,apply:()=>e.interceptors.response.use(a,n)}}const g=e=>!!e&&!!e["is-storage"];function p(e){const t=e.data.headers;return r.ETag in t||r.LastModified in t||r.XAxiosCacheEtag in t||r.XAxiosCacheStaleIfError in t||r.XAxiosCacheLastModified in t}function m(e){return e.createdAt+e.ttl<=Date.now()}function w({set:e,find:t,remove:a}){return{"is-storage":1,set:e,remove:a,get:async(r,n)=>{const o=await t(r,n);if(!o)return{state:"empty"};if("cached"!==o.state||!m(o))return o;if(p(o)){const t={state:"stale",createdAt:o.createdAt,data:o.data};return await e(r,t,n),t}return await a(r,n),{state:"empty"}}}}function v(e=!1){const t=w({set:(e,a)=>{t.data[e]=a},remove:e=>{delete t.data[e]},find:a=>{const r=t.data[a];return e&&void 0!==r?"function"==typeof structuredClone?structuredClone(r):JSON.parse(JSON.stringify(r)):r}});return t.data=Object.create(null),t}const y=__webpack_require__(49),S=/^\/|\/$/g;function b(e){return t=>{if(t.id)return t.id;const a=e(t);return"string"==typeof a||"number"==typeof a?`${a}`:`${(0,y.hash)(a)}`}}const I=b((({baseURL:e="",url:t="",method:a="get",params:r,data:n})=>(e&&(e=e.replace(S,"")),t&&(t=t.replace(S,"")),a&&(a=a.toLowerCase()),{url:e+(e&&t?"/":"")+t,params:r,method:a,data:n})));function x(e,t={}){var a,r,o,i,s;const c=e;if(c.storage=t.storage||v(),!g(c.storage))throw new Error("Use buildStorage() function");return c.waiting=t.waiting||{},c.generateKey=t.generateKey||I,c.headerInterpreter=t.headerInterpreter||n,c.requestInterceptor=t.requestInterceptor||u(c),c.responseInterceptor=t.responseInterceptor||h(c),c.debug=t.debug,c.defaults.cache={update:t.update||{},ttl:null!==(a=t.ttl)&&void 0!==a?a:3e5,methods:t.methods||["get"],cachePredicate:t.cachePredicate||{statusCheck:e=>e>=200&&e<400},etag:null===(r=t.etag)||void 0===r||r,modifiedSince:null!==(o=t.modifiedSince)&&void 0!==o?o:!1===t.etag,interpretHeader:null===(i=t.interpretHeader)||void 0===i||i,staleIfError:null===(s=t.staleIfError)||void 0===s||s,override:!1},c.requestInterceptor.apply(),c.responseInterceptor.apply(),c}function C(e,t=""){return w({find:a=>{const r=e.getItem(t+a);return r?JSON.parse(r):void 0},remove:a=>{e.removeItem(t+a)},set:(a,r)=>{const n=()=>e.setItem(t+a,JSON.stringify(r));try{return n()}catch(r){const o=Object.entries(e).filter((e=>e[0].startsWith(t))).map((e=>[e[0],JSON.parse(e[1])]));for(const t of o)"cached"===t[1].state&&m(t[1])&&!p(t[1])&&e.removeItem(t[0]);try{return n()}catch(t){const a=o.sort(((e,t)=>(e[1].createdAt||0)-(t[1].createdAt||0)));for(const t of a){e.removeItem(t[0]);try{return n()}catch(e){}}}e.removeItem(t+a)}}})}module.exports=t})();
 
 /***/ }),
 /* 33 */
-/*!*****************************!*\
-  !*** ./src/styles/index.ts ***!
-  \*****************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -14211,9 +14132,6 @@ exports.css = `
 
 /***/ }),
 /* 34 */
-/*!***********************************!*\
-  !*** ./src/shared/collections.ts ***!
-  \***********************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -14234,9 +14152,6 @@ exports.leftJoin = leftJoin;
 
 /***/ }),
 /* 35 */
-/*!*********************************!*\
-  !*** ./src/shared/dom-utils.ts ***!
-  \*********************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -14290,16 +14205,13 @@ exports.htmlVarInjector = htmlVarInjector;
 
 /***/ }),
 /* 36 */
-/*!*****************************************!*\
-  !*** ./src/shared/download-env-file.ts ***!
-  \*****************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.downloadEnvFile = void 0;
-const config_1 = __webpack_require__(/*! @/config */ 0);
+const config_1 = __webpack_require__(0);
 function saveAs(blob, filename) {
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -14323,9 +14235,6 @@ exports.downloadEnvFile = downloadEnvFile;
 
 /***/ }),
 /* 37 */
-/*!**********************************************!*\
-  !*** ./src/types/dropdown-item.interface.ts ***!
-  \**********************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -14335,9 +14244,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 /***/ }),
 /* 38 */
-/*!****************************************!*\
-  !*** ./src/types/gitlab-branch.dto.ts ***!
-  \****************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -14347,9 +14253,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 /***/ }),
 /* 39 */
-/*!**************************************************!*\
-  !*** ./src/types/gitlab-ciconfigvariable.dto.ts ***!
-  \**************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -14359,9 +14262,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 /***/ }),
 /* 40 */
-/*!****************************************************!*\
-  !*** ./src/types/gitlab-edit-var-row.interface.ts ***!
-  \****************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -14371,9 +14271,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 /***/ }),
 /* 41 */
-/*!*************************************************************!*\
-  !*** ./src/types/gitlab-get-pipeline-schedule.interface.ts ***!
-  \*************************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -14383,9 +14280,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 /***/ }),
 /* 42 */
-/*!******************************************!*\
-  !*** ./src/types/gitlab-pipeline.dto.ts ***!
-  \******************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -14395,9 +14289,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 /***/ }),
 /* 43 */
-/*!***************************************************!*\
-  !*** ./src/types/gitlab-schedule-variable.dto.ts ***!
-  \***************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -14407,9 +14298,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 /***/ }),
 /* 44 */
-/*!******************************************!*\
-  !*** ./src/types/gitlab-schedule.dto.ts ***!
-  \******************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -14419,9 +14307,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 /***/ }),
 /* 45 */
-/*!*****************************************************!*\
-  !*** ./src/types/gitlab-tool-settings.interface.ts ***!
-  \*****************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -14431,9 +14316,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 /***/ }),
 /* 46 */
-/*!****************************************************************!*\
-  !*** ./src/types/gitlab-update-pipeline-schedule.interface.ts ***!
-  \****************************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -14443,9 +14325,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 /***/ }),
 /* 47 */
-/*!**************************************************!*\
-  !*** ./node_modules/cache-parser/dist/index.mjs ***!
-  \**************************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14461,9 +14340,6 @@ var e=Symbol("cache-parser");function a(e){return("string"==typeof e||"number"==
 
 /***/ }),
 /* 48 */
-/*!************************************************!*\
-  !*** ./node_modules/fast-defer/dist/index.mjs ***!
-  \************************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14478,9 +14354,6 @@ var r=Symbol();function e(){var e,n,o=new Promise(function(r,o){e=r,n=o});return
 
 /***/ }),
 /* 49 */
-/*!*************************************************!*\
-  !*** ./node_modules/object-code/dist/index.mjs ***!
-  \*************************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14495,9 +14368,6 @@ function r(t){var n=typeof t;if(t&&"object"===n&&!(t instanceof Date||t instance
 
 /***/ }),
 /* 50 */
-/*!******************************************!*\
-  !*** ./src/shared/markdown-converter.ts ***!
-  \******************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -14556,9 +14426,6 @@ exports.convertMarkdownToHtml = convertMarkdownToHtml;
 
 /***/ }),
 /* 51 */
-/*!*****************************************************!*\
-  !*** ./src/components/var-description.component.ts ***!
-  \*****************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";

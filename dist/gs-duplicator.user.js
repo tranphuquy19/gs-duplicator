@@ -11,7 +11,7 @@
 // @supportURL   https://github.com/tranphuquy19/gs-duplicator/issues
 // @license      MIT
 // @author       tranphuquy19
-// @version      1700669428105
+// @version      1701827118589
 // ==/UserScript==
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ([

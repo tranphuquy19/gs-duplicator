@@ -5,13 +5,19 @@ import {
   GitlabToolSettingsBtnComponent,
   QuickNewScheduleBtnComponent,
 } from '@/components';
-import { GitlabGraphqlClient, getProjectFullPath, waitForElement } from '@/shared';
+import {
+  GitlabGraphqlClient,
+  getProjectFullPath,
+  getScheduleIdFromGid,
+  waitForElement,
+} from '@/shared';
+import { GetPipelineScheduleNode } from '@/types';
 
 export const pipelineSchedulesPage = async () => {
   const glGraphqlClient = GitlabGraphqlClient.getInstance();
   const fullPath = getProjectFullPath(window.location.pathname as string);
-  const [pipeLineIds, _] = await Promise.all([
-    glGraphqlClient.getPipelineScheduleIdsQuery(fullPath),
+  const [schedules, _] = await Promise.all([
+    glGraphqlClient.getPipelineSchedulesQuery(fullPath),
     waitForElement('tr[data-testid="pipeline-schedule-table-row"]'), // wait for the pipeline schedule table to be rendered
   ]);
 
@@ -42,14 +48,25 @@ export const pipelineSchedulesPage = async () => {
     .find('.btn-group')
     .find(`[data-testid='delete-pipeline-schedule-btn']`);
 
-  for (const [index, btnItem] of Array.from(deleteBtns).entries()) {
+  for (const [_, btnItem] of Array.from(deleteBtns).entries()) {
     const delBtn = $(btnItem);
+    const scheduleDesc = delBtn
+      .closest('tr')
+      .find('[data-testid="pipeline-schedule-description"]')
+      .text()
+      .trim();
+
+    const rowSchedule = schedules.project.pipelineSchedules.nodes.find((sch) => {
+      return sch.description === scheduleDesc;
+    }) as unknown as GetPipelineScheduleNode;
+    const scheduleIndex = getScheduleIdFromGid(rowSchedule.id);
+
     // const playBtnHref = editBtn.attr('href') as string;
     // const scheduleId = getGitlabScheduleIdFromUrl(playBtnHref);
-    const duplicateBtn = DuplicateBtnComponent(pipeLineIds[index]);
+    const duplicateBtn = DuplicateBtnComponent(scheduleIndex);
     if (duplicateBtn) {
       duplicateBtn.insertBefore(delBtn);
-      const downloadEnvFileBtn = DownloadEnvBtnComponent(pipeLineIds[index]);
+      const downloadEnvFileBtn = DownloadEnvBtnComponent(scheduleIndex);
       if (downloadEnvFileBtn) {
         downloadEnvFileBtn.insertBefore(duplicateBtn);
       }

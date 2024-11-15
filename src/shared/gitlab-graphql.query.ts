@@ -13,7 +13,7 @@ export const getCiConfigVariablesQueryStr = `query ciConfigVariables($fullPath: 
 }
 `;
 
-export const getPipelineSchedulesQueryStr = `query getPipelineSchedulesQuery($projectPath: ID!, $status: PipelineScheduleStatus, $ids: [ID!] = null, $first: Int, $last: Int, $prevPageCursor: String = "", $nextPageCursor: String = "") {
+export const getPipelineSchedulesQueryStr = `query getPipelineSchedulesQuery($projectPath: ID!, $status: PipelineScheduleStatus, $ids: [ID!] = null, $sortValue: PipelineScheduleSort, $first: Int, $last: Int, $prevPageCursor: String = "", $nextPageCursor: String = "") {
   currentUser {
     id
     username
@@ -21,9 +21,14 @@ export const getPipelineSchedulesQueryStr = `query getPipelineSchedulesQuery($pr
   }
   project(fullPath: $projectPath) {
     id
+    projectPlanLimits {
+      ciPipelineSchedules
+      __typename
+    }
     pipelineSchedules(
       status: $status
       ids: $ids
+      sort: $sortValue
       first: $first
       last: $last
       after: $nextPageCursor

@@ -107,6 +107,7 @@ export class GitlabGraphqlClient extends HttpClient {
         last: null,
         nextPageCursor: '',
         prevPageCursor: '',
+        sortValue: 'DESCRIPTION_DESC',
       },
     });
     return data;
@@ -115,7 +116,13 @@ export class GitlabGraphqlClient extends HttpClient {
   async getPipelineScheduleIdsQuery(projectPath: string): Promise<any[]> {
     const res = await this.getPipelineSchedulesQuery(projectPath);
 
-    return res?.project?.pipelineSchedules?.nodes?.map((node: any) => {
+    return GitlabGraphqlClient.getPipelineScheduleIdsQueryFromPipelineScheduleDataArray(res);
+  }
+
+  static getPipelineScheduleIdsQueryFromPipelineScheduleDataArray(
+    data: PipelineScheduleData
+  ): string[] {
+    return data?.project?.pipelineSchedules?.nodes?.map((node: any) => {
       return getScheduleIdFromGid(node.id);
     });
   }

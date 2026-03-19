@@ -510,7 +510,7 @@ ajv-keywords@^5.1.0:
   dependencies:
     fast-deep-equal "^3.1.3"
 
-ajv@^6.10.0, ajv@^6.12.4:
+ajv@^6.10.0:
   version "6.14.0"
   resolved "https://registry.npmjs.org/ajv/-/ajv-6.14.0.tgz"
   integrity sha512-IWrosm/yrn43eiKqkfkHis7QioDleaXQHdDVPKg0FSwwd/DuvyX79TZnFOnYpB7dcsFAMmtFztZuXPDvSePkFw==
@@ -520,17 +520,17 @@ ajv@^6.10.0, ajv@^6.12.4:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-ajv@^8.0.0:
-  version "8.18.0"
-  resolved "https://registry.npmjs.org/ajv/-/ajv-8.18.0.tgz"
-  integrity sha512-PlXPeEWMXMZ7sPYOHqmDyCJzcfNrUr3fGNKtezX14ykXOEIvyK81d+qydx89KY5O71FKMPaQ2vBfBFI5NHR63A==
+ajv@^6.12.4:
+  version "6.14.0"
+  resolved "https://registry.npmjs.org/ajv/-/ajv-6.14.0.tgz"
+  integrity sha512-IWrosm/yrn43eiKqkfkHis7QioDleaXQHdDVPKg0FSwwd/DuvyX79TZnFOnYpB7dcsFAMmtFztZuXPDvSePkFw==
   dependencies:
-    fast-deep-equal "^3.1.3"
-    fast-uri "^3.0.1"
-    json-schema-traverse "^1.0.0"
-    require-from-string "^2.0.2"
+    fast-deep-equal "^3.1.1"
+    fast-json-stable-stringify "^2.0.0"
+    json-schema-traverse "^0.4.1"
+    uri-js "^4.2.2"
 
-ajv@^8.8.2, ajv@^8.9.0:
+ajv@^8.0.0, ajv@^8.8.2, ajv@^8.9.0:
   version "8.18.0"
   resolved "https://registry.npmjs.org/ajv/-/ajv-8.18.0.tgz"
   integrity sha512-PlXPeEWMXMZ7sPYOHqmDyCJzcfNrUr3fGNKtezX14ykXOEIvyK81d+qydx89KY5O71FKMPaQ2vBfBFI5NHR63A==
@@ -642,16 +642,18 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.npmjs.org/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-axios-cache-interceptor@^0.10.7:
-  version "0.10.7"
-  resolved "https://registry.npmjs.org/axios-cache-interceptor/-/axios-cache-interceptor-0.10.7.tgz"
-  integrity sha512-UjpxChG5DpF6Kf1IPGMLOzRDNL8ZNS6TOn1jTaVvCE7cWFU904jJwi0T1s+IbijpnLEjK2iq5uLIuR8Sj+RsFQ==
+axios-cache-interceptor@^1.11.1:
+  version "1.12.0"
+  resolved "https://registry.npmjs.org/axios-cache-interceptor/-/axios-cache-interceptor-1.12.0.tgz"
+  integrity sha512-15XuJkdeJmQo/HY2b0xx3zim8DMx7Nu+G8R4z6OG2VZLtbIDnsfn4qZsLLvkPfK4SVNRzXnoG4jPR7dqdQznRA==
   dependencies:
-    cache-parser "^1.2.4"
-    fast-defer "^1.1.7"
-    object-code "^1.2.4"
+    cache-parser "^1.2.6"
+    fast-defer "^1.1.9"
+    http-vary "^1.0.3"
+    object-code "^2.0.0"
+    try "^1.0.3"
 
-axios@^1.9.0:
+axios@^1, axios@^1.13.5:
   version "1.13.6"
   resolved "https://registry.npmjs.org/axios/-/axios-1.13.6.tgz"
   integrity sha512-ChTCHMouEe2kn713WHbQGcuYrr6fXTBiu460OTwWrWob16g1bXn4vtz07Ope7ewMozJAnEquLk5lWQWtBig9DQ==
@@ -706,10 +708,10 @@ builtin-modules@^1.1.1:
   resolved "https://registry.npmjs.org/builtin-modules/-/builtin-modules-1.1.1.tgz"
   integrity sha512-wxXCdllwGhI2kCC0MnvTGYTMvnVZTvqgypkiTI8Pa5tcz2i6VqsqwYGgqwXji+4RgCzms6EajE4IxiUH6HH8nQ==
 
-cache-parser@^1.2.4:
-  version "1.2.4"
-  resolved "https://registry.npmjs.org/cache-parser/-/cache-parser-1.2.4.tgz"
-  integrity sha512-O0KwuHuJnbHUrghHi2kGp0SxnWSIBXTYt7M8WVhW0kbPRUNUKoE/Of6e1rRD6AAxmfxFunKnt90yEK09D+sc5g==
+cache-parser@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.npmjs.org/cache-parser/-/cache-parser-1.2.6.tgz"
+  integrity sha512-SjjnKlWgrhDrAWKUxAvmZLRGDa6JExMfjSu59/pvpNoI6mEHYSLcLKUw2RtECEOINvf6dxJo35fY+T/scA0SUA==
 
 call-bind-apply-helpers@^1.0.1, call-bind-apply-helpers@^1.0.2:
   version "1.0.2"
@@ -1236,12 +1238,7 @@ estraverse@^4.1.1:
   resolved "https://registry.npmjs.org/estraverse/-/estraverse-4.3.0.tgz"
   integrity sha512-39nnKffWz8xN1BU/2c79n9nB9HDzo0niYUqx6xyqUnyoAnQyyWpOTdZEeiCch8BBu515t4wp9ZmgVfVhn9EBpw==
 
-estraverse@^5.1.0:
-  version "5.3.0"
-  resolved "https://registry.npmjs.org/estraverse/-/estraverse-5.3.0.tgz"
-  integrity sha512-MMdARuVEQziNTeJD8DgMqmhwR11BRQ/cBP+pLtYdSTnf3MIO8fFeiINEbX36ZdNlfU/7A9f3gUw49B3oQsvwBA==
-
-estraverse@^5.2.0:
+estraverse@^5.1.0, estraverse@^5.2.0:
   version "5.3.0"
   resolved "https://registry.npmjs.org/estraverse/-/estraverse-5.3.0.tgz"
   integrity sha512-MMdARuVEQziNTeJD8DgMqmhwR11BRQ/cBP+pLtYdSTnf3MIO8fFeiINEbX36ZdNlfU/7A9f3gUw49B3oQsvwBA==
@@ -1261,10 +1258,10 @@ fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   resolved "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz"
   integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
 
-fast-defer@^1.1.7:
-  version "1.1.7"
-  resolved "https://registry.npmjs.org/fast-defer/-/fast-defer-1.1.7.tgz"
-  integrity sha512-tJ01ulDWT2WhqxMKS20nXX6wyX2iInBYpbN3GO7yjKwXMY4qvkdBRxak9IFwBLlFDESox+SwSvqMCZDfe1tqeg==
+fast-defer@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.npmjs.org/fast-defer/-/fast-defer-1.1.9.tgz"
+  integrity sha512-JP7Xm9HuePSeTT1DI78NeE9eAQvgNb9qNP2jlyQrcx4jiWM189omV6oyd0xaUPWHPlKmvDzz6H1FfPWIDU+xfg==
 
 fast-diff@^1.1.2:
   version "1.2.0"
@@ -1574,6 +1571,11 @@ hasown@^2.0.2:
   integrity sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==
   dependencies:
     function-bind "^1.1.2"
+
+http-vary@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/http-vary/-/http-vary-1.0.3.tgz"
+  integrity sha512-sx7Y8YTqF3o0mFJJvF66n8dbaE8v3liV1RgCz46XP5xK7dnzyZHvwMWRA115q5kjbCPBV65/nOMlgW54WLyiag==
 
 ignore@^5.2.0:
   version "5.2.4"
@@ -1997,10 +1999,10 @@ object-assign@^4.0.1:
   resolved "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
   integrity sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==
 
-object-code@^1.2.4:
-  version "1.2.4"
-  resolved "https://registry.npmjs.org/object-code/-/object-code-1.2.4.tgz"
-  integrity sha512-uGq4ETUuWe+GA586NXEriiaozNuff+YNFXlpD8cVrM1GoiuTZpCABP+bZCWDrvQDoCiSTyiWAFHD/HF/iwhb2w==
+object-code@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/object-code/-/object-code-2.0.0.tgz"
+  integrity sha512-qOwMF43O/VAD51nJAB7MKsf1yWksql6O1i0DHRo1yaOQM6xJQH0NAE9UKJzYB7lyKw1jnpeb2BmB8qakjxiYZA==
 
 object-inspect@^1.12.3, object-inspect@^1.9.0:
   version "1.12.3"
@@ -2490,6 +2492,11 @@ totalist@^1.0.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/totalist/-/totalist-1.1.0.tgz"
   integrity sha512-gduQwd1rOdDMGxFG1gEvhV88Oirdo2p+KjoYFU7k2g+i7n6AFFbDQ5kMPUsW0pNbfQsB/cwXvT1i4Bue0s9g5g==
+
+try@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/try/-/try-1.0.3.tgz"
+  integrity sha512-AHA8khVCII6zKyRkyPo6pRwoR9v5jb7QFw6e5avtaVSkxVfaEucYIo06xnwB+pJaEarfYNbs7W3Vq+LZLZiWyA==
 
 ts-loader@^9.4.2:
   version "9.4.2"

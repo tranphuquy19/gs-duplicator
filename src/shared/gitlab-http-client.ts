@@ -1,4 +1,5 @@
-import { AxiosError, AxiosRequestConfig } from 'axios';
+import { AxiosError } from 'axios';
+import { InternalCacheRequestConfig } from 'axios-cache-interceptor';
 
 import { gitlabApiUrl, gitlabProjectId, gitlabRestPerPage } from '@/config';
 import {
@@ -153,7 +154,7 @@ export class GitlabHttpClient extends HttpClient {
     this._initInterceptor();
   }
 
-  private _handleRequest = (config: AxiosRequestConfig): AxiosRequestConfig<any> => {
+  private _handleRequest = (config: InternalCacheRequestConfig): InternalCacheRequestConfig => {
     if (!!config && !!config.headers) {
       config.headers['PRIVATE-TOKEN'] = this._token || '';
     }

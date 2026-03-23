@@ -1,4 +1,5 @@
-import { AxiosError, AxiosRequestConfig } from 'axios';
+import { AxiosError } from 'axios';
+import { InternalCacheRequestConfig } from 'axios-cache-interceptor';
 
 import { gitlabGraphqlUrl } from '@/config';
 import {
@@ -222,7 +223,7 @@ export class GitlabGraphqlClient extends HttpClient {
     this._initInterceptor();
   }
 
-  private _handleRequest = (config: AxiosRequestConfig): AxiosRequestConfig<any> => {
+  private _handleRequest = (config: InternalCacheRequestConfig): InternalCacheRequestConfig => {
     if (!!config && !!config.headers) {
       config.headers['Authorization'] = `Bearer ${this._token}`;
     }
